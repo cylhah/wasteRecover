@@ -1,6 +1,7 @@
 package org.cbb.wasteRecovery.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by Colossus on 2018/3/17.
@@ -23,6 +24,7 @@ public class Orderform {
     private Collector collector;
     private Employee employee;
     private UserAddress address;
+    private List<Scraptype> scraptypeList;
 
     public long getId() {
         return id;
@@ -150,5 +152,13 @@ public class Orderform {
 
     public void setAddress(UserAddress address) {
         this.address = address;
+    }
+
+    public List<Scraptype> getScraptypeList() {
+        return scraptypeList;
+    }
+
+    public void setScraptypeList(List<Scraptype> scraptypeList) {
+        this.scraptypeList = scraptypeList;
     }
 }

@@ -1,0 +1,146 @@
+CREATE DATABASE replatform
+
+CREATE TABLE `administrator` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `staid` int(10) unsigned DEFAULT NULL COMMENT '公司id',
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ad_staid` (`staid`) USING BTREE,
+  KEY `ad_nameAndPass` (`username`,`password`),
+  CONSTRAINT `ad_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `collector` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `sex` char(255) DEFAULT NULL,
+  `avater` varchar(255) DEFAULT NULL COMMENT '头像',
+  `email` varchar(255) DEFAULT NULL COMMENT '电子邮件',
+  `phoneNumber` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL COMMENT '本人照片',
+  `idCardNum` varchar(255) DEFAULT NULL COMMENT '身份证号',
+  `idCardFrontPhoto` varchar(255) DEFAULT NULL COMMENT '身份证正面地址',
+  `idCardBackPhoto` varchar(255) DEFAULT NULL COMMENT '身份证背面地址',
+  `volume` int(10) unsigned DEFAULT NULL COMMENT '成交量',
+  `creditValue` double(10,2) unsigned DEFAULT NULL COMMENT '信用值',
+  `bankAccount` varchar(255) DEFAULT NULL COMMENT '银行账户',
+  `state` tinyint(4) DEFAULT NULL COMMENT '回收员审核状态',
+  `createTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `c_name` (`name`),
+  KEY `c_phoneNumber` (`phoneNumber`),
+  KEY `c_pass` (`password`),
+  KEY `c_idCard` (`idCardNum`),
+  KEY `c_state` (`state`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `employee` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `staid` int(10) unsigned DEFAULT NULL COMMENT '公司id',
+  `adminid` int(10) unsigned DEFAULT NULL COMMENT '所属管理员id',
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `e_adminid` (`adminid`),
+  KEY `e_staid` (`staid`) USING BTREE,
+  CONSTRAINT `e_adminid` FOREIGN KEY (`adminid`) REFERENCES `administrator` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `e_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `orderform` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT '用户id',
+  `cid` int(10) unsigned DEFAULT NULL COMMENT '废品回收员id',
+  `eid` int(10) unsigned DEFAULT NULL COMMENT '员工id',
+  `aid` int(10) unsigned NOT NULL COMMENT '地址id',
+  `state` tinyint(4) DEFAULT NULL,
+  `weight` double DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL,
+  `appointSTime` timestamp NULL DEFAULT NULL COMMENT '预约开始时间',
+  `appointETime` timestamp NULL DEFAULT NULL COMMENT '预约结束时间',
+  `updateTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `price` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `o_uid` (`uid`),
+  KEY `o_cid` (`cid`),
+  KEY `o_eid` (`eid`),
+  KEY `o_aid` (`aid`),
+  KEY `o_state` (`state`),
+  KEY `o_appointTime` (`appointSTime`,`appointETime`),
+  CONSTRAINT `o_aid` FOREIGN KEY (`aid`) REFERENCES `useraddress` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `o_cid` FOREIGN KEY (`cid`) REFERENCES `collector` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `o_eid` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
+  CONSTRAINT `o_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ot-relation` (
+  `oid` bigint(20) unsigned NOT NULL,
+  `tid` int(10) unsigned NOT NULL,
+  KEY `otr_oid` (`oid`),
+  KEY `otr_tid` (`tid`),
+  CONSTRAINT `otr_oid` FOREIGN KEY (`oid`) REFERENCES `orderform` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `otr_tid` FOREIGN KEY (`tid`) REFERENCES `scraptype` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `scrap` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tid` int(10) unsigned NOT NULL COMMENT '种类id',
+  `name` varchar(255) NOT NULL,
+  `unitPriceFU` double(10,2) unsigned DEFAULT NULL COMMENT '对于用户的单价',
+  `unitPriceFC` double(10,2) unsigned DEFAULT NULL COMMENT '对于回收者的单价',
+  `monthVolume` double DEFAULT NULL,
+  `totalVolume` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `s_tid` (`tid`),
+  CONSTRAINT `s_tid` FOREIGN KEY (`tid`) REFERENCES `scraptype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `scraptype` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `typeName` varchar(255) NOT NULL,
+  `avergePriceFU` double(10,2) unsigned DEFAULT NULL,
+  `avergePriceFC` double(10,2) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `station` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `money` double(10,2) DEFAULT NULL COMMENT '账户余额',
+  `address` varchar(255) DEFAULT NULL COMMENT '附近地址',
+  `fullAdd` varchar(255) DEFAULT NULL COMMENT '详细地址',
+  `geohash` varchar(12) DEFAULT NULL,
+  `position` geometry NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sta_geohash` (`geohash`),
+  SPATIAL KEY `sta_pos` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sex` char(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `phoneNumber` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `bankAccount` varchar(255) DEFAULT NULL,
+  `avater` varchar(255) DEFAULT NULL COMMENT '头像地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `useraddress` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL COMMENT '附近坐标',
+  `position` geometry NOT NULL COMMENT '坐标',
+  `fullAdd` varchar(255) DEFAULT NULL COMMENT '详细地址',
+  `geohash` varchar(12) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ua_uid` (`uid`),
+  KEY `ua_geohash` (`geohash`),
+  SPATIAL KEY `ua_pos` (`position`),
+  CONSTRAINT `ua_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
