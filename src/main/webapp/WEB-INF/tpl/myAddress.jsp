@@ -11,11 +11,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/angular.min.js"></script>
-    <script src="../js/myAddress.js"></script>
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../resources/js/jquery-3.2.1.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/myAddress.js"></script>
     <title>我的地址</title>
 </head>
 <body ng-app="myAddress">
@@ -136,6 +136,5 @@
         </form>        
       </div>
     </div>
-  </div>
 </body>
 </html>

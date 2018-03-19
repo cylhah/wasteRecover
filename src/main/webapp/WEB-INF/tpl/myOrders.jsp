@@ -11,15 +11,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="../css/myOrders.css" rel="stylesheet" type="text/css">
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/angular.min.js"></script>
-    <script src="../js/bootstrap-select.min.js"></script>
-    <script src="../js/angular-animate.min.js"></script>
-    <script src="../js/myOrders.js"></script>
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../resources/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../../resources/css/myOrders.css" rel="stylesheet" type="text/css">
+    <script src="../../resources/js/jquery-3.2.1.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/bootstrap-select.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/myOrders.js"></script>
     <title>我的订单</title>
 </head>
 <body ng-app="myOrder">
