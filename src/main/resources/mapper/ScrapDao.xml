@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.ScrapDao">
+<resultMap type="org.cbb.wasteRecovery.bean.Scrap" id="Scrap">
+  <id property="id" column="id"/>
+  <result property="tid" column="tid"/>
+  <result property="name" column="name"/>
+  <result property="unitPriceFU" column="unitPriceFU"/>
+  <result property="unitPriceFC" column="unitPriceFC"/>
+  <result property="monthVolume" column="monthVolume"/>
+  <result property="totalVolume" column="totalVolume"/>
+
+</resultMap>
+    <select id="selectByTid" resultType="scrap" parameterType="int">
+        select id,tid,name,unitPriceFU,unitPriceFC,monthVolume,totalVolume
+        from scrap
+        where
+           tid=#{tid}
+       
+        
+    </select>
+
+</mapper>
