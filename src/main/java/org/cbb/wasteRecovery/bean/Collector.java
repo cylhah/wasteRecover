@@ -1,6 +1,7 @@
 package org.cbb.wasteRecovery.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by Colossus on 2018/3/17.
@@ -29,6 +30,8 @@ public class Collector {
     private double locationY;
 
     private String geoHash;
+
+    List<Orderform> orderformList;//接受的未完成订单
 
     public int getId() {
         return id;
@@ -180,5 +183,13 @@ public class Collector {
 
     public void setGeoHash(String geoHash) {
         this.geoHash = geoHash;
+    }
+
+    public List<Orderform> getOrderformList() {
+        return orderformList;
+    }
+
+    public void setOrderformList(List<Orderform> orderformList) {
+        this.orderformList = orderformList;
     }
 }

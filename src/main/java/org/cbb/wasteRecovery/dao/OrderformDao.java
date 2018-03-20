@@ -38,6 +38,13 @@ public interface OrderformDao {
     List<Orderform> selectByEId(int eid);
 
     /**
+     * 根据回收站id查询订单
+     * @param staid
+     * @return
+     */
+    List<Orderform> selectByStaId(int staid);
+
+    /**
      * 根据订单状态查询订单
      * @param state
      * @return
@@ -78,9 +85,9 @@ public interface OrderformDao {
 
     /**
      * 更改订单资料，需要判断属性非空
-     * @param orderform 存有cid,eid,weight,price,state
+     * @param orderform 存有cid,eid,staid,weight,price,state
      */
-    void updateData(Orderform orderform);
+    void updateData(Orderform orderform);//作了更改
 
     /**
      * 根据id删除订单
