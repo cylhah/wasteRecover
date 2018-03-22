@@ -13,7 +13,7 @@
 
 
 </resultMap>
-   <select id="selectByUsername" resultType="employee" parameterType="String">
+   <select id="selectByUsername" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="String">
         select staid,adminid,username
         from employee
         where
@@ -22,7 +22,7 @@
         
     </select>
 
-     <select id="selectByNameAndPass" resultType="employee" parameterType="org.cbb.wasteRecovery.bean.Employee">
+     <select id="selectByNameAndPass" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="org.cbb.wasteRecovery.bean.Employee">
         select staid,adminid,username,password
         from employee
         where

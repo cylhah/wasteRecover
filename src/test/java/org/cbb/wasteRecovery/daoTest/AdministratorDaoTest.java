@@ -26,8 +26,8 @@ public class AdministratorDaoTest {
 		Administrator administrator=new Administrator();
 		int id=2;
 		administrator.setStaid(id);
-		administrator.setUsername(qw);
-		administrator.setPassword(as);
+		administrator.setUsername("qw");
+		administrator.setPassword("er");
 		administratorDao.insertAdmin(administrator);
 		
 	}

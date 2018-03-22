@@ -11,7 +11,12 @@
   <collection property="employeeList" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
 
 </resultMap>
-   <select id="selectAdmin" resultType="administrator" parameterType="org.cbb.wasteRecovery.bean.Administrator">
+   <insert id="insertAdmin">
+        
+        insert  into administrator(staid,username,password)
+        values (#{administrator.getStaid()},#{administrator.getUsername()},#{administrator.getPassword()})
+    </insert>
+   <select id="selectAdmin" resultType="org.cbb.wasteRecovery.bean.Administrator" parameterType="org.cbb.wasteRecovery.bean.Administrator">
         select employeeList
         from administrator
         where
@@ -20,11 +25,7 @@
         order by id
     </select>
     
-    <insert id="insertAdmin">
-        
-        insert  into administrator(staid,username,password)
-        values (#{administrator.getStaid()},#{administrator.getUsername()},#{administrator.getPassword()})
-    </insert>
+   
     
     <update id="updatePassword">
         <!-- 具体sql -->

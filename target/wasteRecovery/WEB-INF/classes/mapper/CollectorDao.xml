@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.CollectorDao">
+<resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect">
+  <id property="id" column="id"/>
+  <result property="name" column="name"/>
+  <result property="sex" column="sex"/>
+  <result property="password" column="password"/>
+  <result property="avater" column="avater"/>
+  <result property="email" column="email"/>
+  <result property="phoneNumber" column="phoneNumber"/>
+  <result property="photo" column="photo"/> 
+  <result property="idCardNum" column="idCardNum"/>
+  <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
+  <result property="volume" column="volume"/> 
+  <result property="creditValue" column="creditValue"/> 
+  <result property="bankAccount" column="bankAccount"/> 
+  <result property="state" column="state"/> 
+  <result property="createTime" column="createTime"/> 
+  <result property="locationX" column="locationX"/> 
+  <result property="locationY" column="locationY"/> 
+  <result property="geoHash" column="geoHash"/> 
+ 
+
+</resultMap>
+    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="int">
+        select name,sex, avater,email,phoneNumber,photo,creditValue,bankAccount,idCardNum,state,id
+        from collector
+        where
+           id=#{id}
+          
+        
+    </select>
+
+    <select id="selectByPhoneNum" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="String">
+        select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber
+        from collector
+        where
+           phoneNumber=#{phoneNumber}
+          
+        
+    </select>
+    
+     <select id="selectByPhoneNumAndPass" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="org.cbb.wasteRecovery.bean.Collector">
+        select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber,password
+        from collector
+        where
+           phoneNumber=#{collector.getPhoneNumber()}
+        and password=#{collector.getPassword()}  
+        
+    </select>
+
+    <select id="selectByIdCardNum" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="String">
+        select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,state,id,idCardNum
+        from collector
+        where
+           idCardNum=#{idCardNum}
+          
+        
+    </select>
+    
+    <select id="selectByName" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="String">
+        select sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,state,id,name
+        from collector
+        where
+           name=#{name}
+        order by id   
+          
+        
+    </select>
+    
+      <select id="selectByState" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="int">
+        select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,id,state
+        from collector
+        where
+           state=#{state}
+        order by id   
+        
+    </select>
+    
+    <insert id="InsertCollector">
+        
+        insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime)
+        values (#{collector.getName()},#{collector.getSex()},#{collector.getPassword()},#{collector.getPhoneNumber()},#{collector.getPhoto()},#{collector.getIdCardNum()},#{collector.getIdCardFrontPhoto()},#{collector.getIdCardBackPhoto()},#{collector.getCreateTime()})
+    </insert>
+    
+    <update id="updatePhoneNum">
+       
+        update
+          collector
+        set
+          phoneNumber = #{collector.getPhoneNumber()}
+        where
+          id = #{collector.getId()}
+      
+    </update>
+    
+    <update id="updatePassword">
+       
+        update
+          collector
+        set
+          password = #{collector.getPassword()}
+        where
+          id = #{collector.getId()}
+      
+    </update>
+    
+    <update id="updateCreditValue">
+       
+        update
+          collector
+        set
+          creditValue = #{collector.getCreditValue()}
+        where
+          id = #{collector.getId()}
+      
+    </update>
+    
+      <update id="updateAccount">
+       
+        update
+          collector
+        set
+          bankAccount = #{collector.getBankAccount()}
+        where
+          id = #{collector.getId()}
+      
+    </update>
+    
+    <update id="addVolume">
+       
+        update
+          collector
+        set
+          volume = #{collector.getVolume()}
+        where
+          id = #{collector.getId()}
+      
+    </update>
+    
+    <update id="updatePersonData">
+       
+        update
+          collector
+        set
+           bankAccount = #{collector.getBankAccount()},
+           phoneNumber = #{collector.getPhoneNumber()},
+           password = #{collector.getPassword()},
+           name=#{collector.getName()},
+           sex=#{collector.getSex()},
+           email=#{collector.getEmail()},
+           avater=#{collector.getAvater()}
+        where
+          id = #{collector.getId()}
+       
+    </update>
+</mapper>

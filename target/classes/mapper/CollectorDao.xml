@@ -25,7 +25,7 @@
  
 
 </resultMap>
-    <select id="selectById" resultType="collector" parameterType="int">
+    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="int">
         select name,sex, avater,email,phoneNumber,photo,creditValue,bankAccount,idCardNum,state,id
         from collector
         where
@@ -34,7 +34,7 @@
         
     </select>
 
-    <select id="selectByPhoneNum" resultType="collector" parameterType="String">
+    <select id="selectByPhoneNum" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="String">
         select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber
         from collector
         where
@@ -43,7 +43,7 @@
         
     </select>
     
-     <select id="selectByPhoneNumAndPass" resultType="collector" parameterType="org.cbb.wasteRecovery.bean.Collector">
+     <select id="selectByPhoneNumAndPass" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="org.cbb.wasteRecovery.bean.Collector">
         select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber,password
         from collector
         where
@@ -52,7 +52,7 @@
         
     </select>
 
-    <select id="selectByIdCardNum" resultType="collector" parameterType="String">
+    <select id="selectByIdCardNum" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="String">
         select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,state,id,idCardNum
         from collector
         where
@@ -61,7 +61,7 @@
         
     </select>
     
-    <select id="selectByName" resultType="collector" parameterType="String">
+    <select id="selectByName" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="String">
         select sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,state,id,name
         from collector
         where
@@ -71,7 +71,7 @@
         
     </select>
     
-      <select id="selectByState" resultType="collector" parameterType="int">
+      <select id="selectByState" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="int">
         select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,id,state
         from collector
         where

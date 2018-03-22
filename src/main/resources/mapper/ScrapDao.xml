@@ -13,7 +13,7 @@
   <result property="totalVolume" column="totalVolume"/>
 
 </resultMap>
-    <select id="selectByTid" resultType="scrap" parameterType="int">
+    <select id="selectByTid" resultType="org.cbb.wasteRecovery.bean.Scrap" parameterType="int">
         select id,tid,name,unitPriceFU,unitPriceFC,monthVolume,totalVolume
         from scrap
         where

@@ -14,7 +14,7 @@
   <result property="avater" column="avater"/>
 
 </resultMap>
-  <select id="selectById" resultType="User" parameterType="int">
+  <select id="selectById" resultType="org.cbb.wasteRecovery.bean.User" parameterType="int">
         select id,name,sex,password,phoneNumber,email,bankAccount,avater
         from user  
         where
@@ -23,7 +23,7 @@
         
     </select>
     
-    <select id="selectByPhoneAndPass" resultType="User" parameterType="int">
+    <select id="selectByPhoneAndPass" resultType="org.cbb.wasteRecovery.bean.User" parameterType="int">
         select id,name,sex,password,phoneNumber,email,bankAccount,avater
         from user
         where

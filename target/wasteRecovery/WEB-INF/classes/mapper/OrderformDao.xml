@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.OrderformDao">
+<resultMap type="org.cbb.wasteRecovery.bean.Orderform" id="order">
+  <id property="id" column="id"/>
+  <result property="uid" column="uid"/>
+  <result property="cid" column="cid"/>
+  <result property="eid" column="eid"/>
+  <result property="aid" column="aid"/>
+  <result property="staid" column="staid"/>
+  <result property="state" column="state"/>
+  <result property="weight" column="weight"/>
+  <result property="createTime" column="createTime"/>
+  <result property="appointSTime" column="appointSTime"/>
+  <result property="appointETime" column="appointETime"/>
+  <result property="price" column="price"/>
+  <collection property="user" resultMap="org.cbb.wasteRecovery.bean.User.User"/>
+  <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect"/>
+  <collection property="employee" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
+  <collection property="station" resultMap="org.cbb.wasteRecovery.bean.Station.tion"/>
+  <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
+</resultMap>
+     <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="long">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           id=#{id}
+       
+        
+    </select>
+    
+    <select id="selectByCId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           cid=#{cid}
+       
+        
+    </select>
+    
+    <select id="selectByUId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           uid=#{uid}
+       
+        
+    </select>
+    
+    <select id="selectByEId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           eid=#{eid}
+       
+        
+    </select>
+    
+    <select id="selectByStaId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           staid=#{staid}
+       
+        
+    </select>
+    
+    
+    <select id="selectByState" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           state=#{state}
+       
+        
+    </select>
+    
+    <select id="selectByPosAndTime" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="Map">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+           state=#{orderform.state}
+        and appointSTime>=#{orderform.appointSTime}  
+       and appointETime<![CDATA[ <= ]]>#{orderform.appointETime}  
+       and geoHash like '%'#{collector.geoHash}'%'
+        
+    </select>
+    
+     <select id="selectByTime" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="org.cbb.wasteRecovery.bean.Orderform">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        from orderform
+        where
+          appointSTime=#{orderform.appointSTime}  
+       and appointETime=#{orderform.appointETime}  
+       
+        
+    </select>
+    
+    <insert id="insertOrderform">
+        
+        insert  into orderform(uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid)
+        values (#{orderform.getUid()},#{orderform.getCid()},#{orderform.getEid()},#{orderform.getAid()},1,#{orderform.getWeight()},#{orderform.getCreateTime()},#{orderform.getAppointSTime()},#{orderform.getAppointETime()},#{orderform.getPrice()},#{orderform.getStaid()})
+    </insert>
+    
+     <update id="updateWeight">
+       
+        update
+          orderform
+        set
+          weight = #{orderform.getWeight()}
+        where
+          id = #{orderform.getId()}
+      
+    </update>
+    
+    <update id="updateState">
+       
+        update
+          orderform
+        set
+          state = #{orderform.getState()}
+        where
+          id = #{orderform.getId()}
+      
+    </update>
+    
+    <update id="updateData">
+       
+        update
+          orderform
+        set
+          uid= #{orderform.getUid()}
+          cid = #{orderform.getCid()}
+          eid = #{orderform.getEid()}
+          aid= #{orderform.getAid()}
+          staid= #{orderform.getStaid()}
+          price = #{orderform.getPrice()}
+          state = #{orderform.getState()}
+          weight = #{orderform.getWeight()}
+        where
+          id = #{orderform.getId()}
+      
+    </update>
+    
+    <delete id="deleteOrderform">
+       delete
+         from
+         orderform
+       where
+           id=#{id}
+    
+    </delete>
+</mapper>
