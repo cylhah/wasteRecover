@@ -1,5 +1,7 @@
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Collector.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Administrator.java
+F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\dao\ScraptypeDao.java
+F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\dao\UserAddressDao.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Scraptype.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Scrap.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\UserAddress.java
@@ -10,4 +12,7 @@ F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Station.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Employee.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\dao\OrderformDao.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\Orderform.java
+F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\dao\ScrapDao.java
 F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\bean\User.java
+F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\dao\StationDao.java
+F:\GitHub代码\wasteRecover\src\main\java\org\cbb\wasteRecovery\dao\UserDao.java
