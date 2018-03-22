@@ -43,7 +43,7 @@
         
     </select>
     
-     <select id="selectByPhoneNumAndPass" resultType="collector" parameterType="org.cbb.wasteRecovery.bean.Collector">
+     <select id="selectByPhoneNumAndPass" resultType="collector" parameterType="Collector">
         select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber,password
         from collector
         where

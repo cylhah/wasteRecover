@@ -11,7 +11,7 @@
   <collection property="employeeList" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
 
 </resultMap>
-   <select id="selectAdmin" resultType="administrator" parameterType="org.cbb.wasteRecovery.bean.Administrator">
+   <select id="selectAdmin" resultType="administrator" parameterType="Administrator">
         select employeeList
         from administrator
         where

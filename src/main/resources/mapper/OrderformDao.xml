@@ -9,7 +9,6 @@
   <result property="cid" column="cid"/>
   <result property="eid" column="eid"/>
   <result property="aid" column="aid"/>
-  <result property="staid" column="staid"/>
   <result property="state" column="state"/>
   <result property="weight" column="weight"/>
   <result property="createTime" column="createTime"/>
@@ -19,11 +18,11 @@
   <collection property="user" resultMap="org.cbb.wasteRecovery.bean.User.User"/>
   <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect"/>
   <collection property="employee" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
-  <collection property="station" resultMap="org.cbb.wasteRecovery.bean.Station.tion"/>
+  
   <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
 </resultMap>
      <select id="selectById" resultType="orderform" parameterType="long">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
            id=#{id}
@@ -32,7 +31,7 @@
     </select>
     
     <select id="selectByCId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
            cid=#{cid}
@@ -41,7 +40,7 @@
     </select>
     
     <select id="selectByUId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
            uid=#{uid}
@@ -50,7 +49,7 @@
     </select>
     
     <select id="selectByEId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
            eid=#{eid}
@@ -58,18 +57,8 @@
         
     </select>
     
-    <select id="selectByStaId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           staid=#{staid}
-       
-        
-    </select>
-    
-    
     <select id="selectByState" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
            state=#{state}
@@ -78,7 +67,7 @@
     </select>
     
     <select id="selectByPosAndTime" resultMap="order" parameterType="Map">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
            state=#{orderform.state}
@@ -88,8 +77,8 @@
         
     </select>
     
-     <select id="selectByTime" resultType="orderform" parameterType="org.cbb.wasteRecovery.bean.Orderform">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
+     <select id="selectByTime" resultType="orderform" parameterType="Orderform">
+        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price
         from orderform
         where
           appointSTime=#{orderform.appointSTime}  
@@ -100,8 +89,8 @@
     
     <insert id="insertOrderform">
         
-        insert  into orderform(uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid)
-        values (#{orderform.getUid()},#{orderform.getCid()},#{orderform.getEid()},#{orderform.getAid()},1,#{orderform.getWeight()},#{orderform.getCreateTime()},#{orderform.getAppointSTime()},#{orderform.getAppointETime()},#{orderform.getPrice()},#{orderform.getStaid()})
+        insert  into orderform(uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price)
+        values (#{orderform.getUid()},#{orderform.getCid()},#{orderform.getEid()},#{orderform.getAid()},1,#{orderform.getWeight()},#{orderform.getCreateTime()},#{orderform.getAppointSTime()},#{orderform.getAppointETime()},#{orderform.getPrice()})
     </insert>
     
      <update id="updateWeight">
@@ -135,7 +124,6 @@
           cid = #{orderform.getCid()}
           eid = #{orderform.getEid()}
           aid= #{orderform.getAid()}
-          staid= #{orderform.getStaid()}
           price = #{orderform.getPrice()}
           state = #{orderform.getState()}
           weight = #{orderform.getWeight()}

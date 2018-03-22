@@ -28,7 +28,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/m2/repository/org/springframework/spring-context/5.0.2.RELEASE/spring-context-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Spring/lib/spring/spring-beans-4.0.5.RELEASE.jar" sourcepath="/Spring/lib/resource/spring/spring-beans-4.0.5.RELEASE-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

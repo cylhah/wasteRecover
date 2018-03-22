@@ -11,7 +11,7 @@
     <context:property-placeholder location="classpath:jdbc.properties" />
     
      <!-- 2：数据库连接池 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close">  
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
     <!-- 配置连接池属性 -->
         <property name="driverClass" value="${jdbc.driver}" />
         <property name="jdbcUrl" value="${jdbc.url}" />

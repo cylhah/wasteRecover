@@ -20,7 +20,8 @@
     <jstl.version>1.2</jstl.version>
     <servlet.version>3.1.0</servlet.version>
   </properties>
- <dependencies>
+
+  <dependencies>
     <!--使用junit4-->
     <dependency>
       <groupId>junit</groupId>
@@ -99,7 +100,6 @@
       <version>5.0.2.RELEASE</version>
     </dependency>
   </dependencies>
- 
   <build>
     <finalName>wasteRecovery</finalName>
   </build>
