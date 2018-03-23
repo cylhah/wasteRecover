@@ -3,4 +3,50 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.UserAddressDao">
+
+    <insert id="insertAddress">
+
+    insert  into useraddress(uid,address,fullADD,geohash,position)
+    values (#{uid},#{address},#{fullADD},#{geohash},geomfromtext('point(108.9477252960 34.2590342786)'))
+   </insert>
+
+    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.UserAddress" parameterType="int">
+        select id,uid,address,fullADD,geohash
+        from useraddress  
+        where
+           id=#{id}
+       
+        
+    </select>
+    
+    <select id="selectByUid" resultType="org.cbb.wasteRecovery.bean.UserAddress" parameterType="int">
+        select id,uid,address,fullADD,geohash
+        from useraddress  
+        where
+           uid=#{uid}
+       
+        
+    </select>
+    
+    <update id="updateAddress" >
+        <!-- 具体sql -->
+        update
+          useraddress
+        set
+          address = #{address}
+        where
+          id = #{id}
+      
+    </update>
+    
+
+    
+    <delete id="deleteAddress">
+       delete
+         from
+         useraddress
+       where
+           id=#{id}
+    
+    </delete>
 </mapper>

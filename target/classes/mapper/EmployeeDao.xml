@@ -13,6 +13,12 @@
 
 
 </resultMap>
+    <insert id="InsertEmployee">
+
+    insert  into employee(username,password,createTime,adminid,staid)
+    values (#{username},#{password},#{createTime},#{adminid},#{staid})
+   </insert>
+
    <select id="selectByUsername" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="String">
         select staid,adminid,username
         from employee
@@ -26,25 +32,21 @@
         select staid,adminid,username,password
         from employee
         where
-           username=#{employee.getUsername()}
-         and   password=#{employee.getPassword()} 
+           username=#{username}
+         and   password=#{password}
         
     </select>
     
-     <insert id="InsertEmployee">
-        
-        insert  into employee(staid,adminid,username,password,createTime)
-        values (#{employee.getStaid()},#{employee.getAdminid()},#{employee.getUsername()},#{employee.getPassword()},#{employee.getCreateTime()})
-    </insert>
+
     
-    <update id="updateCreditValue">
+    <update id="updatePassword">
        
         update
           employee
         set
-          password = #{employee.getPassword()}
+          password = #{password}
         where
-          id = #{employee.getId()}
+          id = #{id}
       
     </update>
 </mapper>

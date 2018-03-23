@@ -11,17 +11,18 @@
   <collection property="employeeList" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
 
 </resultMap>
-   <insert id="insertAdmin">
+   <insert id="insertAdmin"   parameterType="org.cbb.wasteRecovery.bean.Administrator">
         
-        insert  into administrator(staid,username,password)
-        values (#{administrator.getStaid()},#{administrator.getUsername()},#{administrator.getPassword()})
+        insert  into administrator(username,password,staid)
+        values (#{username},#{password},#{staid})
     </insert>
-   <select id="selectAdmin" resultType="org.cbb.wasteRecovery.bean.Administrator" parameterType="org.cbb.wasteRecovery.bean.Administrator">
-        select employeeList
-        from administrator
+   <select id="selectAdmin" resultMap="Admin" parameterType="org.cbb.wasteRecovery.bean.Administrator">
+        select e.id,e.staid,e.adminid,e.username,e.password,a.username,a.password
+        from employee e
+        INNER JOIN administrator a
         where
-           username=#{administrator.getUsername()}
-        and password=#{administrator.getPassword()}   
+           a.username=#{username}
+        and a.password=#{password}
         order by id
     </select>
     
@@ -30,11 +31,12 @@
     <update id="updatePassword">
         <!-- 具体sql -->
         update
-          employee
+        administrator
         set
-          password = #{employee.getPassword()}
+          password = #{password}
         where
-          username = #{employee.getUsername()}
+          username = #{username}
+        and id=#{id}
       
     </update>
 </mapper>

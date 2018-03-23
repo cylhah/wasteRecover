@@ -21,10 +21,17 @@
   <result property="createTime" column="createTime"/> 
   <result property="locationX" column="locationX"/> 
   <result property="locationY" column="locationY"/> 
-  <result property="geoHash" column="geoHash"/> 
- 
+  <result property="geoHash" column="geoHash"/>
+    <collection property="orderformList" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order"/>
 
 </resultMap>
+
+    <insert id="InsertCollector">
+
+    insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,email,bankAccount,state,creditValue,volume)
+    values (#{name},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{email},#{bankAccount},#{state},#{creditValue},#{volume})
+   </insert>
+
     <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Collector" parameterType="int">
         select name,sex, avater,email,phoneNumber,photo,creditValue,bankAccount,idCardNum,state,id
         from collector
@@ -47,8 +54,8 @@
         select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber,password
         from collector
         where
-           phoneNumber=#{collector.getPhoneNumber()}
-        and password=#{collector.getPassword()}  
+           phoneNumber=#{phoneNumber}
+        and password=#{password}
         
     </select>
 
@@ -80,20 +87,16 @@
         
     </select>
     
-    <insert id="InsertCollector">
-        
-        insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime)
-        values (#{collector.getName()},#{collector.getSex()},#{collector.getPassword()},#{collector.getPhoneNumber()},#{collector.getPhoto()},#{collector.getIdCardNum()},#{collector.getIdCardFrontPhoto()},#{collector.getIdCardBackPhoto()},#{collector.getCreateTime()})
-    </insert>
+
     
     <update id="updatePhoneNum">
        
         update
           collector
         set
-          phoneNumber = #{collector.getPhoneNumber()}
+          phoneNumber = #{phoneNumber}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -102,9 +105,9 @@
         update
           collector
         set
-          password = #{collector.getPassword()}
+          password = #{password}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -113,9 +116,9 @@
         update
           collector
         set
-          creditValue = #{collector.getCreditValue()}
+          creditValue = #{creditValue}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -124,9 +127,9 @@
         update
           collector
         set
-          bankAccount = #{collector.getBankAccount()}
+          bankAccount = #{bankAccount}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -135,9 +138,9 @@
         update
           collector
         set
-          volume = #{collector.getVolume()}
+          volume = #{volume}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -146,15 +149,15 @@
         update
           collector
         set
-           bankAccount = #{collector.getBankAccount()},
-           phoneNumber = #{collector.getPhoneNumber()},
-           password = #{collector.getPassword()},
-           name=#{collector.getName()},
-           sex=#{collector.getSex()},
-           email=#{collector.getEmail()},
-           avater=#{collector.getAvater()}
+           bankAccount = #{bankAccount},
+           phoneNumber = #{phoneNumber},
+           password = #{password},
+           name=#{name},
+           sex=#{sex},
+           email=#{email},
+           avater=#{avater}
         where
-          id = #{collector.getId()}
+          id = #{id}
        
     </update>
 </mapper>

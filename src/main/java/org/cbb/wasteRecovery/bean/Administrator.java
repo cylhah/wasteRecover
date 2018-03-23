@@ -52,4 +52,7 @@ public class Administrator {
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
+    public Administrator() {
+		// TODO Auto-generated constructor stub
+	}
 }

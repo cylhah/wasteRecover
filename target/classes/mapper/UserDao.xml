@@ -14,6 +14,11 @@
   <result property="avater" column="avater"/>
 
 </resultMap>
+    <insert id="insertUser">
+
+    insert  into user(name,sex,password,phoneNumber,email,bankAccount,avater)
+    values (#{name},#{sex},#{password},#{phoneNumber},#{email},#{bankAccount},#{avater})
+   </insert>
   <select id="selectById" resultType="org.cbb.wasteRecovery.bean.User" parameterType="int">
         select id,name,sex,password,phoneNumber,email,bankAccount,avater
         from user  
@@ -23,45 +28,40 @@
         
     </select>
     
-    <select id="selectByPhoneAndPass" resultType="org.cbb.wasteRecovery.bean.User" parameterType="int">
+    <select id="selectByPhoneNumber" resultType="org.cbb.wasteRecovery.bean.User" parameterType="String">
         select id,name,sex,password,phoneNumber,email,bankAccount,avater
         from user
         where
-           phoneNumber=#{user.phoneNumber}
+           phoneNumber=#{phoneNumber}
        
         
     </select>
-    
-    <insert id="insertAdmin">
-        
-        insert  into user(name,sex,password,phoneNumber,email,bankAccount,avater)
-        values (#{user.getName()},#{user.getSex()},#{user.getPassword()},#{user.getPhoneNumber()},#{user.getEmail()},#{user.getBankAccount()},#{user.getAvater()})
-    </insert>
-    
-    <update id="updateAddress" >
-        <!-- 具体sql -->
-        update
-          user
-        set
-          address = #{userAddress.getAddress()}
+
+
+    <select id="selectByPhoneAndPass" resultType="org.cbb.wasteRecovery.bean.User" parameterType="org.cbb.wasteRecovery.bean.User">
+        select id,name,sex,password,phoneNumber,email,bankAccount,avater
+        from user
         where
-          id = #{User.getId()}
-      
-    </update>
+        phoneNumber=#{phoneNumber}
+        and password=#{password}
+
+    </select>
+
+    
+
     
     <update id="updateData" >
-        <!-- 具体sql -->
+
         update
           user
         set
-          id = #{user.getId()}
-          sex=#{user.getSex()}
-          name=#{user.getName()}
-          email=#{user.getEmail()}
-          phoneNumber=#{user.getPhoneNumber()}
-          bankAccount=#{user.getBankAccount()}
+          sex=#{sex},
+          name=#{name},
+          email=#{email},
+          phoneNumber=#{phoneNumber},
+          bankAccount=#{bankAccount}
         where
-          id = #{User.getId()}
+          id = #{id}
       
     </update>
 </mapper>

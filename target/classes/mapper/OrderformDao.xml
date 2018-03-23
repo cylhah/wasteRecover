@@ -22,6 +22,12 @@
   <collection property="station" resultMap="org.cbb.wasteRecovery.bean.Station.tion"/>
   <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
 </resultMap>
+    <insert id="insertOrderform">
+
+    insert  into orderform(state,weight,createTime,appointSTime,appointETime,price,aid,uid,cid,eid,staid)
+    values (#{state},#{weight},#{createTime},#{appointSTime},#{appointETime},#{price},#{aid},#{uid},#{cid},#{eid},#{staid})
+    </insert>
+
      <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="long">
         select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
         from orderform
@@ -81,10 +87,10 @@
         select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
         from orderform
         where
-           state=#{orderform.state}
-        and appointSTime>=#{orderform.appointSTime}  
-       and appointETime<![CDATA[ <= ]]>#{orderform.appointETime}  
-       and geoHash like '%'#{collector.geoHash}'%'
+           state=#{state}
+        and appointSTime>=#{appointSTime}
+       and appointETime<![CDATA[ <= ]]>#{appointETime}
+       and geoHash like '%'#{geoHash}'%'
         
     </select>
     
@@ -92,26 +98,22 @@
         select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
         from orderform
         where
-          appointSTime=#{orderform.appointSTime}  
-       and appointETime=#{orderform.appointETime}  
+          appointSTime=#{appointSTime}
+       and appointETime=#{appointETime}
        
         
     </select>
     
-    <insert id="insertOrderform">
-        
-        insert  into orderform(uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid)
-        values (#{orderform.getUid()},#{orderform.getCid()},#{orderform.getEid()},#{orderform.getAid()},1,#{orderform.getWeight()},#{orderform.getCreateTime()},#{orderform.getAppointSTime()},#{orderform.getAppointETime()},#{orderform.getPrice()},#{orderform.getStaid()})
-    </insert>
+
     
      <update id="updateWeight">
        
         update
           orderform
         set
-          weight = #{orderform.getWeight()}
+          weight = #{weight}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     
@@ -120,9 +122,9 @@
         update
           orderform
         set
-          state = #{orderform.getState()}
+          state = #{state}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     
@@ -131,16 +133,16 @@
         update
           orderform
         set
-          uid= #{orderform.getUid()}
-          cid = #{orderform.getCid()}
-          eid = #{orderform.getEid()}
-          aid= #{orderform.getAid()}
-          staid= #{orderform.getStaid()}
-          price = #{orderform.getPrice()}
-          state = #{orderform.getState()}
-          weight = #{orderform.getWeight()}
+          uid= #{uid},
+          cid = #{cid},
+          eid = #{eid},
+          aid= #{aid},
+          staid= #{staid},
+          price = #{price},
+          state = #{state},
+          weight = #{weight}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     
