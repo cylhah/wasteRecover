@@ -38,14 +38,14 @@ public class AdministratorDaoTest {
 	@Test
 	public void selectAdmin() throws Exception{
 		Administrator administrator=new Administrator();
-		administrator.setUsername("qw");
+		administrator.setUsername("qwer");
 		administrator.setPassword("er");
 		List<Administrator> administrator1=administratorDao.selectAdmin(administrator);
 		for(Administrator administrator2:administrator1)
 		{
 			System.out.println(administrator2);
 		}
-		
+
 	}
 	
 	

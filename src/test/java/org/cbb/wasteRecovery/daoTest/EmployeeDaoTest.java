@@ -35,14 +35,14 @@ public class EmployeeDaoTest {
     @Test
     public void selectByUsername() throws Exception{
 
-        Employee  employee=employeeDao.selectByUsername("qw");
+        Employee  employee=employeeDao.selectByUsername("qwer");
         System.out.println(employee);
     }
 
     @Test
     public void selectByNameAndPass() throws Exception{
         Employee  employee=new  Employee();
-        employee.setUsername("qw");
+        employee.setUsername("qwsd");
         employee.setPassword("as");
         Employee  employee1=employeeDao.selectByNameAndPass(employee);
         System.out.println(employee1);

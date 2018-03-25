@@ -46,7 +46,7 @@ public class OrderformDaoTest {
     @Test
     public void selectById() throws Exception{
 
-        Orderform orderform=orderformDao.selectById(6);
+        Orderform orderform=orderformDao.selectById(5);
         System.out.println(orderform);
     }
 

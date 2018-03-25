@@ -12,38 +12,48 @@
   <result property="email" column="email"/>
   <result property="bankAccount" column="bankAccount"/>
   <result property="avater" column="avater"/>
-
+     <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
     <insert id="insertUser">
 
     insert  into user(name,sex,password,phoneNumber,email,bankAccount,avater)
     values (#{name},#{sex},#{password},#{phoneNumber},#{email},#{bankAccount},#{avater})
    </insert>
-  <select id="selectById" resultType="org.cbb.wasteRecovery.bean.User" parameterType="int">
-        select id,name,sex,password,phoneNumber,email,bankAccount,avater
-        from user  
+
+    <sql id="columns">u.id,u.name,u.sex,u.password,u.phoneNumber,u.email,u.bankAccount,u.avater,d.id,d.uid,d.address,d.fullADD,d.geohash</sql>
+
+
+  <select id="selectById" resultMap="User" parameterType="int">
+        select <include refid="columns"/>
+        from user  u
+        INNER JOIN useraddress d
+        on u.id=d.uid
         where
-           id=#{id}
+           u.id=#{id}
        
         
     </select>
     
-    <select id="selectByPhoneNumber" resultType="org.cbb.wasteRecovery.bean.User" parameterType="String">
-        select id,name,sex,password,phoneNumber,email,bankAccount,avater
-        from user
+    <select id="selectByPhoneNumber" resultMap="User" parameterType="String">
+        select <include refid="columns"/>
+        from user  u
+        INNER JOIN useraddress d
+        on u.id=d.uid
         where
-           phoneNumber=#{phoneNumber}
+           u.phoneNumber=#{phoneNumber}
        
         
     </select>
 
 
-    <select id="selectByPhoneAndPass" resultType="org.cbb.wasteRecovery.bean.User" parameterType="org.cbb.wasteRecovery.bean.User">
-        select id,name,sex,password,phoneNumber,email,bankAccount,avater
-        from user
+    <select id="selectByPhoneAndPass" resultMap="User" parameterType="org.cbb.wasteRecovery.bean.User">
+        select <include refid="columns"/>
+        from user  u
+        INNER JOIN useraddress d
+        on u.id=d.uid
         where
-        phoneNumber=#{phoneNumber}
-        and password=#{password}
+        u.phoneNumber=#{phoneNumber}
+        and u.password=#{password}
 
     </select>
 

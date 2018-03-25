@@ -47,7 +47,7 @@ public class CollectorDaoTest {
     @Test
     public void selectById() throws Exception{
 
-        Collector collector=collectorDao.selectById(2);
+        Collector collector=collectorDao.selectById(1);
         System.out.println(collector);
     }
     @Test
@@ -55,6 +55,7 @@ public class CollectorDaoTest {
 
         Collector collector=collectorDao.selectByPhoneNum("13758149770");
         System.out.println(collector);
+
     }
 
     @Test

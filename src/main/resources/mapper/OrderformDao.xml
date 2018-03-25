@@ -16,11 +16,12 @@
   <result property="appointSTime" column="appointSTime"/>
   <result property="appointETime" column="appointETime"/>
   <result property="price" column="price"/>
-  <collection property="user" resultMap="org.cbb.wasteRecovery.bean.User.User"/>
+  <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User"/>
   <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect"/>
   <collection property="employee" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
-  <collection property="station" resultMap="org.cbb.wasteRecovery.bean.Station.tion"/>
+  <collection property="station" resultMap="org.cbb.wasteRecovery.dao.StationDao.tion"/>
   <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
+  <collection property="address" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
     <insert id="insertOrderform">
 
@@ -28,78 +29,89 @@
     values (#{state},#{weight},#{createTime},#{appointSTime},#{appointETime},#{price},#{aid},#{uid},#{cid},#{eid},#{staid})
     </insert>
 
-     <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="long">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+
+    <sql id="columns">o.id,o.uid,o.cid,o.eid,o.aid,o.state,o.weight,o.createTime,o.appointSTime,o.appointETime,o.price,o.staid,e.id,e.staid,e.adminid,e.username,e.password,a.username,a.password,u.id,u.name,u.sex,u.password,u.phoneNumber,u.email,u.bankAccount,u.avater,d.id,d.uid,d.address,d.fullADD,d.geohash,c.name,c.sex, c.avater,c.email,c.phoneNumber,c.photo,c.creditValue,c.bankAccount,c.idCardNum,c.state,c.id,s.id,s.name,s.money,s.address,s.fullAdd,s.geohash,t.id,t.typeName,t.avergePriceFU,t.avergePriceFC</sql>
+
+     <select id="selectById" resultMap="order" parameterType="long">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           id=#{id}
+           o.id=#{id}
        
         
     </select>
     
-    <select id="selectByCId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByCId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           cid=#{cid}
+           o.cid=#{cid}
        
         
     </select>
     
-    <select id="selectByUId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByUId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           uid=#{uid}
+           o.uid=#{uid}
        
         
     </select>
     
-    <select id="selectByEId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByEId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           eid=#{eid}
+           o.eid=#{eid}
        
         
     </select>
     
-    <select id="selectByStaId" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByStaId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           staid=#{staid}
+           o.staid=#{staid}
        
         
     </select>
     
     
-    <select id="selectByState" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByState" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           state=#{state}
+           o.state=#{state}
        
         
     </select>
     
-    <select id="selectByPosAndTime" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="Map">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByPosAndTime" resultMap="order" parameterType="Map">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           state=#{state}
-        and appointSTime>=#{appointSTime}
-       and appointETime<![CDATA[ <= ]]>#{appointETime}
-       and geoHash like '%'#{geoHash}'%'
+           o.state=#{state}
+        and o.appointSTime>=#{appointSTime}
+       and o.appointETime<![CDATA[ <= ]]>#{appointETime}
+       and o.geoHash like '%'#{geoHash}'%'
         
     </select>
     
-     <select id="selectByTime" resultType="org.cbb.wasteRecovery.bean.Orderform" parameterType="org.cbb.wasteRecovery.bean.Orderform">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+     <select id="selectByTime" resultMap="order" parameterType="org.cbb.wasteRecovery.bean.Orderform">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-          appointSTime=#{appointSTime}
-       and appointETime=#{appointETime}
+          o.appointSTime=#{appointSTime}
+       and o.appointETime=#{appointETime}
        
         
     </select>

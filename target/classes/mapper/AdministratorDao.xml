@@ -16,6 +16,8 @@
         insert  into administrator(username,password,staid)
         values (#{username},#{password},#{staid})
     </insert>
+
+
    <select id="selectAdmin" resultMap="Admin" parameterType="org.cbb.wasteRecovery.bean.Administrator">
         select e.id,e.staid,e.adminid,e.username,e.password,a.username,a.password
         from employee e

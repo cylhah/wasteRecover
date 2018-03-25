@@ -19,8 +19,10 @@
     values (#{username},#{password},#{createTime},#{adminid},#{staid})
    </insert>
 
+    <sql id="columns">staid,adminid,username,password</sql>
+
    <select id="selectByUsername" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="String">
-        select staid,adminid,username
+        select <include refid="columns"/>
         from employee
         where
            username=#{username}
@@ -29,7 +31,7 @@
     </select>
 
      <select id="selectByNameAndPass" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="org.cbb.wasteRecovery.bean.Employee">
-        select staid,adminid,username,password
+        select <include refid="columns"/>
         from employee
         where
            username=#{username}
