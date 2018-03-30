@@ -8,124 +8,90 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../resources/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="../../resources/css/myOrders.css" rel="stylesheet" type="text/css">
-    <script src="../../resources/js/jquery-3.2.1.min.js"></script>
-    <script src="../../resources/js/bootstrap.min.js"></script>
-    <script src="../../resources/js/angular.min.js"></script>
-    <script src="../../resources/js/bootstrap-select.min.js"></script>
-    <script src="../../resources/js/angular-animate.min.js"></script>
-    <script src="../../resources/js/myOrders.js"></script>
     <title>我的订单</title>
 </head>
-<body ng-app="myOrder">
-  <div class="container" ng-controller="formCtrl">
-    <div class="col-md-12 formHeading">
-        <p>
-            变废为宝是环保，废品回收举手劳
-        </p>
+<body>
+    <div class="container myOrder">
+        <div class="col-md-12 formHeading">
+            <p>
+                变废为宝是环保，废品回收举手劳
+            </p>
+        </div>
+        <div class="col-md-12">
+            <form class="form-horizontal" role="form" name="orderForm">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        选择地址
+                    </label>
+                    <div class="col-md-10">
+                        <select class="form-control" ng-if="haveAddress" name="address" ng-model="address">
+                            <option ng-repeat="adr in myAddress"  ng-bind="adr.address+adr.specificAddress+adr.name+adr.phoneNumber" value="{{$index}}"></option>
+                        </select>
+                        <div class="form-control" ng-if="!haveAddress">
+                            <a href="#!/myAddress">新增地址</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        废品约重
+                    </label>
+                    <div class="col-md-10">
+                        <select class="form-control" ng-model="weight">
+                            <option value="<0.5kg"><0.5kg</option>
+                            <option value="0.5kg">0.5kg</option>
+                            <option value="1.0kg">1.0kg</option>
+                            <option value="1.5kg">1.5kg</option>
+                            <option value="2.0kg">2.0kg</option>
+                            <option value="2.5kg">2.5kg</option>
+                            <option value="3.0kg">3.0kg</option>
+                            <option value="3.5kg">3.5kg</option>
+                            <option value="4.0kg">4.0kg</option>
+                            <option value="4.5kg">4.5kg</option>
+                            <option value="5.0kg">5.0kg</option>
+                            <option value=">5.0kg">>5.0kg</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        废品种类
+                    </label>
+                    <div class="col-md-10" id="mySelect">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        选择日期
+                    </label>
+                    <div class="col-md-10">
+                            <select ng-model="date" class="form-control">
+                                <option value="0" selected="selected">今天</option>
+                                <option value="1">明天</option>
+                                <option value="2">后天</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        选择时间
+                    </label>
+                    <div class="col-md-10">
+                        <select class="form-control" ng-model="time">
+                            <option ng-if="date=='0'" ng-repeat="tempTime in time1" ng-bind="tempTime" value="{{tempTime}}"></option>
+                            <option ng-if="!(date=='0')" ng-repeat="tempTime in time2" ng-bind="tempTime" value="{{tempTime}}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="submit">
+                    <button class="myBtn" ng-click="submitOrder()">提交订单</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-md-12 orderForm">
-        <div class="info">
-            <select class="mySelect" ng-model="weight">
-                <option value=""><0.5kg</option>
-                <option>0.5kg</option>
-                <option>1.0kg</option>
-                <option>1.5kg</option>
-                <option>2.0kg</option>
-                <option>2.5kg</option>
-                <option>3.0kg</option>
-                <option>3.5kg</option>
-                <option>4.0kg</option>
-                <option>4.5kg</option>
-                <option>5.0kg</option>
-                <option>>5.0kg</option>
-            </select>
-        </div>
-        <div class="info">
-          <input type="checkbox">塑料
-          <input type="checkbox">纸板
-          <input type="checkbox">金属
-          <input type="checkbox">电器
-          <input type="checkbox">电池
-        </div>
-        <%--<div class="info" >--%>
-            <%--<a href="#" ng-focus="showTime()" ng-blur="closeTime()">请选择时间</a>--%>
-        <%--</div>--%>
-        <div class="info" >
-            <div class="col-md-12">
-                <input type="radio" name="date1" value="today" ng-model="date" checked>今天
-                <input type="radio" name="date1" value="tomorrow" ng-model="date">明天
-                <input type="radio" name="date1" value="theDayAfterTomorrow" ng-model="date">后天
-                <select class="mySelect">
-                    <option ng-if="date=='today'" ng-repeat="time in time1" ng-bind="time"></option>
-                    <option ng-if="!(date=='today')" ng-repeat="time in time2" ng-bind="time"></option>
-                </select>
-            </div>
-            <%--<div class="dropdown">--%>
-                <%--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">--%>
-                    <%--请选择时间--%>
-                    <%--<span class="caret"></span>--%>
-                <%--</button>--%>
-                <%--<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">--%>
-                    <%--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>--%>
-                    <%--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>--%>
-                    <%--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>--%>
-                    <%--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>--%>
-                <%--</ul>--%>
-            <%--</div>--%>
-        </div>
-        <div class="info">
-          请选择地址
-        </div>
-        <div class="submit">
-            <button class="btn btn-success myBtn" type="button">提交订单</button>
-        </div>
-    </div>
-    <%--<div class="col-md-14" ng-hide="showTimeTable">--%>
-        <%--<div class="col-md-12 formHeading">--%>
-            <%--选择时间--%>
-          <%--</div>--%>
-          <%--<div class="col-md-14">--%>
-              <%--<ul class="nav nav-tabs">--%>
-                  <%--<li><a href="#">今天</a></li>--%>
-                  <%--<li><a href="#">明天</a></li>--%>
-                  <%--<li><a href="#">后天</a></li>--%>
-              <%--</ul>--%>
-          <%--</div>--%>
-          <%--<div class="col-md-14">--%>
-            <%--<p>8:00</p>--%>
-            <%--<p>8:30</p>--%>
-            <%--<p>9:00</p>--%>
-            <%--<p>9:30</p>--%>
-            <%--<p>10:00</p>--%>
-            <%--<p>10:30</p>--%>
-            <%--<p>11:00</p>--%>
-            <%--<p>11:30</p>--%>
-            <%--<p>12:00</p>--%>
-            <%--<p>12:30</p>--%>
-            <%--<p>13:00</p>--%>
-            <%--<p>13:30</p>--%>
-            <%--<p>14:00</p>--%>
-            <%--<p>14:30</p>--%>
-            <%--<p>15:00</p>--%>
-            <%--<p>15:30</p>--%>
-            <%--<p>16:00</p>--%>
-            <%--<p>16:30</p>--%>
-            <%--<p>17:00</p>--%>
-            <%--<p>17:30</p>--%>
-            <%--<p>18:00</p>--%>
-            <%--<p>18:30</p>--%>
-            <%--<p>19:00</p>--%>
-            <%--<p>19:30</p>--%>
-            <%--<p>20:00</p>--%>
-            <%--<p>20:30</p>--%>
-          <%--</div>--%>
-    <%--</div>--%>
-  </div>
+
+<script>
+    document.getElementById("mySelect").appendChild(document.getElementById("weightSelect"));
+</script>
 </body>
 </html>
