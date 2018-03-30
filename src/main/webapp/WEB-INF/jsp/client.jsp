@@ -11,22 +11,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="../css/myOrders.css" rel="stylesheet">
-    <link href="../css/client.css" rel="stylesheet" >
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../resources/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../../resources/css/myOrders.css" rel="stylesheet">
+    <link href="../../resources/css/client.css" rel="stylesheet" >
 
-    <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootstrap-select.min.js"></script>
-    <script src="../js/angular.min.js"></script>
-    <script src="../js/angular-route.min.js"></script>
-    <script src="../js/angular-animate.min.js"></script>
-    <script src="../js/angular-sanitize.min.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/controllers.js"></script>
-    <script src="../js/service.js"></script>
-    <script src="../js/directive.js"></script>
+    <script src="../../resources/js/jquery-3.2.1.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/bootstrap-select.min.js"></script>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-route.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-sanitize.min.js"></script>
+    <script src="../../resources/js/app.js"></script>
+    <script src="../../resources/js/controllers.js"></script>
+    <script src="../../resources/js/service.js"></script>
+    <script src="../../resources/js/directive.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1bskosXE4iAXX6BSVt5X5XFn90530zyU"></script>
 
     <title>用户</title>
@@ -72,9 +72,7 @@
         </div>
     </div>
 </div>
-<div id="data">
 
-</div>
 <div style="display: none">
     <div id="weightSelect">
         <select class="selectpicker form-control"  title="废品种类" multiple ng-model="type">
