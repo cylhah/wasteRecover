@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.StationDao">
+<resultMap type="org.cbb.wasteRecovery.bean.Station" id="tion">
+  <id property="id" column="id"/>
+  <result property="money" column="money"/>
+  <result property="name" column="name"/>
+  <result property="address" column="address"/>
+  <result property="locationY" column="locationY"/>
+  <result property="locationX" column="locationX"/>
+  <result property="fullAdd" column="fullAdd"/>
+  <result property="geohash" column="geohash"/>
+</resultMap>
+    <select id="selectById" resultType="station" parameterType="int">
+        select id,name,money,address,locationX,locationY,fullAdd,geohash
+        from station
+        where
+           id=#{id}
+       
+        
+    </select>
+
+     <select id="selectByPos" resultType="station" parameterType="Map">
+        select id,name,money,address,locationX,locationY,fullAdd,geohash
+        from station
+        where
+           address=#{address}
+       
+        
+    </select>
+    
+    <select id="selectByAdd" resultType="station" parameterType="String">
+        select id,name,money,address,locationX,locationY,fullAdd,geohash
+        from station
+        where
+           address=#{address}
+       
+        
+    </select>
+    
+    <select id="selectByName" resultType="station" parameterType="String">
+        select id,name,money,address,locationX,locationY,fullAdd,geohash
+        from station
+        where
+           name=#{name}
+       
+        
+    </select>
+    
+    <update id="updateMoney">
+       
+        update
+          station
+        set
+          money = #{station.getMoney()}
+        where
+          id = #{station.getId()}
+      
+    </update>
+    
+</mapper>

@@ -56,6 +56,7 @@ CREATE TABLE `orderform` (
   `cid` int(10) unsigned DEFAULT NULL COMMENT '废品回收员id',
   `eid` int(10) unsigned DEFAULT NULL COMMENT '员工id',
   `aid` int(10) unsigned NOT NULL COMMENT '地址id',
+  `staid` int(10) unsigned DEFAULT NULL COMMENT '回收站id',
   `state` tinyint(4) DEFAULT NULL,
   `weight` double DEFAULT NULL,
   `createTime` timestamp NULL DEFAULT NULL,
@@ -70,9 +71,11 @@ CREATE TABLE `orderform` (
   KEY `o_aid` (`aid`),
   KEY `o_state` (`state`),
   KEY `o_appointTime` (`appointSTime`,`appointETime`),
+  KEY `o_staid` (`staid`),
   CONSTRAINT `o_aid` FOREIGN KEY (`aid`) REFERENCES `useraddress` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `o_cid` FOREIGN KEY (`cid`) REFERENCES `collector` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `o_eid` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
+  CONSTRAINT `o_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`),
   CONSTRAINT `o_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

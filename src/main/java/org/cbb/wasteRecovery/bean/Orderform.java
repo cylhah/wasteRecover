@@ -12,6 +12,7 @@ public class Orderform {
     private int cid;//回收人员id
     private int eid;//员工id
     private int aid;//地址id
+    private int staid;//回收站id
     private int state;//订单状态
     private double weight;//订单重量
     private Timestamp createTime;
@@ -24,6 +25,7 @@ public class Orderform {
     private Collector collector;
     private Employee employee;
     private UserAddress address;
+    private Station station;
     private List<Scraptype> scraptypeList;
 
     public long getId() {
@@ -160,5 +162,21 @@ public class Orderform {
 
     public void setScraptypeList(List<Scraptype> scraptypeList) {
         this.scraptypeList = scraptypeList;
+    }
+
+    public int getStaid() {
+        return staid;
+    }
+
+    public void setStaid(int staid) {
+        this.staid = staid;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
     }
 }
