@@ -12,13 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.cbb.wasteRecovery.bean.*;
 
-<<<<<<< HEAD
-@RunWith(SpringJUnit4ClassRunner.class)
-=======
-import javax.annotation.Resource;
 
 @RunWith(value =SpringJUnit4ClassRunner.class)
->>>>>>> 1537f294ad48c7d80f3d6dbb16957b65a49936e2
 //告诉junit spring配置文件
 @ContextConfiguration("classpath:spring/spring-dao.xml")
 public class CollectorDaoTest {

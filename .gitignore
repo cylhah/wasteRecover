@@ -3,3 +3,5 @@
 .settings/
 .classpath
 .project
+.springBeans
+src/main/resources/jdbc.properties
