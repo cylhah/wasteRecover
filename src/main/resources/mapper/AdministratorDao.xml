@@ -11,7 +11,6 @@
   <collection property="employeeList" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
 
 </resultMap>
-<<<<<<< HEAD
    <insert id="insertAdmin"   parameterType="org.cbb.wasteRecovery.bean.Administrator">
         
         insert  into administrator(username,password,staid)
@@ -23,11 +22,6 @@
         select e.id,e.staid,e.adminid,e.username,e.password,a.username,a.password
         from employee e
         INNER JOIN administrator a
-=======
-   <select id="selectAdmin" resultType="org.cbb.wasteRecovery.bean.Administrator" parameterType="org.cbb.wasteRecovery.bean.Administrator">
-        select employeeList
-        from administrator
->>>>>>> 1537f294ad48c7d80f3d6dbb16957b65a49936e2
         where
            a.username=#{username}
         and a.password=#{password}
