@@ -22,7 +22,7 @@
         
     </select>
 
-     <select id="selectByNameAndPass" resultType="employee" parameterType="Employee">
+     <select id="selectByNameAndPass" resultType="employee" parameterType="org.cbb.wasteRecovery.bean.Employee">
         select staid,adminid,username,password
         from employee
         where
