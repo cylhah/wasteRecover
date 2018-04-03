@@ -1,22 +1,10 @@
-.orderForm{
-    border:2px solid grey;
-}
 .formHeading{
-    background: rgb(92,184,92);
-    color: white;
+    color: rgb(112, 112, 112);
     text-align: center;
     font-weight: bold;
     font-size: 25px;
     height: 100px;
     line-height: 100px;
-}
-.info{
-    padding-top: 10px;
-    text-align: center;
-    font-size: 20px;
-    border-bottom: 2px solid rgb(207, 204, 204);
-    height: 50px;
-    line-height: 25px;
 }
 .submit{
     text-align: center;
@@ -24,8 +12,18 @@
 .myBtn{
     font-size: 20px;
     margin: 10px 0 10px 0;
-    padding: 5px 150px 5px 150px;
+    padding: 5px 100px 5px 100px;
+    background: rgb(74, 76, 91);
+    color:white;
+    border-radius: 5px;
 }
-.mySelect{
-    width: 200px;
+.myOrder{
+    background: rgb(243, 243, 243);
+}
+
+.form-control{
+    -webkit-appearance: none;
+    outline: 0;
+    border: 1px solid rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255,1);
 }

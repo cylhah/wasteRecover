@@ -27,10 +27,16 @@ public class AdministratorDaoTest {
 	public void insertAdmin() throws Exception{
 		Administrator administrator=new Administrator();
 		int id=2;
+<<<<<<< HEAD
 //		administrator.setStaid(id);
 		administrator.setUsername("qw");
 		administrator.setPassword("er");
 		administrator.setStaid(1);
+=======
+		administrator.setStaid(id);
+//		administrator.setUsername(qw);
+//		administrator.setPassword(as);
+>>>>>>> 1537f294ad48c7d80f3d6dbb16957b65a49936e2
 		administratorDao.insertAdmin(administrator);
 		
 	}

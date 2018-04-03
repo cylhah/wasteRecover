@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale-1,user-scalable=no" >
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/font/iconfont.css">
+    <link rel="stylesheet" href="resources/css/ReceiverCss.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRSBDtrWOZ6cCOoPsnEhdmLihKVGXi2s"></script>
+    <script src="resources/js/jquery-3.2.1.min.js"></script>
+    <script src="resources/js/popper.min.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
+    <script src="resources/js/testjs.js"></script>
+    <script src="resources/js/angular.min.js"></script>
+    <script src="resources/js/angular-route.min.js"></script>
+    <script src="resources/js/angular-animate.min.js"></script>
+    <script src="resources/js/app.js"></script>
+    <script src="resources/js/controllers.js"></script>
+    <script src="resources/js/service.js"></script>
+    <title>回收员</title>
+</head>
+<body>
+    <div>
+        <header class="border-bottom  header-css text-center">
+            <span class=" btnn" data-toggle="modal" data-target="#myModal" role="button"><i class="iconfont icon-Shapecopy1"></i></span>
+                <span class="title-css">
+                    回收员回收
+                </span>
+        </header>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog smal" role="document">
+            <div class="modal-content smal">
+                <div class="modal-header">
+                    <p class="modal-title"><i class="iconfont icon-shenfenzheng text-lg-center"></i></p>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="iconfont icon-flag"></i>即时订单</li>
+                        <li class="list-group-item"><i class="iconfont icon-document"></i>历史订单</li>
+                        <li class="list-group-item"><i class="iconfont icon-xingming"></i>个人信息</li>
+                        <li class="list-group-item"><i class="iconfont icon-xinyongpingjia"></i>信用评价</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="allmap">
+    </div>
+    <footer class="border footer-css">
+        <p class="text-center">查看并同意<span class="text-red">《回收员合作协议》</span></p>
+    </footer>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom("浙江科技学院西和公寓", 17);  // 初始化地图,设置中心点坐标和地图级别
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    map.addOverlay(new BMap.Marker(new BMap.Point(120.01937542,30.25924446)));
+    map.addOverlay(new BMap.Marker(new BMap.Point(120.01937542,30.20924446)));
+</script>
