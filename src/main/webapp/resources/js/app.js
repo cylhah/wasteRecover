@@ -16,3 +16,17 @@ clientApp.config(function ($routeProvider) {
 });
 
 var loginApp = angular.module('loginApp',['loginCtrl']);
+
+var testApp = angular.module('testApp',['testCtrl','ngRoute']);
+
+testApp.config(function($routeProvider){
+    $routeProvider.when('/list',{
+        templateUrl:'list.html',
+        controller:'listCtrl'
+    }).when('/history',{
+        templateUrl:'history.html',
+        controller:'historyCtrl'
+    }).otherwise({
+        redirect:'/list'
+    })
+});
