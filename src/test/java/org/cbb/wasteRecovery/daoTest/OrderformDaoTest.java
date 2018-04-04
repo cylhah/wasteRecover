@@ -28,16 +28,7 @@ public class OrderformDaoTest {
         Timestamp ts=new Timestamp(new Date().getTime());
         orderform.setCreateTime(ts);
         Timestamp t1=new Timestamp(new Date().getTime());
-        orderform.setAppointSTime(t1);
-        Timestamp t2=new Timestamp(new Date().getTime());
-        orderform.setAppointETime(t2);
-        orderform.setPrice(5.31);
-        orderform.setState(1);
-        orderform.setAid(5);
-        orderform.setUid(2);
-        orderform.setCid(3);
-        orderform.setEid(7);
-        orderform.setStaid(1);
+
 
         orderformDao.insertOrderform(orderform);
 
@@ -110,8 +101,7 @@ public class OrderformDaoTest {
     public void selectByTime() throws Exception{
         Orderform orderform1=new Orderform();
         Timestamp ts=new Timestamp(2018-03-23);
-        orderform1.setAppointSTime(ts);
-        orderform1.setAppointETime(ts);
+
         List<Orderform> orderform=orderformDao.selectByTime(orderform1);
         for(Orderform orderform2:orderform)
         {
@@ -144,11 +134,8 @@ public class OrderformDaoTest {
         orderform.setPrice(5.31);
         orderform.setState(1);
         orderform.setAid(5);
-        orderform.setUid(2);
-        orderform.setCid(3);
-        orderform.setEid(7);
-        orderform.setStaid(1);
-        orderform.setId(5);
+
+
         orderform.setWeight(61.23);
         orderformDao.updateWeight(orderform);
     }

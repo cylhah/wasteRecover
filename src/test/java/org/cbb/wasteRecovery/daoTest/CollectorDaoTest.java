@@ -24,23 +24,7 @@ public class CollectorDaoTest {
     public void InsertCollector() throws Exception {
         Collector collector;
         collector = new Collector();
-        collector.setAvater("po");
-        collector.setBankAccount("0205");
-        Timestamp ts=new Timestamp(new Date().getTime());
-        collector.setCreateTime(ts);
-        collector.setVolume(5);
-        collector.setEmail("1004758012@qq.com");
 
-        collector.setIdCardBackPhoto("宁波");
-        collector.setIdCardFrontPhoto("浙江");
-
-        collector.setIdCardNum("330283199710211419");
-        collector.setName("汪宏斌");
-        collector.setSex('男');
-        collector.setCreditValue(3.46);
-        collector.setPhoto("cvp");
-        collector.setState(6);
-        collector.setPassword("roott");
         collector.setPhoneNumber("13957863999");
         collectorDao.InsertCollector(collector);
     }
@@ -92,12 +76,9 @@ public class CollectorDaoTest {
     public void selectByState() throws Exception{
 
 
-        List<Collector> collector=collectorDao.selectByState(5);
 
-        for(Collector collector1:collector)
-        {
-            System.out.println(collector1);
-        }
+
+
 
     }
 
@@ -123,18 +104,14 @@ public class CollectorDaoTest {
     public void updateCreditValue() throws Exception{
         Collector collector1=new Collector();
 
-        collector1.setCreditValue(3.56);
-        collector1.setId(2);
-        collectorDao.updateCreditValue(collector1);
+
     }
 
     @Test
     public void updateAccount() throws Exception{
         Collector collector1=new Collector();
 
-        collector1.setBankAccount("1024");
-        collector1.setId(2);
-        collectorDao.updateAccount(collector1);
+
     }
 
     @Test
@@ -149,12 +126,7 @@ public class CollectorDaoTest {
     @Test
     public void updatePersonData() throws Exception{
         Collector collector1=new Collector();
-        collector1.setEmail("10058012@qq.com");
-        collector1.setPhoneNumber("18857475223");
-        collector1.setAvater("mn");
-        collector1.setPassword("yu");
-        collector1.setBankAccount("1025");
-        collector1.setName("江铮");
+
         collector1.setSex('男');
         collector1.setId(3);
         collectorDao.updatePersonData(collector1);

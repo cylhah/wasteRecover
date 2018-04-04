@@ -57,7 +57,7 @@ public class StationDaoTest {
     public void updateMoney() throws Exception{
 
         Station station=new Station();
-        station.setMoney(3.5);
+
         station.setId(1);
         stationDao.updateMoney(station);
     }

@@ -22,13 +22,7 @@ public class UserDaoTest {
     @Test
     public void insertUser() throws Exception{
         User user=new User();
-        user.setName("江铮");
-        user.setSex('男');
-        user.setPassword("root");
-        user.setPhoneNumber("13867888450");
-        user.setAvater("0i");
-        user.setBankAccount("02055");
-        user.setEmail("10047012@qq.com");
+
 
         userDao.insertUser(user);
     }
@@ -50,8 +44,7 @@ public class UserDaoTest {
     @Test
     public void selectByPhoneAndPass() throws Exception{
         User user=new User();
-        user.setPassword("roott");
-        user.setPhoneNumber("13957863999");
+
         User user1=userDao.selectByPhoneAndPass(user);
         System.out.println(user1);
     }
@@ -62,12 +55,7 @@ public class UserDaoTest {
     public void updateData() throws Exception{
 
         User user=new User();
-        user.setId(1);
-        user.setName("江柳萍");
-        user.setSex('女');
-        user.setPhoneNumber("13845888450");
-        user.setBankAccount("0255");
-        user.setEmail("1004745012@qq.com");
+
         userDao.updateData(user);
     }
 }

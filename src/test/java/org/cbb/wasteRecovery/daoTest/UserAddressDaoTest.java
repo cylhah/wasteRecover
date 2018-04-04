@@ -24,9 +24,8 @@ public class UserAddressDaoTest {
         UserAddress userAddress;
         userAddress = new UserAddress();
         userAddress.setAddress("浙江");
-        userAddress.setFullADD("杭州");
-        userAddress.setGeohash("asdf");
-        userAddress.setUid(1);
+
+
         userAddressDao.insertAddress(userAddress);
 
     }
