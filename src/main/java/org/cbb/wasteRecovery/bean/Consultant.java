@@ -1,17 +1,12 @@
 package org.cbb.wasteRecovery.bean;
 
-import java.sql.Timestamp;
-
-/**
- * Created by Colossus on 2018/3/17.
- */
-public class Employee {
+public class Consultant {
     private int id;
     private int staid;
-    private int adminid;
     private String username;
     private String password;
-    private Timestamp createTime;
+
+    private Station station;
 
     public int getId() {
         return id;
@@ -27,14 +22,6 @@ public class Employee {
 
     public void setStaid(int staid) {
         this.staid = staid;
-    }
-
-    public int getAdminid() {
-        return adminid;
-    }
-
-    public void setAdminid(int adminid) {
-        this.adminid = adminid;
     }
 
     public String getUsername() {
@@ -53,11 +40,11 @@ public class Employee {
         this.password = password;
     }
 
-    public Timestamp getCreateTime() {
-        return createTime;
+    public Station getStation() {
+        return station;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setStation(Station station) {
+        this.station = station;
     }
 }

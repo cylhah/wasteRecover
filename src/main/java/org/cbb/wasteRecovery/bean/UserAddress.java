@@ -5,9 +5,14 @@ package org.cbb.wasteRecovery.bean;
  */
 public class UserAddress {
     private int id;
-    private int uid;
+    private String uid;
     private String address;//附近地址
-    private String fullADD;//详细地址
+    private String detail;//详细地址
+    private String phoneNumber;
+    private String name;//出货人信息
+    private int community_id;
+
+    private Community community;
 
     //经度
     private double locationX;
@@ -15,6 +20,8 @@ public class UserAddress {
     private double locationY;
 
     private String geohash;
+
+    private User user;
 
     public int getId() {
         return id;
@@ -24,11 +31,11 @@ public class UserAddress {
         this.id = id;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -40,12 +47,28 @@ public class UserAddress {
         this.address = address;
     }
 
-    public String getFullADD() {
-        return fullADD;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setFullADD(String fullADD) {
-        this.fullADD = fullADD;
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getLocationX() {
@@ -70,5 +93,29 @@ public class UserAddress {
 
     public void setGeohash(String geohash) {
         this.geohash = geohash;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getCommunity_id() {
+        return community_id;
+    }
+
+    public void setCommunity_id(int community_id) {
+        this.community_id = community_id;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 }

@@ -10,10 +10,12 @@ import java.util.List;
 public interface CollectorDao {
 
     /**
- * 插入回收员，需要电话号码、名字、密码、性别、照片、身份证号、身份证正反照、创建时间
+ * 插入回收员，需要realName,sex,phoneNumber,password,photo,idCardNum,
+     * idCardFrontPhoto,idCardBackPhoto,createTime,staid,state
  * @param collector
  */
     void InsertCollector(Collector collector);
+
     /**
      * 按id搜索废品回收员
      * @param id
@@ -50,17 +52,8 @@ public interface CollectorDao {
     List<Collector> selectByName(String name);
 
     /**
-     *  按审核状态查找回收员
-     * @param state
-     * @return
-     */
-    List<Collector> selectByState(int state);
-
-
-
-    /**
      * 根据collector中的id更改电话号码
-     * @param collector 存有id
+     * @param collector 存有id与电话号码
      */
     void updatePhoneNum(Collector collector);
 
@@ -70,17 +63,6 @@ public interface CollectorDao {
      */
     void updatePassword(Collector collector);
 
-    /**
-     * 更改信用值
-     * @param collector 存有id
-     */
-    void updateCreditValue(Collector collector);
-
-    /**
-     * 更改转账账户
-     * @param collector 存有id
-     */
-    void updateAccount(Collector collector);
 
     /**
      * 增加成交量
@@ -90,8 +72,19 @@ public interface CollectorDao {
 
     /**
      * 更改个人资料
-     * @param collector 存有id,sex,name,email,avater
+     * @param collector 存有id,sex,name,avater
      */
     void updatePersonData(Collector collector);
 
+    /**
+     * 更改状态
+     * @param collector 存有id,state
+     */
+    void updateState(Collector collector);
+
+    /**
+     * 删除回收员
+     * @param collector 存有id
+     */
+    void deleteCollector(Collector collector);
 }

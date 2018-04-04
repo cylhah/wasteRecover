@@ -35,6 +35,7 @@ CREATE TABLE `collector` (
   `volume` int(10) unsigned DEFAULT NULL COMMENT '成交量',
   `createTime` datetime DEFAULT NULL,
   `staid` int(10) unsigned NOT NULL,
+  `state` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `c_name` (`realName`),
   KEY `c_phoneNumber` (`phoneNumber`),
@@ -42,6 +43,8 @@ CREATE TABLE `collector` (
   KEY `c_staid` (`staid`),
   CONSTRAINT `c_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `community` (
   `id` int(11) unsigned NOT NULL,
@@ -56,8 +59,11 @@ CREATE TABLE `community` (
 CREATE TABLE `user` (
   `openid` varchar(255) NOT NULL,
   `avater` varchar(255) DEFAULT NULL COMMENT '头像地址',
+  `state` int(11) unsigned zerofill DEFAULT '00000000000',
   PRIMARY KEY (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `bankaccont` (
   `id` bigint(20) unsigned NOT NULL,

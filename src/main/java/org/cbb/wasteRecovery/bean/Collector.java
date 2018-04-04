@@ -8,30 +8,23 @@ import java.util.List;
  */
 public class Collector {
     private int id;
-    private String name;
-    private String password;
+    private String realName;
     private char sex;
     private String avater;//头像地址
-    private String email;
     private String phoneNumber;
+    private String password;
     private String photo;//真人照片地址
     private String idCardNum;//身份证号
     private String idCardFrontPhoto;//身份证正面照地址
     private String idCardBackPhoto;//身份证背面照地址
     private int volume;//成交量
-    private double creditValue;//信用值
-    private String bankAccount;//转账账户
-    private int state;
     private Timestamp createTime;
+    private int state;
+    private int statid;
 
-    //经度
-    private double locationX;
-    //纬度
-    private double locationY;
-
-    private String geoHash;
-
-    List<Orderform> orderformList;//接受的未完成订单
+    private Station station;
+    private List<Orderform> orderformList;//小区内未完成订单
+    private List<Community> communityList;//负责小区
 
     public int getId() {
         return id;
@@ -41,20 +34,12 @@ public class Collector {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public char getSex() {
@@ -73,20 +58,20 @@ public class Collector {
         this.avater = avater;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhoto() {
@@ -129,20 +114,12 @@ public class Collector {
         this.volume = volume;
     }
 
-    public double getCreditValue() {
-        return creditValue;
+    public Timestamp getCreateTime() {
+        return createTime;
     }
 
-    public void setCreditValue(double creditValue) {
-        this.creditValue = creditValue;
-    }
-
-    public String getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
     public int getState() {
@@ -153,36 +130,20 @@ public class Collector {
         this.state = state;
     }
 
-    public Timestamp getCreateTime() {
-        return createTime;
+    public int getStatid() {
+        return statid;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setStatid(int statid) {
+        this.statid = statid;
     }
 
-    public double getLocationX() {
-        return locationX;
+    public Station getStation() {
+        return station;
     }
 
-    public void setLocationX(double locationX) {
-        this.locationX = locationX;
-    }
-
-    public double getLocationY() {
-        return locationY;
-    }
-
-    public void setLocationY(double locationY) {
-        this.locationY = locationY;
-    }
-
-    public String getGeoHash() {
-        return geoHash;
-    }
-
-    public void setGeoHash(String geoHash) {
-        this.geoHash = geoHash;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     public List<Orderform> getOrderformList() {
@@ -191,6 +152,14 @@ public class Collector {
 
     public void setOrderformList(List<Orderform> orderformList) {
         this.orderformList = orderformList;
+    }
+
+    public List<Community> getCommunityList() {
+        return communityList;
+    }
+
+    public void setCommunityList(List<Community> communityList) {
+        this.communityList = communityList;
     }
 }
 

@@ -6,16 +6,13 @@ package org.cbb.wasteRecovery.bean;
 public class Station {
     private int id;
     private String name;
-    private double money;
     private String address;
+    private String detailed_address;
 
     //经度
     private double locationX;
     //纬度
     private double locationY;
-
-    private String fullAdd;
-    private String geohash;
 
     public int getId() {
         return id;
@@ -33,20 +30,20 @@ public class Station {
         this.name = name;
     }
 
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getDetailed_address() {
+        return detailed_address;
+    }
+
+    public void setDetailed_address(String detailed_address) {
+        this.detailed_address = detailed_address;
     }
 
     public double getLocationX() {
@@ -63,21 +60,5 @@ public class Station {
 
     public void setLocationY(double locationY) {
         this.locationY = locationY;
-    }
-
-    public String getFullAdd() {
-        return fullAdd;
-    }
-
-    public void setFullAdd(String fullAdd) {
-        this.fullAdd = fullAdd;
-    }
-
-    public String getGeohash() {
-        return geohash;
-    }
-
-    public void setGeohash(String geohash) {
-        this.geohash = geohash;
     }
 }
