@@ -13,8 +13,11 @@
   <result property="fullAdd" column="fullAdd"/>
   <result property="geohash" column="geohash"/>
 </resultMap>
-    <select id="selectById" resultType="station" parameterType="int">
-        select id,name,money,address,locationX,locationY,fullAdd,geohash
+
+    <sql id="columns">id,name,money,address,fullAdd,geohash</sql>
+
+    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="int">
+        select <include refid="columns"/>
         from station
         where
            id=#{id}
@@ -22,8 +25,8 @@
         
     </select>
 
-     <select id="selectByPos" resultType="station" parameterType="Map">
-        select id,name,money,address,locationX,locationY,fullAdd,geohash
+     <select id="selectByPos" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="Map">
+        select <include refid="columns"/>
         from station
         where
            address=#{address}
@@ -31,8 +34,8 @@
         
     </select>
     
-    <select id="selectByAdd" resultType="station" parameterType="String">
-        select id,name,money,address,locationX,locationY,fullAdd,geohash
+    <select id="selectByAdd" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="String">
+        select <include refid="columns"/>
         from station
         where
            address=#{address}
@@ -40,8 +43,8 @@
         
     </select>
     
-    <select id="selectByName" resultType="station" parameterType="String">
-        select id,name,money,address,locationX,locationY,fullAdd,geohash
+    <select id="selectByName" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="String">
+        select <include refid="columns"/>
         from station
         where
            name=#{name}
@@ -54,9 +57,9 @@
         update
           station
         set
-          money = #{station.getMoney()}
+          money = #{money}
         where
-          id = #{station.getId()}
+          id = #{id}
       
     </update>
     

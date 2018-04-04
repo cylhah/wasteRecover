@@ -14,86 +14,98 @@
   <result property="photo" column="photo"/> 
   <result property="idCardNum" column="idCardNum"/>
   <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
-  <result property="volume" column="volume"/> 
+  <result property="idCardBackPhoto" column="idCardBackPhoto"/>
+   <result property="volume" column="volume"/>
   <result property="creditValue" column="creditValue"/> 
   <result property="bankAccount" column="bankAccount"/> 
   <result property="state" column="state"/> 
   <result property="createTime" column="createTime"/> 
-  <result property="locationX" column="locationX"/> 
-  <result property="locationY" column="locationY"/> 
-  <result property="geoHash" column="geoHash"/> 
- 
+  <result property="locationX" column="locationX"/>
+  <result property="locationY" column="locationY"/>
+  <result property="geoHash" column="geoHash"/>
+   <collection property="orderformList" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order"/>
 
 </resultMap>
-    <select id="selectById" resultType="collector" parameterType="int">
-        select name,sex, avater,email,phoneNumber,photo,creditValue,bankAccount,idCardNum,state,id
-        from collector
-        where
-           id=#{id}
-          
-        
-    </select>
 
-    <select id="selectByPhoneNum" resultType="collector" parameterType="String">
-        select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber
-        from collector
-        where
-           phoneNumber=#{phoneNumber}
-          
-        
-    </select>
-    
-     <select id="selectByPhoneNumAndPass" resultType="collector" parameterType="org.cbb.wasteRecovery.bean.Collector">
-        select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber,password
-        from collector
-        where
-           phoneNumber=#{collector.getPhoneNumber()}
-        and password=#{collector.getPassword()}  
-        
-    </select>
-
-    <select id="selectByIdCardNum" resultType="collector" parameterType="String">
-        select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,state,id,idCardNum
-        from collector
-        where
-           idCardNum=#{idCardNum}
-          
-        
-    </select>
-    
-    <select id="selectByName" resultType="collector" parameterType="String">
-        select sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,state,id,name
-        from collector
-        where
-           name=#{name}
-        order by id   
-          
-        
-    </select>
-    
-      <select id="selectByState" resultType="collector" parameterType="int">
-        select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,id,state
-        from collector
-        where
-           state=#{state}
-        order by id   
-        
-    </select>
-    
     <insert id="InsertCollector">
+
+    insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,email,bankAccount,state,creditValue,volume)
+    values (#{name},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{email},#{bankAccount},#{state},#{creditValue},#{volume})
+   </insert>
+
+    <sql id="columns">o.id,o.uid,o.cid,o.eid,o.aid,o.state,o.weight,o.createTime,o.appointSTime,o.appointETime,o.price,o.staid,c.name,c.sex, c.avater,c.email,c.phoneNumber,c.photo,c.creditValue,c.bankAccount,c.idCardNum,c.state,c.id</sql>
+
+    <select id="selectById" resultMap="Collect" parameterType="int">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        where
+           c.id=#{id}
+          
         
-        insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime)
-        values (#{collector.getName()},#{collector.getSex()},#{collector.getPassword()},#{collector.getPhoneNumber()},#{collector.getPhoto()},#{collector.getIdCardNum()},#{collector.getIdCardFrontPhoto()},#{collector.getIdCardBackPhoto()},#{collector.getCreateTime()})
-    </insert>
+    </select>
+
+    <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        where
+           c.phoneNumber=#{phoneNumber}
+          
+        
+    </select>
+    
+     <select id="selectByPhoneNumAndPass" resultMap="Collect" parameterType="org.cbb.wasteRecovery.bean.Collector">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        where
+           c.phoneNumber=#{phoneNumber}
+        and c.password=#{password}
+        
+    </select>
+
+    <select id="selectByIdCardNum" resultMap="Collect" parameterType="String">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        where
+           c.idCardNum=#{idCardNum}
+          
+        
+    </select>
+    
+    <select id="selectByName" resultMap="Collect" parameterType="String">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        where
+          c.name=#{name}
+        order by c.id
+          
+        
+    </select>
+    
+      <select id="selectByState" resultMap="Collect" parameterType="int">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        where
+           c.state=#{state}
+        order by c.id
+        
+    </select>
+    
+
     
     <update id="updatePhoneNum">
        
         update
           collector
         set
-          phoneNumber = #{collector.getPhoneNumber()}
+          phoneNumber = #{phoneNumber}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -102,9 +114,9 @@
         update
           collector
         set
-          password = #{collector.getPassword()}
+          password = #{password}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -113,9 +125,9 @@
         update
           collector
         set
-          creditValue = #{collector.getCreditValue()}
+          creditValue = #{creditValue}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -124,9 +136,9 @@
         update
           collector
         set
-          bankAccount = #{collector.getBankAccount()}
+          bankAccount = #{bankAccount}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -135,9 +147,9 @@
         update
           collector
         set
-          volume = #{collector.getVolume()}
+          volume = #{volume}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -146,15 +158,15 @@
         update
           collector
         set
-           bankAccount = #{collector.getBankAccount()},
-           phoneNumber = #{collector.getPhoneNumber()},
-           password = #{collector.getPassword()},
-           name=#{collector.getName()},
-           sex=#{collector.getSex()},
-           email=#{collector.getEmail()},
-           avater=#{collector.getAvater()}
+           bankAccount = #{bankAccount},
+           phoneNumber = #{phoneNumber},
+           password = #{password},
+           name=#{name},
+           sex=#{sex},
+           email=#{email},
+           avater=#{avater}
         where
-          id = #{collector.getId()}
+          id = #{id}
        
     </update>
 </mapper>

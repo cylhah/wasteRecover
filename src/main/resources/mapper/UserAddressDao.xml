@@ -3,4 +3,64 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.UserAddressDao">
+    <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="Address">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="address" column="address"/>
+        <result property="fullADD" column="fullADD"/>
+        <result property="locationX" column="locationX"/>
+        <result property="locationY" column="locationY"/>
+        <result property="geohash" column="geohash"/>
+
+
+    </resultMap>
+    <insert id="insertAddress">
+
+    insert  into useraddress(uid,address,fullADD,geohash,position)
+    values (#{uid},#{address},#{fullADD},#{geohash},geomfromtext('point(108.9477252960 34.2590342786)'))
+   </insert>
+
+
+
+    <sql id="columns">id,uid,address,fullADD,geohash</sql>
+
+    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.UserAddress" parameterType="int">
+        select <include refid="columns"/>
+        from useraddress  
+        where
+           id=#{id}
+       
+        
+    </select>
+    
+    <select id="selectByUid" resultType="org.cbb.wasteRecovery.bean.UserAddress" parameterType="int">
+        select <include refid="columns"/>
+        from useraddress  
+        where
+           uid=#{uid}
+       
+        
+    </select>
+    
+    <update id="updateAddress" >
+        <!-- 具体sql -->
+        update
+          useraddress
+        set
+          address = #{address}
+        where
+          id = #{id}
+      
+    </update>
+    
+
+    
+    <delete id="deleteAddress">
+       delete
+         from
+         useraddress
+       where
+           id=#{id}
+    
+    </delete>
 </mapper>

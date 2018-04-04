@@ -7,6 +7,11 @@ import org.cbb.wasteRecovery.bean.Employee;
  */
 public interface EmployeeDao {
     /**
+ * 插入员工
+ * @param employee 存有username,password,staid,adminid,createTime
+ */
+   void InsertEmployee(Employee employee);
+    /**
      * 根据用户名查找员工
      * @param username
      * @return 查找不到返回null
@@ -20,11 +25,7 @@ public interface EmployeeDao {
      */
     Employee selectByNameAndPass(Employee employee);
 
-    /**
-     * 插入员工
-     * @param employee 存有username,password,staid,adminid,createTime
-     */
-    void InsertEmployee(Employee employee);
+
 
     /**
      * 更改密码

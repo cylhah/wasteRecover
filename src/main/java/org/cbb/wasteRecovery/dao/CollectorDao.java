@@ -8,6 +8,12 @@ import java.util.List;
  * Created by Colossus on 2018/3/18.
  */
 public interface CollectorDao {
+
+    /**
+ * 插入回收员，需要电话号码、名字、密码、性别、照片、身份证号、身份证正反照、创建时间
+ * @param collector
+ */
+    void InsertCollector(Collector collector);
     /**
      * 按id搜索废品回收员
      * @param id
@@ -50,11 +56,7 @@ public interface CollectorDao {
      */
     List<Collector> selectByState(int state);
 
-    /**
-     * 插入回收员，需要电话号码、名字、密码、性别、照片、身份证号、身份证正反照、创建时间
-     * @param collector
-     */
-    void InsertCollector(Collector collector);
+
 
     /**
      * 根据collector中的id更改电话号码

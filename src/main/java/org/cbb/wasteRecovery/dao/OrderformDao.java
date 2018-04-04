@@ -10,6 +10,11 @@ import java.util.Map;
  */
 public interface OrderformDao {
     /**
+ * 插入订单,设置state为1
+ * @param orderform 存有weight,createTime,appointSTime,appointETime,scraptypelist
+ */
+  void insertOrderform(Orderform orderform);
+    /**
      * 根据id查询订单
      * @param id
      * @return
@@ -65,11 +70,7 @@ public interface OrderformDao {
      */
     List<Orderform> selectByTime(Orderform orderform);
 
-    /**
-     * 插入订单,设置state为1
-     * @param orderform 存有uid,weight,createTime,appointSTime,appointETime,scraptypelist
-     */
-    void insertOrderform(Orderform orderform);
+
 
     /**
      * 更改订单重量

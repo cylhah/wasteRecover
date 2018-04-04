@@ -12,9 +12,9 @@
 
 
 </resultMap>
-    <select id="selectByid" resultType="scraptype" parameterType="int">
+    <select id="selectByid" resultType="org.cbb.wasteRecovery.bean.Scraptype" parameterType="int">
         select id,typeName,avergePriceFU,avergePriceFC
-        from scrap
+        from scraptype
         where
            id=#{id}
        

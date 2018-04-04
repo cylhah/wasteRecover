@@ -8,6 +8,11 @@ import java.util.List;
  * Created by Colossus on 2018/3/20.
  */
 public interface UserAddressDao {
+    /**
+ * 插入地址
+ * @param userAddress 存有uid,address,position,fullAdd,geohash
+ */
+   void insertAddress(UserAddress userAddress);
 
     /**
      * 根据id搜索地址
@@ -28,11 +33,7 @@ public interface UserAddressDao {
      */
     void updateAddress(UserAddress userAddress);
 
-    /**
-     * 插入地址
-     * @param userAddress 存有uid,address,position,fullAdd,geohash
-     */
-    void insertAddress(UserAddress userAddress);
+
 
     /**
      * 根据id删除地址

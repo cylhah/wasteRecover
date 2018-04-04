@@ -13,8 +13,16 @@
 
 
 </resultMap>
-   <select id="selectByUsername" resultType="employee" parameterType="String">
-        select staid,adminid,username
+    <insert id="InsertEmployee">
+
+    insert  into employee(username,password,createTime,adminid,staid)
+    values (#{username},#{password},#{createTime},#{adminid},#{staid})
+   </insert>
+
+    <sql id="columns">staid,adminid,username,password</sql>
+
+   <select id="selectByUsername" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="String">
+        select <include refid="columns"/>
         from employee
         where
            username=#{username}
@@ -22,29 +30,25 @@
         
     </select>
 
-     <select id="selectByNameAndPass" resultType="employee" parameterType="org.cbb.wasteRecovery.bean.Employee">
-        select staid,adminid,username,password
+     <select id="selectByNameAndPass" resultType="org.cbb.wasteRecovery.bean.Employee" parameterType="org.cbb.wasteRecovery.bean.Employee">
+        select <include refid="columns"/>
         from employee
         where
-           username=#{employee.getUsername()}
-         and   password=#{employee.getPassword()} 
+           username=#{username}
+         and   password=#{password}
         
     </select>
     
-     <insert id="InsertEmployee">
-        
-        insert  into employee(staid,adminid,username,password,createTime)
-        values (#{employee.getStaid()},#{employee.getAdminid()},#{employee.getUsername()},#{employee.getPassword()},#{employee.getCreateTime()})
-    </insert>
+
     
-    <update id="updateCreditValue">
+    <update id="updatePassword">
        
         update
           employee
         set
-          password = #{employee.getPassword()}
+          password = #{password}
         where
-          id = #{employee.getId()}
+          id = #{id}
       
     </update>
 </mapper>

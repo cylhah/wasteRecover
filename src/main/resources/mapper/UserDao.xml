@@ -12,56 +12,66 @@
   <result property="email" column="email"/>
   <result property="bankAccount" column="bankAccount"/>
   <result property="avater" column="avater"/>
-
+     <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
-  <select id="selectById" resultType="User" parameterType="int">
-        select id,name,sex,password,phoneNumber,email,bankAccount,avater
-        from user  
+    <insert id="insertUser">
+
+    insert  into user(name,sex,password,phoneNumber,email,bankAccount,avater)
+    values (#{name},#{sex},#{password},#{phoneNumber},#{email},#{bankAccount},#{avater})
+   </insert>
+
+    <sql id="columns">u.id,u.name,u.sex,u.password,u.phoneNumber,u.email,u.bankAccount,u.avater,d.id,d.uid,d.address,d.fullADD,d.geohash</sql>
+
+
+  <select id="selectById" resultMap="User" parameterType="int">
+        select <include refid="columns"/>
+        from user  u
+        INNER JOIN useraddress d
+        on u.id=d.uid
         where
-           id=#{id}
+           u.id=#{id}
        
         
     </select>
     
-    <select id="selectByPhoneAndPass" resultType="User" parameterType="int">
-        select id,name,sex,password,phoneNumber,email,bankAccount,avater
-        from user
+    <select id="selectByPhoneNumber" resultMap="User" parameterType="String">
+        select <include refid="columns"/>
+        from user  u
+        INNER JOIN useraddress d
+        on u.id=d.uid
         where
-           phoneNumber=#{user.phoneNumber}
+           u.phoneNumber=#{phoneNumber}
        
         
     </select>
-    
-    <insert id="insertAdmin">
-        
-        insert  into user(name,sex,password,phoneNumber,email,bankAccount,avater)
-        values (#{user.getName()},#{user.getSex()},#{user.getPassword()},#{user.getPhoneNumber()},#{user.getEmail()},#{user.getBankAccount()},#{user.getAvater()})
-    </insert>
-    
-    <update id="updateAddress" >
-        <!-- 具体sql -->
-        update
-          user
-        set
-          address = #{userAddress.getAddress()}
+
+
+    <select id="selectByPhoneAndPass" resultMap="User" parameterType="org.cbb.wasteRecovery.bean.User">
+        select <include refid="columns"/>
+        from user  u
+        INNER JOIN useraddress d
+        on u.id=d.uid
         where
-          id = #{User.getId()}
-      
-    </update>
+        u.phoneNumber=#{phoneNumber}
+        and u.password=#{password}
+
+    </select>
+
+    
+
     
     <update id="updateData" >
-        <!-- 具体sql -->
+
         update
           user
         set
-          id = #{user.getId()}
-          sex=#{user.getSex()}
-          name=#{user.getName()}
-          email=#{user.getEmail()}
-          phoneNumber=#{user.getPhoneNumber()}
-          bankAccount=#{user.getBankAccount()}
+          sex=#{sex},
+          name=#{name},
+          email=#{email},
+          phoneNumber=#{phoneNumber},
+          bankAccount=#{bankAccount}
         where
-          id = #{User.getId()}
+          id = #{id}
       
     </update>
 </mapper>

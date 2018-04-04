@@ -9,37 +9,34 @@ import java.util.Map;
  */
 public interface UserDao {
     /**
+ * 插入用户
+ * @param user 存有phoneNumber,name,password
+ */
+  void insertUser(User user);
+    /**
      * 根据id查询用户
      * @param id
      * @return
      */
-    UserDao selectById(int id);
+    User selectById(int id);
 
     /**
      * 根据手机号码查询用户
      * @param phoneNumber
      * @return
      */
-    UserDao selectByPhoneNumber(String phoneNumber);
+    User selectByPhoneNumber(String phoneNumber);
 
     /**
      * 根据手机号码和密码查询用户
      * @param user 存有password与phoneNumber
      * @return
      */
-    UserDao selectByPhoneAndPass(User user);
+    User selectByPhoneAndPass(User user);
 
-    /**
-     * 插入用户
-     * @param user 存有phoneNumber,name,password
-     */
-    void insertUser(User user);
 
-    /**
-     * 更新地址
-     * @param map 存有id,UserAddress
-     */
-    void updateAddress(Map map);
+
+
 
     /**
      * 更改用户信息

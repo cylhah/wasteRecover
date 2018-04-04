@@ -16,102 +16,116 @@
   <result property="appointSTime" column="appointSTime"/>
   <result property="appointETime" column="appointETime"/>
   <result property="price" column="price"/>
-  <collection property="user" resultMap="org.cbb.wasteRecovery.bean.User.User"/>
+  <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User"/>
   <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect"/>
   <collection property="employee" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
-  <collection property="station" resultMap="org.cbb.wasteRecovery.bean.Station.tion"/>
+  <collection property="station" resultMap="org.cbb.wasteRecovery.dao.StationDao.tion"/>
   <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
+  <collection property="address" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
-     <select id="selectById" resultType="orderform" parameterType="long">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <insert id="insertOrderform">
+
+    insert  into orderform(state,weight,createTime,appointSTime,appointETime,price,aid,uid,cid,eid,staid)
+    values (#{state},#{weight},#{createTime},#{appointSTime},#{appointETime},#{price},#{aid},#{uid},#{cid},#{eid},#{staid})
+    </insert>
+
+
+    <sql id="columns">o.id,o.uid,o.cid,o.eid,o.aid,o.state,o.weight,o.createTime,o.appointSTime,o.appointETime,o.price,o.staid,e.id,e.staid,e.adminid,e.username,e.password,a.username,a.password,u.id,u.name,u.sex,u.password,u.phoneNumber,u.email,u.bankAccount,u.avater,d.id,d.uid,d.address,d.fullADD,d.geohash,c.name,c.sex, c.avater,c.email,c.phoneNumber,c.photo,c.creditValue,c.bankAccount,c.idCardNum,c.state,c.id,s.id,s.name,s.money,s.address,s.fullAdd,s.geohash,t.id,t.typeName,t.avergePriceFU,t.avergePriceFC</sql>
+
+     <select id="selectById" resultMap="order" parameterType="long">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           id=#{id}
+           o.id=#{id}
        
         
     </select>
     
-    <select id="selectByCId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByCId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           cid=#{cid}
+           o.cid=#{cid}
        
         
     </select>
     
-    <select id="selectByUId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByUId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           uid=#{uid}
+           o.uid=#{uid}
        
         
     </select>
     
-    <select id="selectByEId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByEId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           eid=#{eid}
+           o.eid=#{eid}
        
         
     </select>
     
-    <select id="selectByStaId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByStaId" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           staid=#{staid}
+           o.staid=#{staid}
        
         
     </select>
     
     
-    <select id="selectByState" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+    <select id="selectByState" resultMap="order" parameterType="int">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           state=#{state}
+           o.state=#{state}
        
         
     </select>
     
     <select id="selectByPosAndTime" resultMap="order" parameterType="Map">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-           state=#{orderform.state}
-        and appointSTime>=#{orderform.appointSTime}  
-       and appointETime<![CDATA[ <= ]]>#{orderform.appointETime}  
-       and geoHash like '%'#{collector.geoHash}'%'
+           o.state=#{state}
+        and o.appointSTime>=#{appointSTime}
+       and o.appointETime<![CDATA[ <= ]]>#{appointETime}
+       and o.geoHash like '%'#{geoHash}'%'
         
     </select>
     
-     <select id="selectByTime" resultType="orderform" parameterType="org.cbb.wasteRecovery.bean.Orderform">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
+     <select id="selectByTime" resultMap="order" parameterType="org.cbb.wasteRecovery.bean.Orderform">
+        select <include refid="columns"/>
+        from orderform o
+        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
         where
-          appointSTime=#{orderform.appointSTime}  
-       and appointETime=#{orderform.appointETime}  
+          o.appointSTime=#{appointSTime}
+       and o.appointETime=#{appointETime}
        
         
     </select>
     
-    <insert id="insertOrderform">
-        
-        insert  into orderform(uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid)
-        values (#{orderform.getUid()},#{orderform.getCid()},#{orderform.getEid()},#{orderform.getAid()},1,#{orderform.getWeight()},#{orderform.getCreateTime()},#{orderform.getAppointSTime()},#{orderform.getAppointETime()},#{orderform.getPrice()},#{orderform.getStaid()})
-    </insert>
+
     
      <update id="updateWeight">
        
         update
           orderform
         set
-          weight = #{orderform.getWeight()}
+          weight = #{weight}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     
@@ -120,9 +134,9 @@
         update
           orderform
         set
-          state = #{orderform.getState()}
+          state = #{state}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     
@@ -131,16 +145,16 @@
         update
           orderform
         set
-          uid= #{orderform.getUid()}
-          cid = #{orderform.getCid()}
-          eid = #{orderform.getEid()}
-          aid= #{orderform.getAid()}
-          staid= #{orderform.getStaid()}
-          price = #{orderform.getPrice()}
-          state = #{orderform.getState()}
-          weight = #{orderform.getWeight()}
+          uid= #{uid},
+          cid = #{cid},
+          eid = #{eid},
+          aid= #{aid},
+          staid= #{staid},
+          price = #{price},
+          state = #{state},
+          weight = #{weight}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     

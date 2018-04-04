@@ -26,6 +26,6 @@ public interface AdministratorDao {
      * 更改管理员密码
      * @param employee 存有id,password
      */
-    void updatePassword(Employee employee);
+    void updatePassword(Administrator administrator);
 
 }

@@ -2,6 +2,8 @@ package org.cbb.wasteRecovery.daoTest;
 
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -34,15 +36,30 @@ public class AdministratorDaoTest {
 	
 	@Test
 	public void selectAdmin() throws Exception{
-		
+		Administrator administrator=new Administrator();
+		administrator.setUsername("qwer");
+		administrator.setPassword("er");
+		List<Administrator> administrator1=administratorDao.selectAdmin(administrator);
+		for(Administrator administrator2:administrator1)
+		{
+			System.out.println(administrator2);
+		}
+
 	}
 	
 	
 	
 	@Test
 	public void updatePassword() throws Exception{
-		
+		Administrator administrator=new Administrator();
+		administrator.setUsername("qw");
+		administrator.setPassword("zx");;
+		administrator.setId(15);
+		administratorDao.updatePassword(administrator);
 	}
-	
+
+	public AdministratorDaoTest() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }
