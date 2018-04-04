@@ -1,8 +1,18 @@
-CREATE DATABASE replatform
+ÔªøCREATE DATABASE replatform
 
-CREATE TABLE `administrator` (
+CREATE TABLE `station` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `staid` int(10) unsigned DEFAULT NULL COMMENT 'π´Àæid',
+  `name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL COMMENT 'Âú∞ÂùÄ',
+  `detailed_address` varchar(255) DEFAULT NULL COMMENT 'ËØ¶ÁªÜÂú∞ÂùÄ',
+  `position` point NOT NULL,
+  PRIMARY KEY (`id`),
+  SPATIAL KEY `sta_pos` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `consultant` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `staid` int(10) unsigned DEFAULT NULL COMMENT 'ÂÖ¨Âè∏id',
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -12,138 +22,111 @@ CREATE TABLE `administrator` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `collector` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `realName` varchar(255) DEFAULT NULL COMMENT 'ÁúüÂÆûÂßìÂêç',
   `sex` char(255) DEFAULT NULL,
-  `avater` varchar(255) DEFAULT NULL COMMENT 'Õ∑œÒ',
-  `email` varchar(255) DEFAULT NULL COMMENT 'µÁ◊”” º˛',
-  `phoneNumber` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL COMMENT '±æ»À’’∆¨',
-  `idCardNum` varchar(255) DEFAULT NULL COMMENT '…Ì∑›÷§∫≈',
-  `idCardFrontPhoto` varchar(255) DEFAULT NULL COMMENT '…Ì∑›÷§’˝√Êµÿ÷∑',
-  `idCardBackPhoto` varchar(255) DEFAULT NULL COMMENT '…Ì∑›÷§±≥√Êµÿ÷∑',
-  `volume` int(10) unsigned DEFAULT NULL COMMENT '≥…Ωª¡ø',
-  `creditValue` double(10,2) unsigned DEFAULT NULL COMMENT '–≈”√÷µ',
-  `bankAccount` varchar(255) DEFAULT NULL COMMENT '“¯––’Àªß',
-  `state` tinyint(4) DEFAULT NULL COMMENT 'ªÿ ’‘±…Û∫À◊¥Ã¨',
+  `avater` varchar(255) DEFAULT NULL COMMENT 'Â§¥ÂÉè',
+  `phoneNumber` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL COMMENT 'Êú¨‰∫∫ÁÖßÁâá',
+  `idCardNum` varchar(255) DEFAULT NULL COMMENT 'Ë∫´‰ªΩËØÅÂè∑',
+  `idCardFrontPhoto` varchar(255) DEFAULT NULL COMMENT 'Ë∫´‰ªΩËØÅÊ≠£Èù¢Âú∞ÂùÄ',
+  `idCardBackPhoto` varchar(255) DEFAULT NULL COMMENT 'Ë∫´‰ªΩËØÅËÉåÈù¢Âú∞ÂùÄ',
+  `volume` int(10) unsigned DEFAULT NULL COMMENT 'Êàê‰∫§Èáè',
   `createTime` datetime DEFAULT NULL,
+  `staid` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `c_name` (`name`),
+  KEY `c_name` (`realName`),
   KEY `c_phoneNumber` (`phoneNumber`),
-  KEY `c_pass` (`password`),
   KEY `c_idCard` (`idCardNum`),
-  KEY `c_state` (`state`)
+  KEY `c_staid` (`staid`),
+  CONSTRAINT `c_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `employee` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `staid` int(10) unsigned DEFAULT NULL COMMENT 'π´Àæid',
-  `adminid` int(10) unsigned DEFAULT NULL COMMENT 'À˘ Ùπ‹¿Ì‘±id',
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `createTime` timestamp NULL DEFAULT NULL,
+CREATE TABLE `community` (
+  `id` int(11) unsigned NOT NULL,
+  `address` varchar(255) DEFAULT NULL COMMENT 'Â∞èÂå∫Âú∞ÂùÄ',
+  `cid` int(10) unsigned DEFAULT NULL COMMENT 'ÂõûÊî∂Âëòid',
+  `name` varchar(255) DEFAULT NULL COMMENT 'Â∞èÂå∫Âêç',
   PRIMARY KEY (`id`),
-  KEY `e_adminid` (`adminid`),
-  KEY `e_staid` (`staid`) USING BTREE,
-  CONSTRAINT `e_adminid` FOREIGN KEY (`adminid`) REFERENCES `administrator` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `e_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `comm_cid` (`cid`),
+  CONSTRAINT `comm_cid` FOREIGN KEY (`cid`) REFERENCES `collector` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `openid` varchar(255) NOT NULL,
+  `avater` varchar(255) DEFAULT NULL COMMENT 'Â§¥ÂÉèÂú∞ÂùÄ',
+  PRIMARY KEY (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `bankaccont` (
+  `id` bigint(20) unsigned NOT NULL,
+  `uid` varchar(255) DEFAULT NULL,
+  `account` varchar(255) DEFAULT NULL COMMENT 'Èì∂Ë°åÂç°Âè∑',
+  `bank_code` int(255) unsigned DEFAULT NULL COMMENT 'Èì∂Ë°åid',
+  `username` varchar(255) DEFAULT NULL COMMENT 'Èì∂Ë°åÂç°Áî®Êà∑Âêç',
+  PRIMARY KEY (`id`),
+  KEY `ba_uid` (`uid`),
+  CONSTRAINT `ba_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `useraddress` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL COMMENT 'ÈôÑËøëÂùêÊ†á',
+  `position` point NOT NULL COMMENT 'ÂùêÊ†á',
+  `detail` varchar(255) DEFAULT NULL COMMENT 'ËØ¶ÁªÜÂú∞ÂùÄ',
+  `geohash` varchar(12) DEFAULT NULL,
+  `phoneNumber` varchar(255) DEFAULT NULL COMMENT 'Êî∂Ë¥ß‰∫∫ÊâãÊú∫Âè∑',
+  `name` varchar(255) DEFAULT NULL COMMENT 'Êî∂Ë¥ß‰∫∫ÂßìÂêç',
+  `community_id` int(11) unsigned DEFAULT NULL COMMENT 'ÂΩíÂ±ûÂ∞èÂå∫',
+  PRIMARY KEY (`id`),
+  KEY `ua_geohash` (`geohash`),
+  SPATIAL KEY `ua_pos` (`position`),
+  KEY `ua_commid` (`community_id`),
+  KEY `ua_uid` (`uid`),
+  CONSTRAINT `ua_commid` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ua_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `orderform` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(10) unsigned NOT NULL COMMENT '”√ªßid',
-  `cid` int(10) unsigned DEFAULT NULL COMMENT '∑œ∆∑ªÿ ’‘±id',
-  `eid` int(10) unsigned DEFAULT NULL COMMENT '‘±π§id',
-  `aid` int(10) unsigned NOT NULL COMMENT 'µÿ÷∑id',
-  `staid` int(10) unsigned DEFAULT NULL COMMENT 'ªÿ ’’æid',
+  `uid` varchar(255) NOT NULL COMMENT 'Áî®Êà∑id',
+  `cid` int(10) unsigned DEFAULT NULL COMMENT 'ÂÆåÊàêËØ•ËÆ¢ÂçïÁöÑÂõûÊî∂Âëòid',
+  `aid` bigint(10) unsigned NOT NULL COMMENT 'Âú∞ÂùÄid',
   `state` tinyint(4) DEFAULT NULL,
-  `weight` double DEFAULT NULL,
+  `weight` double DEFAULT NULL COMMENT 'ÊÄªÈáçÈáè',
   `createTime` timestamp NULL DEFAULT NULL,
-  `appointSTime` timestamp NULL DEFAULT NULL COMMENT '‘§‘ºø™ º ±º‰',
-  `appointETime` timestamp NULL DEFAULT NULL COMMENT '‘§‘ºΩ· ¯ ±º‰',
-  `updateTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '∏¸–¬ ±º‰',
+  `appointTime` timestamp NULL DEFAULT NULL COMMENT 'È¢ÑÁ∫¶ÂºÄÂßãÊó∂Èó¥',
+  `updateTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'Êõ¥Êñ∞Êó∂Èó¥',
   `price` double(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `o_state` (`state`),
   KEY `o_uid` (`uid`),
   KEY `o_cid` (`cid`),
-  KEY `o_eid` (`eid`),
-  KEY `o_aid` (`aid`),
-  KEY `o_state` (`state`),
-  KEY `o_appointTime` (`appointSTime`,`appointETime`),
-  KEY `o_staid` (`staid`),
-  CONSTRAINT `o_aid` FOREIGN KEY (`aid`) REFERENCES `useraddress` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `o_cid` FOREIGN KEY (`cid`) REFERENCES `collector` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `o_eid` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
-  CONSTRAINT `o_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`),
-  CONSTRAINT `o_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `ot-relation` (
-  `oid` bigint(20) unsigned NOT NULL,
-  `tid` int(10) unsigned NOT NULL,
-  KEY `otr_oid` (`oid`),
-  KEY `otr_tid` (`tid`),
-  CONSTRAINT `otr_oid` FOREIGN KEY (`oid`) REFERENCES `orderform` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `otr_tid` FOREIGN KEY (`tid`) REFERENCES `scraptype` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `o_cid` FOREIGN KEY (`cid`) REFERENCES `collector` (`id`),
+  CONSTRAINT `o_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `scrap` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tid` int(10) unsigned NOT NULL COMMENT '÷÷¿‡id',
+  `typename` varchar(255) NOT NULL COMMENT 'ÁßçÁ±ªid',
   `name` varchar(255) NOT NULL,
-  `unitPriceFU` double(10,2) unsigned DEFAULT NULL COMMENT '∂‘”⁄”√ªßµƒµ•º€',
-  `unitPriceFC` double(10,2) unsigned DEFAULT NULL COMMENT '∂‘”⁄ªÿ ’’ﬂµƒµ•º€',
-  `monthVolume` double DEFAULT NULL,
-  `totalVolume` double DEFAULT NULL,
+  `unitPrice` double(10,2) unsigned DEFAULT NULL COMMENT 'ÂØπ‰∫éÁî®Êà∑ÁöÑÂçï‰ª∑',
+  `monthVolume` double DEFAULT NULL COMMENT 'ÂΩìÊúàÊàê‰∫§Èáè',
+  `totalVolume` double DEFAULT NULL COMMENT 'ÊÄªÊàê‰∫§Èáè',
   PRIMARY KEY (`id`),
-  KEY `s_tid` (`tid`),
-  CONSTRAINT `s_tid` FOREIGN KEY (`tid`) REFERENCES `scraptype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `s_typeName` (`typename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `scraptype` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `typeName` varchar(255) NOT NULL,
-  `avergePriceFU` double(10,2) unsigned DEFAULT NULL,
-  `avergePriceFC` double(10,2) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `scrapmessage` (
+  `oid` bigint(20) unsigned DEFAULT NULL COMMENT 'ËÆ¢Âçïid',
+  `scrapid` int(10) unsigned DEFAULT NULL COMMENT 'Â∫üÂìÅid',
+  `weight` double unsigned DEFAULT NULL COMMENT 'Â∫üÂìÅÈáçÈáè',
+  `price` double unsigned DEFAULT NULL COMMENT 'Â∫üÂìÅ‰ª∑Ê†º',
+  KEY `sm_oid` (`oid`),
+  KEY `sm_scrapid` (`scrapid`),
+  CONSTRAINT `sm_oid` FOREIGN KEY (`oid`) REFERENCES `orderform` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sm_scrapid` FOREIGN KEY (`scrapid`) REFERENCES `scrap` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `station` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `money` double(10,2) DEFAULT NULL COMMENT '’Àªß”‡∂Ó',
-  `address` varchar(255) DEFAULT NULL COMMENT '∏ΩΩ¸µÿ÷∑',
-  `fullAdd` varchar(255) DEFAULT NULL COMMENT 'œÍœ∏µÿ÷∑',
-  `geohash` varchar(12) DEFAULT NULL,
-  `position` geometry NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sta_geohash` (`geohash`),
-  SPATIAL KEY `sta_pos` (`position`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `sex` char(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `phoneNumber` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `bankAccount` varchar(255) DEFAULT NULL,
-  `avater` varchar(255) DEFAULT NULL COMMENT 'Õ∑œÒµÿ÷∑',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `useraddress` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(10) unsigned DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL COMMENT '∏ΩΩ¸◊¯±Í',
-  `position` geometry NOT NULL COMMENT '◊¯±Í',
-  `fullAdd` varchar(255) DEFAULT NULL COMMENT 'œÍœ∏µÿ÷∑',
-  `geohash` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ua_uid` (`uid`),
-  KEY `ua_geohash` (`geohash`),
-  SPATIAL KEY `ua_pos` (`position`),
-  CONSTRAINT `ua_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
