@@ -23,7 +23,8 @@ public class Collector {
     private int statid;
 
     private Station station;
-    private List<Orderform> orderformList;//小区内未完成订单
+    private List<Orderform> unDidOrderformList;//负责小区内未完成订单
+    private List<Orderform> DidOrderformList;//已完成订单
     private List<Community> communityList;//负责小区
 
     public int getId() {
@@ -146,12 +147,12 @@ public class Collector {
         this.station = station;
     }
 
-    public List<Orderform> getOrderformList() {
-        return orderformList;
+    public List<Orderform> getUnDidOrderformList() {
+        return unDidOrderformList;
     }
 
-    public void setOrderformList(List<Orderform> orderformList) {
-        this.orderformList = orderformList;
+    public void setUnDidOrderformList(List<Orderform> unDidOrderformList) {
+        this.unDidOrderformList = unDidOrderformList;
     }
 
     public List<Community> getCommunityList() {
@@ -160,6 +161,14 @@ public class Collector {
 
     public void setCommunityList(List<Community> communityList) {
         this.communityList = communityList;
+    }
+
+    public List<Orderform> getDidOrderformList() {
+        return DidOrderformList;
+    }
+
+    public void setDidOrderformList(List<Orderform> didOrderformList) {
+        DidOrderformList = didOrderformList;
     }
 }
 

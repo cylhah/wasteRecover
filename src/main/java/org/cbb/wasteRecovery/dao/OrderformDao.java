@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.cbb.wasteRecovery.bean.Collector;
 import org.cbb.wasteRecovery.bean.Orderform;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
 public interface OrderformDao {
     /**
  * 插入订单,设置state为1
- * @param orderform 存有weight,createTime,appointSTime,appointETime,scraptypelist
+ * @param orderform 存有weight,createTime,appointTime,aid,uid
  */
   void insertOrderform(Orderform orderform);
     /**
@@ -22,32 +23,19 @@ public interface OrderformDao {
     Orderform selectById(long id);
 
     /**
-     * 根据回收人员id查询订单
-     * @param cid
+     * 根据回收人员id和订单状态查询订单
+     * @param orderform cid,state
      * @return
      */
-    List<Orderform> selectByCId(int cid);
+    List<Orderform> selectByCId(Orderform orderform);
 
     /**
-     *  根据用户id查询订单
-     * @param uid
+     *  根据用户id和订单状态查询订单
+     * @param orderform 存有uid,state
      * @return
      */
-    List<Orderform> selectByUId(int uid);
+    List<Orderform> selectByUId(Orderform orderform);
 
-    /**
-     * 根据员工id查询订单
-     * @param eid
-     * @return
-     */
-    List<Orderform> selectByEId(int eid);
-
-    /**
-     * 根据回收站id查询订单
-     * @param staid
-     * @return
-     */
-    List<Orderform> selectByStaId(int staid);
 
     /**
      * 根据订单状态查询订单
@@ -56,39 +44,17 @@ public interface OrderformDao {
      */
     List<Orderform> selectByState(int state);
 
-    /**
-     *  根据位置、订单状态、预约时间查找订单
-     * @param map 存有appointSTime,appointETime,position,state
-     * @return
-     */
-    List<Orderform> selectByPosAndTime(Map map);
+  /**
+   * 更改订单信息
+   * @param orderform 存有id,aid,appointTime
+   */
+  void updateOrderform(Orderform orderform);
 
     /**
-     * 根据预约时间查询订单
-     * @param orderform 存有appointSTime,appointETime
-     * @return
+     * 提交订单资料，需要判断属性非空
+     * @param orderform 存有id,cid,weight,price,state
      */
-    List<Orderform> selectByTime(Orderform orderform);
-
-
-
-    /**
-     * 更改订单重量
-     * @param orderform 存有id,weight
-     */
-    void updateWeight(Orderform orderform);
-
-    /**
-     * 更改订单状态
-     * @param orderform 存有id,state
-     */
-    void updateState(Orderform orderform);
-
-    /**
-     * 更改订单资料，需要判断属性非空
-     * @param orderform 存有cid,eid,staid,weight,price,state
-     */
-    void updateData(Orderform orderform);//作了更改
+    void submitData(Orderform orderform);
 
     /**
      * 根据id删除订单

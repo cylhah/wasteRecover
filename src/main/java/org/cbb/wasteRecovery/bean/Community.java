@@ -1,10 +1,13 @@
 package org.cbb.wasteRecovery.bean;
 
+
 public class Community {
     private int id;
     private String address;//地址信息
     private int cid; //回收员id
     private String name; //小区名
+
+    private Collector collector;
 
     public int getId() {
         return id;

@@ -10,10 +10,10 @@ import java.util.List;
 public interface CollectorDao {
 
     /**
- * 插入回收员，需要realName,sex,phoneNumber,password,photo,idCardNum,
+     * 插入回收员，存有realName,sex,phoneNumber,password,photo,idCardNum,
      * idCardFrontPhoto,idCardBackPhoto,createTime,staid,state
- * @param collector
- */
+     * @param collector
+    */
     void InsertCollector(Collector collector);
 
     /**
