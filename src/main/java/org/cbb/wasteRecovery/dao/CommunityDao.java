@@ -21,7 +21,7 @@ public interface CommunityDao {
      * 更改受管理回收员
      * @param community 存有id,cid
      */
-    void updateCollector(Community community);
+    void updateCollectorOfComm(Community community);
 
     /**
      * 更改小区名

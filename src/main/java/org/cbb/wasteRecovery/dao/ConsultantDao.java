@@ -21,7 +21,13 @@ public interface ConsultantDao {
      * 更改staid
      * @param consultant 存有id,staid
      */
-    void updateStaid(Consultant consultant);
+    void updateStaId(Consultant consultant);
+
+    /**
+     * 更改密码
+     * @param consultant 存有id,password
+     */
+    void updatePassword(Consultant consultant);
 
     /**
      * 根据用户名查询咨询员，查不到返回null
@@ -42,5 +48,5 @@ public interface ConsultantDao {
      * @param staid
      * @return
      */
-    List<Consultant> selectByStaid(int staid);
+    List<Consultant> selectByStaId(int staid);
 }

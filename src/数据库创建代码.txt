@@ -65,7 +65,7 @@ CREATE TABLE `user` (
 
 
 
-CREATE TABLE `bankaccont` (
+CREATE TABLE `bankaccount` (
   `id` bigint(20) unsigned NOT NULL,
   `uid` varchar(255) DEFAULT NULL,
   `account` varchar(255) DEFAULT NULL COMMENT '银行卡号',

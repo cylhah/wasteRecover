@@ -9,7 +9,7 @@ import java.util.List;
 public class Orderform {
     private long id;
     private String uid;//用户id
-    private int cid;//回收人员id
+    private int cid;//完成该订单的回收人员id
     private int aid;//地址id
     private int state;//订单状态
     private double weight;//废品总重量
@@ -21,6 +21,7 @@ public class Orderform {
     private User user;
     private Collector collector;
     private UserAddress address;
+    private List<ScrapMessage> scrapMessageList;
 
     public long getId() {
         return id;
@@ -124,5 +125,13 @@ public class Orderform {
 
     public void setAddress(UserAddress address) {
         this.address = address;
+    }
+
+    public List<ScrapMessage> getScrapMessageList() {
+        return scrapMessageList;
+    }
+
+    public void setScrapMessageList(List<ScrapMessage> scrapMessageList) {
+        this.scrapMessageList = scrapMessageList;
     }
 }
