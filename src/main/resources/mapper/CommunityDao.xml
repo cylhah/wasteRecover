@@ -21,7 +21,7 @@
 
     </delete>
 
-    <update id="updateCollector">
+    <update id="updateCollectorOfComm">
 
         update
         community
@@ -34,13 +34,13 @@
     </update>
 
 
-    <update id="updateName">
+    <update id="updateData">
 
         update
         community
         set
-
-        name = #{name}
+        address=#{address}
+        and name = #{name}
         where
         id = #{id}
 

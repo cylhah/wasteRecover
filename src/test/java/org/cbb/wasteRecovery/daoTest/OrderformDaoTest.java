@@ -44,42 +44,25 @@ public class OrderformDaoTest {
     @Test
     public void selectByCId() throws Exception{
 
-        List<Orderform> orderform=orderformDao.selectByCId(1);
-        for(Orderform orderform1:orderform)
-        {
-            System.out.println(orderform1);
-        }
 
     }
 
     @Test
     public void selectByUId() throws Exception{
 
-        List<Orderform> orderform=orderformDao.selectByUId(1);
-        for(Orderform orderform1:orderform)
-        {
-            System.out.println(orderform1);
-        }
+
     }
 
     @Test
     public void selectByEId() throws Exception{
 
-        List<Orderform> orderform=orderformDao.selectByEId(6);
-        for(Orderform orderform1:orderform)
-        {
-            System.out.println(orderform1);
-        }
+
     }
 
     @Test
     public void selectByStaId() throws Exception{
 
-        List<Orderform> orderform=orderformDao.selectByStaId(1);
-        for(Orderform orderform1:orderform)
-        {
-            System.out.println(orderform1);
-        }
+
     }
 
     @Test
@@ -102,11 +85,7 @@ public class OrderformDaoTest {
         Orderform orderform1=new Orderform();
         Timestamp ts=new Timestamp(2018-03-23);
 
-        List<Orderform> orderform=orderformDao.selectByTime(orderform1);
-        for(Orderform orderform2:orderform)
-        {
-            System.out.println(orderform2);
-        }
+
     }
 
     @Test
@@ -115,7 +94,7 @@ public class OrderformDaoTest {
         Orderform orderform1=new Orderform();
         orderform1.setWeight(6.23);
         orderform1.setId(5);
-        orderformDao.updateWeight(orderform1);
+
     }
 
     @Test
@@ -124,7 +103,7 @@ public class OrderformDaoTest {
         Orderform orderform1=new Orderform();
         orderform1.setState(2);
         orderform1.setId(5);
-        orderformDao.updateState(orderform1);
+
     }
 
     @Test
@@ -137,7 +116,7 @@ public class OrderformDaoTest {
 
 
         orderform.setWeight(61.23);
-        orderformDao.updateWeight(orderform);
+
     }
 
     @Test

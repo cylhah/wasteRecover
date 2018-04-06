@@ -21,11 +21,8 @@ public class ScrapDaoTest {
     @Test
     public void selectByTid() throws Exception{
 
-        List<Scrap> scrap=scrapDao.selectByTid(1);
-        for(Scrap scrap1:scrap)
-        {
-            System.out.println(scrap1);
-        }
+
+
 
     }
 }

@@ -7,7 +7,7 @@
 
     <insert id="insertBankAccount">
 
-        insert  into bankaccont(id,account,bank_code,username)
+        insert  into bankaccount(id,account,bank_code,username)
         values (#{id},#{account},#{bank_code},#{username})
     </insert>
 
@@ -15,7 +15,7 @@
     <delete id="deleteBankAccount">
         delete
         from
-       bankaccont
+       bankaccount
         where
         id=#{id}
 

@@ -1,8 +1,10 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.cbb.wasteRecovery.bean.ScrapMessage;
+
 import java.util.List;
 
-public interface ScrapMessage {
+public interface ScrapMessageDao {
     /**
      * 插入废品信息
      * @param scrapMessage 存有oid,scrapid,weight,price

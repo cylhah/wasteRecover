@@ -42,21 +42,21 @@ public class CommunityDaoTest {
 
 
     @Test
-    public void updateCollector() throws Exception{
+    public void updateCollectorOfComm() throws Exception{
         Community community=new Community();
         community.setId(2);
 
         community.setCid(2);
-        communityDao.updateCollector(community);
+        communityDao.updateCollectorOfComm(community);
     }
 
     @Test
-    public void updateName() throws Exception{
+    public void updateData() throws Exception{
         Community community=new Community();
         community.setId(2);
 
         community.setName("ciov");
-        communityDao.updateCollector(community);
+        communityDao.updateData(community);
     }
 
 

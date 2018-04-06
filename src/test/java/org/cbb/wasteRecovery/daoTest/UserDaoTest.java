@@ -30,23 +30,20 @@ public class UserDaoTest {
     @Test
     public void selectById() throws Exception{
 
-        User user= userDao.selectById(1);
-        System.out.println( user);
+
     }
 
     @Test
     public void selectByPhoneNumber() throws Exception{
 
-        User user= userDao.selectByPhoneNumber("13957863999");
-        System.out.println(user);
+
     }
 
     @Test
     public void selectByPhoneAndPass() throws Exception{
         User user=new User();
 
-        User user1=userDao.selectByPhoneAndPass(user);
-        System.out.println(user1);
+
     }
 
 

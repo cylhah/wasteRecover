@@ -59,6 +59,6 @@ public class StationDaoTest {
         Station station=new Station();
 
         station.setId(1);
-        stationDao.updateMoney(station);
+
     }
 }
