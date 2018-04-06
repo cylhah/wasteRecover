@@ -1,5 +1,7 @@
 package org.cbb.wasteRecovery.bean;
 
+import java.util.List;
+
 /**
  * Created by Colossus on 2018/3/17.
  */
@@ -13,6 +15,9 @@ public class Station {
     private double locationX;
     //纬度
     private double locationY;
+
+    private List<Collector> collectorList;
+    private List<Consultant> consultantList;
 
     public int getId() {
         return id;
@@ -60,5 +65,21 @@ public class Station {
 
     public void setLocationY(double locationY) {
         this.locationY = locationY;
+    }
+
+    public List<Collector> getCollectorList() {
+        return collectorList;
+    }
+
+    public void setCollectorList(List<Collector> collectorList) {
+        this.collectorList = collectorList;
+    }
+
+    public List<Consultant> getConsultantList() {
+        return consultantList;
+    }
+
+    public void setConsultantList(List<Consultant> consultantList) {
+        this.consultantList = consultantList;
     }
 }

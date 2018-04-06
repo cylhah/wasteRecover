@@ -2,6 +2,7 @@ package org.cbb.wasteRecovery.dao;
 
 import org.cbb.wasteRecovery.bean.Collector;
 import org.cbb.wasteRecovery.bean.Orderform;
+import org.cbb.wasteRecovery.entity.PositionMessage;
 
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,13 @@ public interface OrderformDao {
      * @return
      */
     List<Orderform> selectByState(int state);
+
+  /**
+   *  根据位置信息查询订单
+   * @param positionMessage 存有locationX,locationY,geohash
+   * @return
+   */
+  List<Orderform> selectByPositon(PositionMessage positionMessage);
 
   /**
    * 更改订单信息

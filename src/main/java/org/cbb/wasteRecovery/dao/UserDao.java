@@ -9,38 +9,32 @@ import java.util.Map;
  */
 public interface UserDao {
     /**
- * 插入用户
- * @param user 存有phoneNumber,name,password
- */
-  void insertUser(User user);
+     * 插入用户
+     * @param user 存有openId,state
+     */
+    void insertUser(User user);
     /**
      * 根据id查询用户
-     * @param id
+     * @param openid
      * @return
      */
-    User selectById(int id);
+    User selectById(String openid);
 
     /**
-     * 根据手机号码查询用户
-     * @param phoneNumber
-     * @return
-     */
-    User selectByPhoneNumber(String phoneNumber);
-
-    /**
-     * 根据手机号码和密码查询用户
-     * @param user 存有password与phoneNumber
-     * @return
-     */
-    User selectByPhoneAndPass(User user);
-
-
-
-
+     * 根据openid禁止非法用户，使state变为0
+     * @param openid
+    */
+    void banUser(String openid);
 
     /**
      * 更改用户信息
-     * @param user 存有id,name,sex,email,bankAccount,avater
+     * @param user 存有id,avater
      */
     void updateData(User user);
+
+  /**
+   * 根据openid删除用户
+   * @param openid
+   */
+  void deleteUser(String openid);
 }

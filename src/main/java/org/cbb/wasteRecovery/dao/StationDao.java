@@ -16,15 +16,9 @@ public interface StationDao {
      */
     Station selectById(int id);
 
-    /**
-     * 根据位置信息查询回收站
-     * @param map 存有回收人员的位置信息 ?详细暂定
-     * @return
-     */
-    List<Station> selectByPos(Map map);
 
     /**
-     * 根据地址查询回收站
+     * 根据地址模糊查询回收站
      * @param address
      * @return
      */
@@ -37,11 +31,22 @@ public interface StationDao {
      */
     List<Station> selectByName(String name);
 
+
     /**
-     * 更改回收站资金
-     * @param station
+     * 插入回收站
+     * @param station 存有name,address,detailed_address,locationX,locationY
      */
-    void updateMoney(Station station);
+    void insertStaion(Station station);
 
+    /**
+     * 根据id删除回收站
+     * @param id
+     */
+    void deleteStation(int id);
 
+    /**
+     * 更改回收站资料
+     * @param station 存有 name,address,detailed_address,locationX,locationY
+     */
+    void updateData(Station station);
 }

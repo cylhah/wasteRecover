@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserAddressDao {
     /**
  * 插入地址
- * @param userAddress 存有uid,address,position,fullAdd,geohash
+ * @param userAddress 存有uid,address,locationX,locationY,detail,geohash
  */
    void insertAddress(UserAddress userAddress);
 
@@ -29,7 +29,7 @@ public interface UserAddressDao {
 
     /**
      * 更新地址
-     * @param userAddress 存有id,uid,address,position,fullAdd,geohash
+     * @param userAddress 存有id,uid,address,locationX,locationY,fullAdd,geohash
      */
     void updateAddress(UserAddress userAddress);
 

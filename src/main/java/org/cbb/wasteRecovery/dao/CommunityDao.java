@@ -24,10 +24,10 @@ public interface CommunityDao {
     void updateCollectorOfComm(Community community);
 
     /**
-     * 更改小区名
-     * @param community
+     * 更改小区资料
+     * @param community 存有name,address
      */
-    void updateName(Community community);
+    void updateData(Community community);
 
     /**
      * 根据回收人员id搜索小区
