@@ -130,6 +130,7 @@ CREATE TABLE `scrapmessage` (
   `scrapid` int(10) unsigned DEFAULT NULL COMMENT '废品id',
   `weight` double unsigned DEFAULT NULL COMMENT '废品重量',
   `price` double unsigned DEFAULT NULL COMMENT '废品价格',
+  primary key (oid, scrapid),
   KEY `sm_oid` (`oid`),
   KEY `sm_scrapid` (`scrapid`),
   CONSTRAINT `sm_oid` FOREIGN KEY (`oid`) REFERENCES `orderform` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

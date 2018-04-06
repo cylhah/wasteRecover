@@ -7,27 +7,35 @@ import java.util.List;
 public interface ConsultantDao {
     /**
      * 插入咨询员，存有staid,username,password
-     * @param consultant
+     * @param staid
+     * @param username
+     * @param password
+     * @return 返回插入的数量
      */
-    void insertConsultant(Consultant consultant);
+    int insertConsultant(int staid,int username,int password);
 
     /**
      * 根据id删除咨询员
      * @param id
+     * @return 返回删除的数量
      */
-    void deleteConsultant(int id);
+    int deleteConsultant(int id);
 
     /**
      * 更改staid
-     * @param consultant 存有id,staid
+     * @param id
+     * @param staid
+     * @return 返回更新的数量
      */
-    void updateStaId(Consultant consultant);
+    int updateStaId(int id,int staid);
 
     /**
      * 更改密码
-     * @param consultant 存有id,password
+     * @param id
+     * @param password
+     * @return 返回更新的数量
      */
-    void updatePassword(Consultant consultant);
+    int updatePassword(int id ,String password);
 
     /**
      * 根据用户名查询咨询员，查不到返回null
@@ -38,15 +46,16 @@ public interface ConsultantDao {
 
     /**
      * 根据用户名和密码查询咨询员
-     * @param consultant
+     * @param username
+     * @param password
      * @return
      */
-    Consultant selectByUsernameAndPass(Consultant consultant);
+    Consultant selectByUsernameAndPass(String username,String password);
 
     /**
      * 根据staionid查询咨询员
      * @param staid
      * @return
      */
-    List<Consultant> selectByStaId(int staid);
+    List<Consultant> selectByStaId(int staid,int offset);
 }

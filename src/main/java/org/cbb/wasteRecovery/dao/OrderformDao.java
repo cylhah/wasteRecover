@@ -1,21 +1,25 @@
 package org.cbb.wasteRecovery.dao;
 
-import org.cbb.wasteRecovery.bean.Collector;
 import org.cbb.wasteRecovery.bean.Orderform;
-import org.cbb.wasteRecovery.entity.PositionMessage;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Colossus on 2018/3/18.
  */
 public interface OrderformDao {
     /**
- * 插入订单,设置state为1
- * @param orderform 存有weight,createTime,appointTime,aid,uid
- */
-  void insertOrderform(Orderform orderform);
+     * 插入订单,设置state为1
+     * @param createTime 预约时间
+     * @param appointTime 用户时间
+     * @param aid
+     * @param uid
+     * @param state
+     * @return 返回插入的数量
+     */
+    int insertOrderform(Timestamp createTime,Timestamp appointTime,
+                        int aid,String uid,int state);
     /**
      * 根据id查询订单
      * @param id
@@ -25,48 +29,68 @@ public interface OrderformDao {
 
     /**
      * 根据回收人员id和订单状态查询订单
-     * @param orderform cid,state
+     * @param cid
+     * @param state
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<Orderform> selectByCId(Orderform orderform);
+    List<Orderform> selectByCId(int cid,int state,int offset,int limit);
 
     /**
      *  根据用户id和订单状态查询订单
-     * @param orderform 存有uid,state
+     * @param uid
+     * @param state
+     * @param offset 偏移量
+     * @param limit 限制数量
      * @return
      */
-    List<Orderform> selectByUId(Orderform orderform);
+    List<Orderform> selectByUId(String uid,int state,int offset,int limit);
 
 
     /**
      * 根据订单状态查询订单
      * @param state
+     * @param offset 偏移量
+     * @param limit 限制数量
      * @return
      */
-    List<Orderform> selectByState(int state);
+    List<Orderform> selectByState(int state,int offset,int limit);
 
   /**
    *  根据位置信息查询订单
-   * @param positionMessage 存有locationX,locationY,geohash
+   * @param locationX 经度
+   * @param locationY 纬度
+   * @param geohash 用于附近距离查找的hash码
+   * @param distance 限制距离
+   * @param offset 偏移量
+   * @param limit 限制数量
    * @return
    */
-  List<Orderform> selectByPositon(PositionMessage positionMessage);
+  List<Orderform> selectByPositon(double locationX,double locationY,
+                                  String geohash,double distance,
+                                  int offset,int limit);
 
   /**
    * 更改订单信息
-   * @param orderform 存有id,aid,appointTime
+   * @param id
+   * @param aid
+   * @param appointTime
+   * @return 返回更新数量
    */
-  void updateOrderform(Orderform orderform);
+  int updateOrderform(long id, int aid, Timestamp appointTime);
 
     /**
      * 提交订单资料，需要判断属性非空
      * @param orderform 存有id,cid,weight,price,state
+     * @return 返回更新数量
      */
-    void submitData(Orderform orderform);
+    int submitData(Orderform orderform);
 
     /**
      * 根据id删除订单
      * @param id
+     * @return 返回删除的数量
      */
-    void deleteOrderform(long id);
+    int deleteOrderform(long id);
 }

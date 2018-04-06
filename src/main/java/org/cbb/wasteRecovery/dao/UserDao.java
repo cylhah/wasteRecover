@@ -11,8 +11,9 @@ public interface UserDao {
     /**
      * 插入用户
      * @param user 存有openId,state
+     * @return 返回插入的数量
      */
-    void insertUser(User user);
+    int insertUser(User user);
     /**
      * 根据id查询用户
      * @param openid
@@ -23,18 +24,21 @@ public interface UserDao {
     /**
      * 根据openid禁止非法用户，使state变为0
      * @param openid
+     * @return 返回更新的数量
     */
-    void banUser(String openid);
+    int banUser(String openid);
 
     /**
      * 更改用户信息
      * @param user 存有id,avater
+     * @return 返回更新的数量
      */
-    void updateData(User user);
+    int updateData(User user);
 
   /**
    * 根据openid删除用户
    * @param openid
+   * @return 返回删除的数量
    */
-  void deleteUser(String openid);
+  int deleteUser(String openid);
 }

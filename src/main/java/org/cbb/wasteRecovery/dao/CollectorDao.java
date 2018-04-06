@@ -13,8 +13,9 @@ public interface CollectorDao {
      * 插入回收员，存有realName,sex,phoneNumber,password,photo,idCardNum,
      * idCardFrontPhoto,idCardBackPhoto,createTime,staid,state
      * @param collector
+     * @return 返回插入的数量
     */
-    void InsertCollector(Collector collector);
+    int insertCollector(Collector collector);
 
     /**
      * 按id搜索废品回收员
@@ -31,11 +32,12 @@ public interface CollectorDao {
     Collector selectByPhoneNum(String phoneNumber);
 
     /**
-     * 按电话号码和密码查找回收员
-     * @param collector
+     * 根据手机号和密码查询回收员
+     * @param phoneNumber
+     * @param password
      * @return
      */
-    Collector selectByPhoneNumAndPass(Collector collector);
+    Collector selectByPhoneNumAndPass(String phoneNumber,String password);
 
     /**
      * 按身份证号查找回收员
@@ -47,44 +49,55 @@ public interface CollectorDao {
     /**
      * 按名字搜索废品回收员
      * @param name
+     * @param offset 偏移量
+     * @param limit 限制数量
      * @return Collector列表，找不到list.size()=0
      */
-    List<Collector> selectByName(String name);
+    List<Collector> selectByName(String name,int offset,int limit);
 
     /**
-     * 根据collector中的id更改电话号码
-     * @param collector 存有id与电话号码
+     * 更改电话号码
+     * @param id
+     * @param phoneNumber
+     * @return 返回更新记录的数量
      */
-    void updatePhoneNum(Collector collector);
+    int updatePhoneNum(int id,String phoneNumber);
 
     /**
-     * 根据collector中的id更换密码
-     * @param collector 存有id
+     * 根据id更换密码
+     * @param id
+     * @param password
+     * @return 返回更新记录的数量
      */
-    void updatePassword(Collector collector);
+    int updatePassword(int id,String password);
 
 
     /**
      * 增加成交量
-     * @param collector 存有id
+     * @param id
+     * @return 返回成交量，<1代表增加失败
      */
-    void addVolume(Collector collector);
+    int addVolume(int id);
 
     /**
      * 更改个人资料
      * @param collector 存有id,sex,name,avater
+     * @return 返回更新记录的数量
      */
-    void updatePersonData(Collector collector);
+    int updatePersonData(Collector collector);
 
     /**
      * 更改状态
-     * @param collector 存有id,state
+     * @param id
+     * @param state
+     * @return 返回更新记录的数量
      */
-    void updateState(Collector collector);
+    int updateState(int id,int state);
 
     /**
      * 删除回收员
-     * @param collector 存有id
+     * @param id 存有id
+     * @return 返回删除记录的数量
      */
-    void deleteCollector(Collector collector);
+     int deleteCollector(int id);
 }

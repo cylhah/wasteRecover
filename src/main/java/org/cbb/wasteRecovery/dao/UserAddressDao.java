@@ -9,10 +9,17 @@ import java.util.List;
  */
 public interface UserAddressDao {
     /**
- * 插入地址
- * @param userAddress 存有uid,address,locationX,locationY,detail,geohash
- */
-   void insertAddress(UserAddress userAddress);
+     * 插入地址
+     * @param uid 用户id
+     * @param address 地址
+     * @param detail  地址详细信息
+     * @param geohash 用于查找附近订单的hash码
+     * @param locationX  经度
+     * @param locationY 纬度
+     * @return 返回插入的数量
+    */
+   int insertAddress(String uid,String address,String detail,
+                     String geohash,double locationX,double locationY);
 
     /**
      * 根据id搜索地址
@@ -23,21 +30,25 @@ public interface UserAddressDao {
     /**
      * 根据uid搜索地址
      * @param uid 用户id
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<UserAddress> selectByUid(int uid);
+    List<UserAddress> selectByUid(int uid,int offset,int limit);
 
     /**
      * 更新地址
      * @param userAddress 存有id,uid,address,locationX,locationY,fullAdd,geohash
+     * @return 返回更新的数量
      */
-    void updateAddress(UserAddress userAddress);
+    int updateAddress(UserAddress userAddress);
 
 
 
     /**
      * 根据id删除地址
      * @param id
+     * @return 返回更新的数量
      */
-    void deleteAddress(int id);
+    int deleteAddress(int id);
 }

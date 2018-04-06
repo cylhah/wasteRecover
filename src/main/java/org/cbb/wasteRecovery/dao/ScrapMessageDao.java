@@ -7,33 +7,47 @@ import java.util.List;
 public interface ScrapMessageDao {
     /**
      * 插入废品信息
-     * @param scrapMessage 存有oid,scrapid,weight,price
+     * @param oid
+     * @param scrapid
+     * @param weight
+     * @param price
+     * @return 返回插入数量
      */
-    void insertScrapMessage(ScrapMessage scrapMessage);
+    int insertScrapMessage(String oid,int scrapid,double weight,double price);
 
     /**
      * 删除废品信息
-     * @param scrapMessage 存有oid,scrapid
+     * @param oid
+     * @param scrapid
+     * @return 返回删除数量
      */
-    void deleteScrapMessage(ScrapMessage scrapMessage);
+    int deleteScrapMessage(String oid,int scrapid);
 
     /**
      * 更改信息资料
-     * @param scrapMessage 存有scrapid,weight,price
+     * @param oid
+     * @param scrapid 与oid形成联合主键
+     * @param weight
+     * @param price
+     * @return 返回更新的数量
      */
-    void updateData(ScrapMessage scrapMessage);
+    int updateData(String oid,int scrapid,double weight,double price);
 
     /**
      * 根据订单id查询废品信息
      * @param oid
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<ScrapMessage> selectByOId(long oid);
+    List<ScrapMessage> selectByOId(long oid,int offset,int limit);
 
     /**
      * 根据废品id查询订单信息
      * @param scrapId
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<ScrapMessage> selectByScId(int scrapId);
+    List<ScrapMessage> selectByScId(int scrapId,int offset,int limit);
 }
