@@ -22,7 +22,7 @@ CREATE TABLE `consultant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `collector` (
-  `id` int(10) unsigned NOT NULL,
+  `id` int(11) unsigned auto_increment NOT NULL,
   `realName` varchar(255) DEFAULT NULL COMMENT '真实姓名',
   `sex` char(255) DEFAULT NULL,
   `avater` varchar(255) DEFAULT NULL COMMENT '头像',
@@ -47,9 +47,9 @@ CREATE TABLE `collector` (
 
 
 CREATE TABLE `community` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned auto_increment NOT NULL,
   `address` varchar(255) DEFAULT NULL COMMENT '小区地址',
-  `cid` int(10) unsigned DEFAULT NULL COMMENT '回收员id',
+  `cid` int(11) unsigned DEFAULT NULL COMMENT '回收员id',
   `name` varchar(255) DEFAULT NULL COMMENT '小区名',
   PRIMARY KEY (`id`),
   KEY `comm_cid` (`cid`),
@@ -66,7 +66,7 @@ CREATE TABLE `user` (
 
 
 CREATE TABLE `bankaccount` (
-  `id` bigint(20) unsigned NOT NULL,
+  `id` bigint(20) unsigned auto_increment NOT NULL,
   `uid` varchar(255) DEFAULT NULL,
   `account` varchar(255) DEFAULT NULL COMMENT '银行卡号',
   `bank_code` int(255) unsigned DEFAULT NULL COMMENT '银行id',
@@ -98,7 +98,7 @@ CREATE TABLE `useraddress` (
 CREATE TABLE `orderform` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uid` varchar(255) NOT NULL COMMENT '用户id',
-  `cid` int(10) unsigned DEFAULT NULL COMMENT '完成该订单的回收员id',
+  `cid` int(11) unsigned DEFAULT NULL COMMENT '完成该订单的回收员id',
   `aid` bigint(10) unsigned NOT NULL COMMENT '地址id',
   `state` tinyint(4) DEFAULT NULL,
   `weight` double DEFAULT NULL COMMENT '总重量',

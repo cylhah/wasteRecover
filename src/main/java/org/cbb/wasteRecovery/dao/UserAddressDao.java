@@ -16,9 +16,10 @@ public interface UserAddressDao {
      * @param geohash 用于查找附近订单的hash码
      * @param locationX  经度
      * @param locationY 纬度
+     * @param community_id 受管理小区
      * @return 返回插入的数量
     */
-   int insertAddress(String uid,String address,String detail,
+   int insertAddress(String uid,String address,String detail,int community_id,
                      String geohash,double locationX,double locationY);
 
     /**
