@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.BankAccount;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public interface BankAccountDao {
      * @param username
      * @return 返回插入的数量
      */
-    int insertBankAccount(String uid,String account,int bank_code,
-                          String username);
+    int insertBankAccount(@Param("uid")String uid, @Param("account")String account, @Param("bank_code")int bank_code, @Param("username")String username);
+
 
     /**
      * 根据删除银行账户
@@ -30,5 +31,5 @@ public interface BankAccountDao {
      * @param limit 数量
      * @return
      */
-    List<BankAccount> selectByUId(String uid,int offset,int limit);
+    List<BankAccount> selectByUId(@Param("uid")String uid,@Param("offset")int offset,@Param("limit")int limit);
 }

@@ -25,16 +25,15 @@ public class StationDaoTest {
         System.out.println(station);
     }
 
-    @Test
-    public void selectByPos() throws Exception{
 
-
-    }
 
     @Test
     public void selectByAdd() throws Exception{
 
-        List<Station> station= stationDao.selectByAdd("浙江");
+        String address="er";
+        int offset=0;
+        int limit=1;
+       List<Station> station= stationDao.selectByAdd(address,offset,limit);
         for(Station station1:station)
         {
             System.out.println(station1);
@@ -45,20 +44,52 @@ public class StationDaoTest {
     @Test
     public void selectByName() throws Exception{
 
-        List<Station> station= stationDao.selectByName("汪宏斌");
+        String name="qw";
+        int offset=0;
+        int limit=1;
+        List<Station> station= stationDao.selectByName(name,offset,limit);
         for(Station station1:station)
         {
             System.out.println(station1);
         }
 
     }
+    @Test
+    public void insertStaion() throws Exception {
+
+        String name="qwers";;
+        String address="erdfa";
+        String detailed_address="zdxcv";
+        double locationX=2.34;
+        double locationY=4.56;
+        int i=stationDao.insertStaion(name,address,detailed_address,locationX,locationY);
+        System.out.println(i);
+
+    }
+
 
     @Test
-    public void updateMoney() throws Exception{
+    public void deleteStation() throws Exception{
+
+
+
+
+        int i=stationDao.deleteStation(1);
+        System.out.println(i);
+    }
+
+
+    @Test
+    public void updateData() throws Exception{
 
         Station station=new Station();
 
-        station.setId(1);
+        station.setId(3);
 
+        station.setName("ghjk");
+        station.setAddress("io");
+        station.setDetailed_address("rtyu");
+        int i=stationDao.updateData(station);
+        System.out.println(i);
     }
 }

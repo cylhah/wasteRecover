@@ -21,38 +21,38 @@ public class UserAddressDaoTest {
 
     @Test
     public void insertAddress() throws Exception{
-        UserAddress userAddress;
+        /*UserAddress userAddress;
         userAddress = new UserAddress();
         userAddress.setAddress("浙江");
 
 
-        userAddressDao.insertAddress(userAddress);
+        userAddressDao.insertAddress(userAddress);*/
 
     }
 
     @Test
     public void selectById() throws Exception{
 
-        UserAddress userAddress= userAddressDao.selectById(1);
-        System.out.println(userAddress);
+       /* UserAddress userAddress= userAddressDao.selectById(1);
+        System.out.println(userAddress);*/
     }
 
     @Test
     public void selectByUid() throws Exception{
 
-        List<UserAddress> userAddress= userAddressDao.selectByUid(1);
+      /*  List<UserAddress> userAddress= userAddressDao.selectByUid(1);
         for(UserAddress userAddress1:userAddress)
         {
             System.out.println(userAddress1);
-        }
+        }*/
     }
     @Test
     public void updateAddress() throws Exception{
 
-        UserAddress userAddress=new UserAddress();
+     /*   UserAddress userAddress=new UserAddress();
         userAddress.setAddress("杭州");
         userAddress.setId(2);
-        userAddressDao.updateAddress(userAddress);
+        userAddressDao.updateAddress(userAddress);*/
     }
 
     @Test
@@ -61,6 +61,6 @@ public class UserAddressDaoTest {
 
 
 
-        userAddressDao.deleteAddress(1);
+
     }
 }

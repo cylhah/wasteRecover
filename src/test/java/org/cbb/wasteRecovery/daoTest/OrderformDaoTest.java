@@ -23,14 +23,14 @@ public class OrderformDaoTest {
     @Test
     public void insertOrderform() throws Exception{
 
-        Orderform orderform=new Orderform();
+        /*Orderform orderform=new Orderform();
         orderform.setWeight(5.2);
         Timestamp ts=new Timestamp(new Date().getTime());
         orderform.setCreateTime(ts);
         Timestamp t1=new Timestamp(new Date().getTime());
 
 
-        orderformDao.insertOrderform(orderform);
+        orderformDao.insertOrderform(orderform);*/
 
     }
 
@@ -68,11 +68,11 @@ public class OrderformDaoTest {
     @Test
     public void selectByState() throws Exception{
 
-        List<Orderform> orderform=orderformDao.selectByState(1);
+       /* List<Orderform> orderform=orderformDao.selectByState(1);
         for(Orderform orderform1:orderform)
         {
             System.out.println(orderform1);
-        }
+        }*/
     }
 
     @Test

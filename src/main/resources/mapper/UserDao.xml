@@ -14,64 +14,61 @@
   <result property="avater" column="avater"/>
      <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
+
     <insert id="insertUser">
 
-    insert  into user(name,sex,password,phoneNumber,email,bankAccount,avater)
-    values (#{name},#{sex},#{password},#{phoneNumber},#{email},#{bankAccount},#{avater})
+    insert  into user(openid,state,avater)
+    values (#{openid},#{state},#{avater})
+
    </insert>
 
-    <sql id="columns">u.id,u.name,u.sex,u.password,u.phoneNumber,u.email,u.bankAccount,u.avater,d.id,d.uid,d.address,d.fullADD,d.geohash</sql>
 
 
-  <select id="selectById" resultMap="User" parameterType="int">
-        select <include refid="columns"/>
-        from user  u
-        INNER JOIN useraddress d
-        on u.id=d.uid
+  <select id="selectById" resultType="org.cbb.wasteRecovery.bean.User" parameterType="String">
+        select state,avater
+        from user
         where
-           u.id=#{id}
-       
-        
-    </select>
-    
-    <select id="selectByPhoneNumber" resultMap="User" parameterType="String">
-        select <include refid="columns"/>
-        from user  u
-        INNER JOIN useraddress d
-        on u.id=d.uid
-        where
-           u.phoneNumber=#{phoneNumber}
+           openid=#{openid}
        
         
     </select>
 
+    <update id="banUser" >
 
-    <select id="selectByPhoneAndPass" resultMap="User" parameterType="org.cbb.wasteRecovery.bean.User">
-        select <include refid="columns"/>
-        from user  u
-        INNER JOIN useraddress d
-        on u.id=d.uid
+        update
+        user
+        set
+        state=0
+
         where
-        u.phoneNumber=#{phoneNumber}
-        and u.password=#{password}
+        openid=#{openid}
 
-    </select>
+    </update>
 
-    
 
-    
     <update id="updateData" >
 
         update
-          user
+        user
         set
-          sex=#{sex},
-          name=#{name},
-          email=#{email},
-          phoneNumber=#{phoneNumber},
-          bankAccount=#{bankAccount}
+        state=#{state}
+
         where
-          id = #{id}
-      
+        openid=#{openid}
+
     </update>
+
+
+    <delete id="deleteUser">
+        delete
+        from
+       user
+        where
+        openid=#{openid}
+
+    </delete>
+    
+
+    
+
 </mapper>

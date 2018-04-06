@@ -22,29 +22,28 @@ public class UserDaoTest {
     @Test
     public void insertUser() throws Exception{
         User user=new User();
-
-
-        userDao.insertUser(user);
+        user.setOpenid("qwer");
+        user.setAvater("dr");
+        user.setState(1);
+        int i=userDao.insertUser(user);
+        System.out.println(i);
     }
 
     @Test
     public void selectById() throws Exception{
-
-
+        String openid="qw";
+        User user=userDao.selectById(openid);
+        System.out.println(user);
     }
 
     @Test
-    public void selectByPhoneNumber() throws Exception{
-
-
+    public void banUser() throws Exception{
+        String openid="qw";
+        int i=userDao.banUser(openid);
+        System.out.println(i);
     }
 
-    @Test
-    public void selectByPhoneAndPass() throws Exception{
-        User user=new User();
 
-
-    }
 
 
 
@@ -52,7 +51,17 @@ public class UserDaoTest {
     public void updateData() throws Exception{
 
         User user=new User();
-
+        user.setState(2);
         userDao.updateData(user);
+    }
+
+    @Test
+    public void deleteUser() throws Exception{
+
+        String openid="qw";
+
+
+        int i=userDao.deleteUser(openid);
+        System.out.println(i);
     }
 }

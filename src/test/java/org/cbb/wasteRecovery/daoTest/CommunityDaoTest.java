@@ -23,11 +23,11 @@ public class CommunityDaoTest {
     @Test
     public void insertCommunity() throws Exception {
 
-        Community community=new Community();
+       /* Community community=new Community();
         community.setId(1);
         community.setAddress("wiyt");
         community.setName("chjv");
-        communityDao.insertCommunity(community);
+        communityDao.insertCommunity(community);*/
 
     }
 
@@ -43,41 +43,41 @@ public class CommunityDaoTest {
 
     @Test
     public void updateCollectorOfComm() throws Exception{
-        Community community=new Community();
+        /*Community community=new Community();
         community.setId(2);
 
         community.setCid(2);
-        communityDao.updateCollectorOfComm(community);
+        communityDao.updateCollectorOfComm(community);*/
     }
 
     @Test
     public void updateData() throws Exception{
-        Community community=new Community();
+      /*  Community community=new Community();
         community.setId(2);
 
         community.setName("ciov");
-        communityDao.updateData(community);
+        communityDao.updateData(community);*/
     }
 
 
     @Test
     public void selectByCid() throws Exception{
 
-        List<Community> community= communityDao.selectByCid(1);
+      /*  List<Community> community= communityDao.selectByCid(1);
         for(Community community1:community)
         {
             System.out.println(community1);
-        }
+        }*/
     }
 
 
     @Test
     public void selectByName() throws Exception{
 
-        List<Community> community= communityDao.selectByName("v");
+        /*List<Community> community= communityDao.selectByName("v");
         for(Community community1:community)
         {
             System.out.println(community1);
-        }
+        }*/
     }
 }

@@ -24,19 +24,19 @@ public class ScrapMessageDaoTest {
     @Test
     public void insertScrapMessage() throws Exception {
 
-        ScrapMessage scrapMessage=new ScrapMessage();
+       /* ScrapMessage scrapMessage=new ScrapMessage();
         scrapMessage.setPrice(3.5);
         scrapMessage.setWeight(10.2);
-        scrapMessageDao.insertScrapMessage(scrapMessage);
+        scrapMessageDao.insertScrapMessage(scrapMessage);*/
     }
 
     @Test
     public void deleteScrapMessage() throws Exception{
 
-        ScrapMessage scrapMessage=new ScrapMessage();
+       /* ScrapMessage scrapMessage=new ScrapMessage();
         scrapMessage.setOid(1);
         scrapMessage.setScrapid(1);
-        scrapMessageDao.deleteScrapMessage(scrapMessage);
+        scrapMessageDao.deleteScrapMessage(scrapMessage);*/
     }
 
 

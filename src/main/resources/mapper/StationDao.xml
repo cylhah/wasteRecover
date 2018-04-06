@@ -14,10 +14,10 @@
   <result property="geohash" column="geohash"/>
 </resultMap>
 
-    <sql id="columns">id,name,money,address,fullAdd,geohash</sql>
 
-    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="int">
-        select <include refid="columns"/>
+
+    <select id="selectById" resultType="Station" parameterType="int">
+        select name,address,detailed_address
         from station
         where
            id=#{id}
@@ -25,39 +25,56 @@
         
     </select>
 
-     <select id="selectByPos" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="Map">
-        select <include refid="columns"/>
+
+    
+    <select id="selectByAdd" resultType="Station" >
+        select name,id,detailed_address
         from station
         where
-           address=#{address}
+        address like '%' #{address} '%'
+        order BY id
+        limit #{offset},#{limit}
        
         
     </select>
     
-    <select id="selectByAdd" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="String">
-        select <include refid="columns"/>
-        from station
-        where
-           address=#{address}
-       
-        
-    </select>
-    
-    <select id="selectByName" resultType="org.cbb.wasteRecovery.bean.Station" parameterType="String">
-        select <include refid="columns"/>
+    <select id="selectByName" resultType="Station">
+        select address,id,detailed_address
         from station
         where
            name=#{name}
+        order BY id
+        limit #{offset},#{limit}
        
         
     </select>
+
+    <insert id="insertStaion">
+
+        insert  into station(name,address,detailed_address,position)
+        values (#{name},#{address},#{detailed_address},point(#{locationX},#{locationY}))
+    </insert>
+
+
+    <delete id="deleteStation">
+        delete
+        from
+        station
+        where
+        id=#{id}
+
+    </delete>
     
-    <update id="updateMoney">
+    <update id="updateData">
        
         update
           station
         set
-          money = #{money}
+
+          name = #{name},
+         address = #{address},
+         detailed_address = #{detailed_address}
+
         where
           id = #{id}
       

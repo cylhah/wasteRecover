@@ -7,8 +7,8 @@
 
     <insert id="insertBankAccount">
 
-        insert  into bankaccount(id,account,bank_code,username)
-        values (#{id},#{account},#{bank_code},#{username})
+        insert  into bankaccount(uid,account,bank_code,username)
+        values (#{uid},#{account},#{bank_code},#{username})
     </insert>
 
 
@@ -20,4 +20,15 @@
         id=#{id}
 
     </delete>
+
+    <select id="selectByUId" resultType="BankAccount" >
+        select id,account,bank_code,username
+        from bankaccount
+        where
+        uid=#{uid}
+        order BY id
+        limit #{offset},#{limit}
+
+
+    </select>
 </mapper>
