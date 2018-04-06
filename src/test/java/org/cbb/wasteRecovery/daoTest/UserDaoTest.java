@@ -21,11 +21,11 @@ public class UserDaoTest {
 
     @Test
     public void insertUser() throws Exception{
-        User user=new User();
-        user.setOpenid("qwer");
-        user.setAvater("dr");
-        user.setState(1);
-        int i=userDao.insertUser(user);
+
+        String openId="qwerd";
+
+        int state=4;
+        int i=userDao.insertUser(openId,state);
         System.out.println(i);
     }
 
@@ -50,9 +50,10 @@ public class UserDaoTest {
     @Test
     public void updateData() throws Exception{
 
-        User user=new User();
-        user.setState(2);
-        userDao.updateData(user);
+        String openId="qwer";
+        String avater="vb";
+       int i= userDao.updateData(openId,avater);
+        System.out.println(i);
     }
 
     @Test

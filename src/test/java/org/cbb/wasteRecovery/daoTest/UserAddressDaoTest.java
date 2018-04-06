@@ -21,46 +21,64 @@ public class UserAddressDaoTest {
 
     @Test
     public void insertAddress() throws Exception{
-        /*UserAddress userAddress;
-        userAddress = new UserAddress();
-        userAddress.setAddress("浙江");
 
 
-        userAddressDao.insertAddress(userAddress);*/
+        String uid="qw";
+
+        String address="erdfa";
+        int community_id=1;
+        String geohash="asd";
+        String detail="cvb";
+        double locationX=2.34;
+        double locationY=4.56;
+        int i=userAddressDao.insertAddress(uid,address, detail, community_id, geohash, locationX, locationY);
+        System.out.println(i);
 
     }
+    //返回值为1
 
     @Test
     public void selectById() throws Exception{
 
-       /* UserAddress userAddress= userAddressDao.selectById(1);
-        System.out.println(userAddress);*/
+       UserAddress userAddress= userAddressDao.selectById(1);
+        System.out.println(userAddress);
     }
+    //返回值为org.cbb.wasteRecovery.bean.UserAddress@31edaa7d
+
 
     @Test
     public void selectByUid() throws Exception{
 
-      /*  List<UserAddress> userAddress= userAddressDao.selectByUid(1);
+        String uid="qw";
+        int offset=1;
+        int limit=1;
+      List<UserAddress> userAddress= userAddressDao.selectByUid(uid,offset,limit);
         for(UserAddress userAddress1:userAddress)
         {
             System.out.println(userAddress1);
-        }*/
+        }
     }
+    //返回值为Disconnected from the target VM, address: '127.0.0.1:60010', transport: 'socket'
+
     @Test
     public void updateAddress() throws Exception{
 
-     /*   UserAddress userAddress=new UserAddress();
+      UserAddress userAddress=new UserAddress();
         userAddress.setAddress("杭州");
         userAddress.setId(2);
-        userAddressDao.updateAddress(userAddress);*/
+        int i=userAddressDao.updateAddress(userAddress);
+        System.out.println(i);
     }
+    //返回值为0
 
     @Test
     public void deleteAddress() throws Exception{
 
 
-
+        int i=userAddressDao.deleteAddress(1);
+        System.out.println(i);
 
 
     }
+    //返回值为1
 }

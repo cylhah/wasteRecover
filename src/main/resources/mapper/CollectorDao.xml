@@ -27,74 +27,67 @@
 
 </resultMap>
 
-    <insert id="InsertCollector">
+    <insert id="insertCollector">
 
-    insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,email,bankAccount,state,creditValue,volume)
-    values (#{name},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{email},#{bankAccount},#{state},#{creditValue},#{volume})
+    insert  into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume)
+    values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{staid},#{state},#{volume})
    </insert>
 
-    <sql id="columns">o.id,o.uid,o.cid,o.eid,o.aid,o.state,o.weight,o.createTime,o.appointSTime,o.appointETime,o.price,o.staid,c.name,c.sex, c.avater,c.email,c.phoneNumber,c.photo,c.creditValue,c.bankAccount,c.idCardNum,c.state,c.id</sql>
+    <sql id="columns">realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume</sql>
 
-    <select id="selectById" resultMap="Collect" parameterType="int">
+    <select id="selectById" resultType="Collector" parameterType="int">
         select <include refid="columns"/>
-        from collector c
-        INNER JOIN orderform o
+        from collector
+
         where
-           c.id=#{id}
+           id=#{id}
           
         
     </select>
 
-    <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
+    <select id="selectByPhoneNum" resultType="Collector" parameterType="String">
         select <include refid="columns"/>
-        from collector c
-        INNER JOIN orderform o
+        from collector
+
         where
-           c.phoneNumber=#{phoneNumber}
+           phoneNumber=#{phoneNumber}
           
         
     </select>
     
-     <select id="selectByPhoneNumAndPass" resultMap="Collect" parameterType="org.cbb.wasteRecovery.bean.Collector">
+     <select id="selectByPhoneNumAndPass" resultType="Collector" >
         select <include refid="columns"/>
-        from collector c
-        INNER JOIN orderform o
+        from collector
+
         where
-           c.phoneNumber=#{phoneNumber}
-        and c.password=#{password}
+          phoneNumber=#{phoneNumber}
+        and password=#{password}
         
     </select>
 
-    <select id="selectByIdCardNum" resultMap="Collect" parameterType="String">
+    <select id="selectByIdCardNum"  resultType="Collector" parameterType="String">
         select <include refid="columns"/>
-        from collector c
-        INNER JOIN orderform o
+        from collector
+
         where
-           c.idCardNum=#{idCardNum}
+           idCardNum=#{idCardNum}
           
         
     </select>
     
-    <select id="selectByName" resultMap="Collect" parameterType="String">
+    <select id="selectByName" resultType="Collector">
         select <include refid="columns"/>
-        from collector c
-        INNER JOIN orderform o
+        from collector
+
         where
-          c.name=#{name}
-        order by c.id
+         realName=#{realName}
+        order BY id
+        limit #{offset},#{limit}
           
         
     </select>
     
-      <select id="selectByState" resultMap="Collect" parameterType="int">
-        select <include refid="columns"/>
-        from collector c
-        INNER JOIN orderform o
-        where
-           c.state=#{state}
-        order by c.id
-        
-    </select>
+
     
 
     
@@ -130,43 +123,53 @@
           id = #{id}
       
     </update>
-    
-      <update id="updateAccount">
-       
-        update
-          collector
-        set
-          bankAccount = #{bankAccount}
-        where
-          id = #{id}
-      
-    </update>
+
     
     <update id="addVolume">
        
         update
           collector
         set
-          volume = #{volume}
+          volume = volume+1
         where
           id = #{id}
       
     </update>
+
     
     <update id="updatePersonData">
        
         update
           collector
         set
-           bankAccount = #{bankAccount},
            phoneNumber = #{phoneNumber},
            password = #{password},
-           name=#{name},
+           realName=#{realName},
            sex=#{sex},
-           email=#{email},
            avater=#{avater}
         where
           id = #{id}
        
     </update>
+
+    <update id="updateState">
+
+        update
+        collector
+        set
+        state = #{state}
+        where
+        id = #{id}
+
+    </update>
+
+    <delete id="deleteCollector">
+        delete
+        from
+        collector
+        where
+        id=#{id}
+
+    </delete>
+
 </mapper>

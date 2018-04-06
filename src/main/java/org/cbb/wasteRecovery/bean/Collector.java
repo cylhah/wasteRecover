@@ -20,7 +20,7 @@ public class Collector {
     private int volume;//成交量
     private Timestamp createTime;
     private int state;
-    private int statid;
+    private int staid;
 
     private Station station;
     private List<Orderform> unDidOrderformList;//负责小区内未完成订单
@@ -132,11 +132,11 @@ public class Collector {
     }
 
     public int getStatid() {
-        return statid;
+        return staid;
     }
 
     public void setStatid(int statid) {
-        this.statid = statid;
+        this.staid = statid;
     }
 
     public Station getStation() {

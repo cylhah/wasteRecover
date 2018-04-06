@@ -16,15 +16,15 @@
     </resultMap>
     <insert id="insertAddress">
 
-    insert  into useraddress(uid,address,fullADD,geohash,position)
-    values (#{uid},#{address},#{fullADD},#{geohash},geomfromtext('point(108.9477252960 34.2590342786)'))
+    insert  into useraddress(uid,address,detail,community_id,geohash,position)
+    values (#{uid},#{address},#{detail},#{community_id},#{geohash},point(#{locationX},#{locationY}))
    </insert>
 
 
 
-    <sql id="columns">id,uid,address,fullADD,geohash</sql>
+    <sql id="columns">id,uid,address,detail,community_id,geohash,position</sql>
 
-    <select id="selectById" resultType="org.cbb.wasteRecovery.bean.UserAddress" parameterType="int">
+    <select id="selectById" resultType="UserAddress" parameterType="int">
         select <include refid="columns"/>
         from useraddress  
         where
@@ -33,11 +33,13 @@
         
     </select>
     
-    <select id="selectByUid" resultType="org.cbb.wasteRecovery.bean.UserAddress" parameterType="int">
+    <select id="selectByUid" resultType="UserAddress" >
         select <include refid="columns"/>
         from useraddress  
         where
            uid=#{uid}
+        order BY id
+        limit #{offset},#{limit}
        
         
     </select>

@@ -13,13 +13,81 @@
   <result property="totalVolume" column="totalVolume"/>
 
 </resultMap>
-    <select id="selectByTid" resultType="org.cbb.wasteRecovery.bean.Scrap" parameterType="int">
-        select id,tid,name,unitPriceFU,unitPriceFC,monthVolume,totalVolume
+    <insert id="insertScrap">
+
+        insert  into scrap(typeName,name,unitPrice)
+        values (#{typeName},#{name},#{unitPrice})
+    </insert>
+
+    <select id="selectByid" resultType="Scrap" parameterType="int">
+        select id,typeName,name,unitPrice,monthVolume,totalVolume
         from scrap
         where
-           tid=#{tid}
+           id=#{id}
        
         
     </select>
+
+    <select id="selectByTypeName" resultType="Scrap" >
+        select id,typeName,name,unitPrice,monthVolume,totalVolume
+        from scrap
+        where
+        typeName=#{typeName}
+        order BY id
+        limit #{offset},#{limit}
+
+
+    </select>
+
+    <update id="updateData" >
+
+        update
+      scrap
+        set
+        typeName=#{typeName},
+         name=#{name},
+          unitPrice=#{unitPrice}
+
+        where
+       id=#{id}
+
+    </update>
+
+
+    <update id="updateMonthVolume"  >
+
+        update
+        scrap
+        set
+        monthVolume=#{monthVolume}
+
+
+        where
+        id=#{id}
+
+    </update>
+
+
+    <update id="updateTotalVolume"  >
+
+        update
+        scrap
+        set
+        totalVolume=#{totalVolume}
+
+
+        where
+        id=#{id}
+
+    </update>
+
+    <delete id="deleteScrap">
+        delete
+        from
+         scrap
+        where
+        id=#{id}
+
+    </delete>
 
 </mapper>

@@ -14,7 +14,7 @@ public interface ScrapMessageDao {
      * @param price
      * @return 返回插入数量
      */
-    int insertScrapMessage(@Param("oid")String oid,
+    int insertScrapMessage(@Param("oid")long oid,
                            @Param("scrapid")int scrapid,
                            @Param("weight")double weight,
                            @Param("price")double price);
@@ -25,7 +25,7 @@ public interface ScrapMessageDao {
      * @param scrapid
      * @return 返回删除数量
      */
-    int deleteScrapMessage(@Param("oid")String oid,@Param("scrapid")int scrapid);
+    int deleteScrapMessage(@Param("oid")long oid,@Param("scrapid")int scrapid);
 
     /**
      * 更改信息资料
@@ -35,7 +35,7 @@ public interface ScrapMessageDao {
      * @param price
      * @return 返回更新的数量
      */
-    int updateData(@Param("oid")String oid,@Param("scrapid")int scrapid,
+    int updateData(@Param("oid")long oid,@Param("scrapid")int scrapid,
                    @Param("weight")double weight,@Param("price")double price);
 
     /**

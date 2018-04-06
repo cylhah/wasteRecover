@@ -40,7 +40,7 @@ public interface UserAddressDao {
      * @param limit 数量
      * @return
      */
-    List<UserAddress> selectByUid(@Param("uid")int uid,
+    List<UserAddress> selectByUid(@Param("uid")String uid,
                                   @Param("offset")int offset,
                                   @Param("limit")int limit);
 

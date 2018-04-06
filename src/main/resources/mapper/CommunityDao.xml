@@ -7,8 +7,8 @@
 
     <insert id="insertCommunity">
 
-        insert  into community(id,address,name)
-        values (#{id},#{address},#{name})
+        insert  into community(address,name)
+        values (#{address},#{name})
     </insert>
 
 
@@ -40,29 +40,32 @@
         community
         set
         address=#{address}
-        and name = #{name}
+
         where
-        id = #{id}
+       name = #{name}
 
     </update>
 
-    <select id="selectByCid" resultType="org.cbb.wasteRecovery.bean.Community" parameterType="int">
+    <select id="selectByCid" resultType="Community" >
         select id,address,name
         from community
         where
         cid=#{cid}
+        order BY id
+        limit #{offset},#{limit}
 
 
     </select>
 
-    <select id="selectByName" resultType="org.cbb.wasteRecovery.bean.Community" parameterType="String">
+    <select id="selectByName" resultType="Community" >
 
         select id,address
         from community
         where
-
         name like '%' #{name} '%'
 
+        order BY id
+        limit #{offset},#{limit}
 
     </select>
 

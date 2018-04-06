@@ -18,7 +18,7 @@ public interface ScrapDao {
      * @return 返回插入的数量
      */
     int insertScrap(@Param("typeName")String typeName, @Param("name")String name,
-                    @Param("uintPrice")String uintPrice);
+                    @Param("unitPrice")double unitPrice);
 
     /**
      * 根据id搜索废品
@@ -52,7 +52,7 @@ public interface ScrapDao {
      * @param monthVolume
      * @return 返回成交量(<0更新失败，即不存在该id)
      */
-    double updateMonthVolume(@Param("id")int id,
+    int updateMonthVolume(@Param("id")int id,
                              @Param("monthVolume")double monthVolume);
 
     /**
@@ -61,7 +61,7 @@ public interface ScrapDao {
      * @param totalVolume
      * @return 返回成交量(<0更新失败，即不存在该id)
      */
-    double updateTotalVolume(@Param("id")int id,
+    int updateTotalVolume(@Param("id")int id,
                              @Param("totalVolume") double totalVolume);
 
     /**

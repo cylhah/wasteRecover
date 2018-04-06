@@ -14,8 +14,8 @@ public interface ConsultantDao {
      * @return 返回插入的数量
      */
     int insertConsultant(@Param("staid")int staid,
-                         @Param("username")int username,
-                         @Param("password")int password);
+                         @Param("username")String username,
+                         @Param("password")String password);
 
     /**
      * 根据id删除咨询员

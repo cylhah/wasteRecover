@@ -24,21 +24,66 @@ public class ScrapMessageDaoTest {
     @Test
     public void insertScrapMessage() throws Exception {
 
-       /* ScrapMessage scrapMessage=new ScrapMessage();
-        scrapMessage.setPrice(3.5);
-        scrapMessage.setWeight(10.2);
-        scrapMessageDao.insertScrapMessage(scrapMessage);*/
+        long oid=1;
+        int scrapid=3;
+        double weight=2.3;
+        double price=5.36;
+        int i=scrapMessageDao.insertScrapMessage(oid, scrapid, weight,price);
+        System.out.println(i);
     }
+//返回值为1
+
 
     @Test
     public void deleteScrapMessage() throws Exception{
 
-       /* ScrapMessage scrapMessage=new ScrapMessage();
-        scrapMessage.setOid(1);
-        scrapMessage.setScrapid(1);
-        scrapMessageDao.deleteScrapMessage(scrapMessage);*/
+        long oid=1;
+        int scrapid=3;
+
+        int i= scrapMessageDao.deleteScrapMessage(oid, scrapid);
+        System.out.println(i);
     }
+//返回值为1
+
+    @Test
+    public void updateData() throws Exception{
+
+        long oid=1;
+        int scrapid=3;
+        double weight=4.5;
+        double price=52.36;
+        int i= scrapMessageDao.updateData(oid, scrapid, weight,price);
+        System.out.println(i);
+    }
+//返回值为1
+
+    @Test
+    public void selectByOId() throws Exception{
+
+        long oid=1;
+        int offset=0;
+        int limit=1;
+        List<ScrapMessage> ScrapMessage=scrapMessageDao.selectByOId(oid,offset,limit);
+        for(ScrapMessage ScrapMessage1:ScrapMessage)
+        {
+            System.out.println(ScrapMessage1);
+        }
+    }
+    //返回值为org.cbb.wasteRecovery.bean.ScrapMessage@75c56eb9
 
 
+    @Test
+    public void selectByScId() throws Exception{
+
+        int scrapId=3;
+        int offset=0;
+        int limit=1;
+        List<ScrapMessage> ScrapMessage=scrapMessageDao.selectByScId(scrapId,offset,limit);
+        for(ScrapMessage ScrapMessage1:ScrapMessage)
+        {
+            System.out.println(ScrapMessage1);
+        }
+    }
+//返回值为org.cbb.wasteRecovery.bean.ScrapMessage@75c56eb9
 
 }

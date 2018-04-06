@@ -13,7 +13,7 @@ public interface CommunityDao {
      * @return 返回插入的数量
      */
     int insertCommunity(@Param("address")String address,
-                        @Param("name")int name);
+                        @Param("name")String name);
 
     /**
      * 根据id删除受管理小区

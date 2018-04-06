@@ -6,8 +6,8 @@
 
     <insert id="insertScrapMessage">
 
-        insert  into scrapmessage(weight,price)
-        values (#{weight},#{price})
+        insert  into scrapmessage(weight,price,oid,scrapid)
+        values (#{weight},#{price},#{oid},#{scrapid})
     </insert>
 
 
@@ -32,7 +32,27 @@
         and  price = #{price}
         where
         scrapid = #{scrapid}
-
+         and oid= #{oid}
     </update>
+
+
+
+    <select id="selectByOId" resultType="ScrapMessage" >
+        select weight,price,oid,scrapid
+        from scrapmessage
+        where
+       oid= #{oid}
+
+
+    </select>
+
+    <select id="selectByScId" resultType="ScrapMessage" >
+        select weight,price,oid,scrapid
+        from scrapmessage
+        where
+        scrapId= #{scrapId}
+
+
+    </select>
 
 </mapper>

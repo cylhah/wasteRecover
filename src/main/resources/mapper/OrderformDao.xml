@@ -25,131 +25,103 @@
 </resultMap>
     <insert id="insertOrderform">
 
-    insert  into orderform(state,weight,createTime,appointSTime,appointETime,price,aid,uid,cid,eid,staid)
-    values (#{state},#{weight},#{createTime},#{appointSTime},#{appointETime},#{price},#{aid},#{uid},#{cid},#{eid},#{staid})
+    insert  into orderform(state,createTime,appointTime,aid,uid)
+    values (#{state},#{createTime},#{appointTime},#{aid},#{uid})
+
     </insert>
 
 
-    <sql id="columns">o.id,o.uid,o.cid,o.eid,o.aid,o.state,o.weight,o.createTime,o.appointSTime,o.appointETime,o.price,o.staid,e.id,e.staid,e.adminid,e.username,e.password,a.username,a.password,u.id,u.name,u.sex,u.password,u.phoneNumber,u.email,u.bankAccount,u.avater,d.id,d.uid,d.address,d.fullADD,d.geohash,c.name,c.sex, c.avater,c.email,c.phoneNumber,c.photo,c.creditValue,c.bankAccount,c.idCardNum,c.state,c.id,s.id,s.name,s.money,s.address,s.fullAdd,s.geohash,t.id,t.typeName,t.avergePriceFU,t.avergePriceFC</sql>
+    <sql id="columns">state,weight,createTime,appointTime,updateTime,price,aid,uid,cid</sql>
 
-     <select id="selectById" resultMap="order" parameterType="long">
+     <select id="selectById"  resultType="Orderform" parameterType="long">
         select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
+        from orderform
+
         where
-           o.id=#{id}
+           id=#{id}
        
         
     </select>
     
-    <select id="selectByCId" resultMap="order" parameterType="int">
+    <select id="selectByCId" resultType="Orderform">
         select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
+        from orderform
+
         where
-           o.cid=#{cid}
+           cid=#{cid}
+        and  state=#{state}
+        order BY id
+        limit #{offset},#{limit}
        
         
     </select>
     
-    <select id="selectByUId" resultMap="order" parameterType="int">
+    <select id="selectByUId" resultType="Orderform">
         select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
+        from orderform
+
         where
-           o.uid=#{uid}
-       
-        
-    </select>
-    
-    <select id="selectByEId" resultMap="order" parameterType="int">
-        select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
-        where
-           o.eid=#{eid}
-       
-        
-    </select>
-    
-    <select id="selectByStaId" resultMap="order" parameterType="int">
-        select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
-        where
-           o.staid=#{staid}
-       
-        
-    </select>
-    
-    
-    <select id="selectByState" resultMap="order" parameterType="int">
-        select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
-        where
-           o.state=#{state}
-       
-        
-    </select>
-    
-    <select id="selectByPosAndTime" resultMap="order" parameterType="Map">
-        select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
-        where
-           o.state=#{state}
-        and o.appointSTime>=#{appointSTime}
-       and o.appointETime<![CDATA[ <= ]]>#{appointETime}
-       and o.geoHash like '%'#{geoHash}'%'
-        
-    </select>
-    
-     <select id="selectByTime" resultMap="order" parameterType="org.cbb.wasteRecovery.bean.Orderform">
-        select <include refid="columns"/>
-        from orderform o
-        INNER JOIN administrator a,user u,collector c,employee e,station s,scraptype t,useraddress d
-        where
-          o.appointSTime=#{appointSTime}
-       and o.appointETime=#{appointETime}
-       
+          uid=#{uid}
+        and  state=#{state}
+        order BY id
+        limit #{offset},#{limit}
         
     </select>
     
 
     
-     <update id="updateWeight">
+
+    
+    
+    <select id="selectByState" resultType="Orderform">
+        select <include refid="columns"/>
+        from orderform
+
+        where
+           state=#{state}
+        order BY id
+        limit #{offset},#{limit}
+        
+    </select>
+    
+    <select id="selectByPositon" resultMap="order">
+        select o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,d.uid,d.address,d.detail,d.community_id,d.geohash,d.position
+        from orderform o
+        INNER JOIN useraddress d
+        where
+        Math.sqrt(toRadians(d.locationX-#{locationX}) * 6367000.0* Math.cos(toRadians((d.locationY+#{locationY})/2.0)) * toRadians(d.locationX-#{locationX}) * 6367000.0* Math.cos(toRadians((d.locationY+#{locationY})/2.0)) + 6367000.0 * toRadians(d.locationY-#{locationY}) * 6367000.0 * toRadians(d.locationY-#{locationY}))  <![CDATA[ <= ]]>#{distance}
+
+       and d.geohash LIKE CONCAT(?, '%');
+        order BY o.id
+        limit #{offset},#{limit}
+        
+    </select>
+
+    
+
+    
+
+    
+    <update id="updateOrderform">
        
         update
           orderform
         set
-          weight = #{weight}
+          aid = #{aid},
+          appointTime=#{appointTime}
         where
           id = #{id}
       
     </update>
     
-    <update id="updateState">
-       
-        update
-          orderform
-        set
-          state = #{state}
-        where
-          id = #{id}
-      
-    </update>
-    
-    <update id="updateData">
+    <update id="submitData">
        
         update
           orderform
         set
           uid= #{uid},
           cid = #{cid},
-          eid = #{eid},
           aid= #{aid},
-          staid= #{staid},
           price = #{price},
           state = #{state},
           weight = #{weight}

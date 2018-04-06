@@ -23,13 +23,14 @@ public class CommunityDaoTest {
     @Test
     public void insertCommunity() throws Exception {
 
-       /* Community community=new Community();
-        community.setId(1);
-        community.setAddress("wiyt");
-        community.setName("chjv");
-        communityDao.insertCommunity(community);*/
+
+        String address="杭州";
+        String name="周鹏";
+       int i=communityDao.insertCommunity(address,name);
+        System.out.println(i);
 
     }
+    //返回值是1
 
     @Test
     public void deleteCommunity() throws Exception{
@@ -37,47 +38,61 @@ public class CommunityDaoTest {
 
 
 
-        communityDao.deleteCommunity(1);
+        int i=communityDao.deleteCommunity(2);
+        System.out.println(i);
     }
-
+    //返回值是1
 
     @Test
     public void updateCollectorOfComm() throws Exception{
-        /*Community community=new Community();
-        community.setId(2);
 
-        community.setCid(2);
-        communityDao.updateCollectorOfComm(community);*/
+        int id=1;
+        int cid=3;
+        int i=communityDao.updateCollectorOfComm(id,cid);
+        System.out.println(i);
     }
+    //返回值是1
 
     @Test
     public void updateData() throws Exception{
-      /*  Community community=new Community();
-        community.setId(2);
 
-        community.setName("ciov");
-        communityDao.updateData(community);*/
+        String name="汪宏斌";
+        String address="中国";
+
+
+
+        int i=communityDao.updateData(name,address);
+        System.out.println(i);
     }
+    //返回值是1
 
 
     @Test
     public void selectByCid() throws Exception{
 
-      /*  List<Community> community= communityDao.selectByCid(1);
+        int cid=3;
+        int offset=1;
+        int limit=1;
+       List<Community> community= communityDao.selectByCid(cid,offset,limit);
         for(Community community1:community)
         {
             System.out.println(community1);
-        }*/
+        }
     }
+    //返回值是org.cbb.wasteRecovery.bean.Community@4b2c5e02
 
 
     @Test
     public void selectByName() throws Exception{
 
-        /*List<Community> community= communityDao.selectByName("v");
+        String name="汪";
+        int offset=0;
+        int limit=1;
+        List<Community> community= communityDao.selectByName(name,offset,limit);
         for(Community community1:community)
         {
             System.out.println(community1);
-        }*/
+        }
     }
+    //返回值是org.cbb.wasteRecovery.bean.Community@19976a65
 }

@@ -15,7 +15,7 @@ public interface UserDao {
      * @param state
      * @return 返回插入的数量
      */
-    int insertUser(@Param("openId") String openId,@Param("state") int state);
+    int insertUser(@Param("openid") String openid,@Param("state") int state);
     /**
      * 根据id查询用户
      * @param openid
@@ -36,7 +36,7 @@ public interface UserDao {
      * @param avater 头像地址
      * @return 返回更新的数量
      */
-    int updateData(@Param("openId")String openId,@Param("avater")String avater);
+    int updateData(@Param("openid")String openid,@Param("avater")String avater);
 
   /**
    * 根据openid删除用户

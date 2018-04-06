@@ -17,8 +17,8 @@
 
     <insert id="insertUser">
 
-    insert  into user(openid,state,avater)
-    values (#{openid},#{state},#{avater})
+    insert  into user(openid,state)
+    values (#{openid},#{state})
 
    </insert>
 
@@ -51,7 +51,7 @@
         update
         user
         set
-        state=#{state}
+        avater=#{avater}
 
         where
         openid=#{openid}

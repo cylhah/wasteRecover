@@ -55,7 +55,7 @@ public interface CollectorDao {
      * @param limit 限制数量
      * @return Collector列表，找不到list.size()=0
      */
-    List<Collector> selectByName(@Param("name") String name,
+    List<Collector> selectByName(@Param("realName") String realName,
                                  @Param("offset") int offset,
                                  @Param("limit") int limit);
 

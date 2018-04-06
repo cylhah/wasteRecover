@@ -8,6 +8,7 @@ import java.util.List;
 public interface BankAccountDao {
     /**
      * 插入银行账户
+     *
      * @param uid
      * @param account
      * @param bank_code
@@ -23,6 +24,7 @@ public interface BankAccountDao {
 
     /**
      * 根据删除银行账户
+     *
      * @param id
      * @return 返回插入的数量
      */
@@ -30,9 +32,10 @@ public interface BankAccountDao {
 
     /**
      * 根据用户id查询银行账户
+     *
      * @param uid
      * @param offset 偏移量
-     * @param limit 数量
+     * @param limit  数量
      * @return
      */
 
@@ -40,3 +43,5 @@ public interface BankAccountDao {
                                   @Param("offset") int offset,
                                   @Param("limit") int limit);
 
+
+}
