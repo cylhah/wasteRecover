@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Collector;
 
 import java.util.List;
@@ -37,7 +38,8 @@ public interface CollectorDao {
      * @param password
      * @return
      */
-    Collector selectByPhoneNumAndPass(String phoneNumber,String password);
+    Collector selectByPhoneNumAndPass(@Param("phoneNumber") String phoneNumber,
+                                      @Param("password") String password);
 
     /**
      * 按身份证号查找回收员
@@ -53,7 +55,9 @@ public interface CollectorDao {
      * @param limit 限制数量
      * @return Collector列表，找不到list.size()=0
      */
-    List<Collector> selectByName(String name,int offset,int limit);
+    List<Collector> selectByName(@Param("name") String name,
+                                 @Param("offset") int offset,
+                                 @Param("limit") int limit);
 
     /**
      * 更改电话号码
@@ -61,7 +65,8 @@ public interface CollectorDao {
      * @param phoneNumber
      * @return 返回更新记录的数量
      */
-    int updatePhoneNum(int id,String phoneNumber);
+    int updatePhoneNum(@Param("id")int id,
+                       @Param("phoneNumber")String phoneNumber);
 
     /**
      * 根据id更换密码
@@ -69,7 +74,8 @@ public interface CollectorDao {
      * @param password
      * @return 返回更新记录的数量
      */
-    int updatePassword(int id,String password);
+    int updatePassword(@Param("id")int id,
+                       @Param("password")String password);
 
 
     /**
@@ -92,7 +98,8 @@ public interface CollectorDao {
      * @param state
      * @return 返回更新记录的数量
      */
-    int updateState(int id,int state);
+    int updateState(@Param("id")int id,
+                    @Param("state")int state);
 
     /**
      * 删除回收员

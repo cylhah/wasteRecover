@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.UserAddress;
 
 import java.util.List;
@@ -19,8 +20,12 @@ public interface UserAddressDao {
      * @param community_id 受管理小区
      * @return 返回插入的数量
     */
-   int insertAddress(String uid,String address,String detail,int community_id,
-                     String geohash,double locationX,double locationY);
+   int insertAddress(@Param("uid")String uid, @Param("address")String address,
+                     @Param("detail")String detail,
+                     @Param("community_id")int community_id,
+                     @Param("geohash")String geohash,
+                     @Param("locationX")double locationX,
+                     @Param("locationY")double locationY);
 
     /**
      * 根据id搜索地址
@@ -35,7 +40,9 @@ public interface UserAddressDao {
      * @param limit 数量
      * @return
      */
-    List<UserAddress> selectByUid(int uid,int offset,int limit);
+    List<UserAddress> selectByUid(@Param("uid")int uid,
+                                  @Param("offset")int offset,
+                                  @Param("limit")int limit);
 
     /**
      * 更新地址
