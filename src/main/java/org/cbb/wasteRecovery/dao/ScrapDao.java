@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Scrap;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public interface ScrapDao {
      * @param uintPrice
      * @return 返回插入的数量
      */
-    int insertScrap(String typeName,String name,String uintPrice);
+    int insertScrap(@Param("typeName")String typeName, @Param("name")String name,
+                    @Param("uintPrice")String uintPrice);
 
     /**
      * 根据id搜索废品
@@ -32,7 +34,9 @@ public interface ScrapDao {
      * @param limit 限制数量
      * @return
      */
-    List<Scrap> selectByTypeName(String typeName,int offset,int limit);
+    List<Scrap> selectByTypeName(@Param("typeName")String typeName,
+                                 @Param("offset")int offset,
+                                 @Param("limit")int limit);
 
 
     /**
@@ -48,7 +52,8 @@ public interface ScrapDao {
      * @param monthVolume
      * @return 返回成交量(<0更新失败，即不存在该id)
      */
-    double updateMonthVolume(int id,double monthVolume);
+    double updateMonthVolume(@Param("id")int id,
+                             @Param("monthVolume")double monthVolume);
 
     /**
      * 更改总成交量
@@ -56,7 +61,8 @@ public interface ScrapDao {
      * @param totalVolume
      * @return 返回成交量(<0更新失败，即不存在该id)
      */
-    double updateTotalVolume(int id,double totalVolume);
+    double updateTotalVolume(@Param("id")int id,
+                             @Param("totalVolume") double totalVolume);
 
     /**
      * 根据id删除废品

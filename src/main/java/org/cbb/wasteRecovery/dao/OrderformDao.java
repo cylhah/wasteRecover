@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Orderform;
 
 import java.sql.Timestamp;
@@ -18,8 +19,10 @@ public interface OrderformDao {
      * @param state
      * @return 返回插入的数量
      */
-    int insertOrderform(Timestamp createTime,Timestamp appointTime,
-                        int aid,String uid,int state);
+    int insertOrderform(@Param("createTime")Timestamp createTime,
+                        @Param("appointTime")Timestamp appointTime,
+                        @Param("aid")int aid,
+                        @Param("uid")String uid, @Param("state")int state);
     /**
      * 根据id查询订单
      * @param id
@@ -35,7 +38,8 @@ public interface OrderformDao {
      * @param limit 数量
      * @return
      */
-    List<Orderform> selectByCId(int cid,int state,int offset,int limit);
+    List<Orderform> selectByCId(@Param("cid")int cid,@Param("state")int state,
+                                @Param("offset")int offset,@Param("limit")int limit);
 
     /**
      *  根据用户id和订单状态查询订单
@@ -45,7 +49,8 @@ public interface OrderformDao {
      * @param limit 限制数量
      * @return
      */
-    List<Orderform> selectByUId(String uid,int state,int offset,int limit);
+    List<Orderform> selectByUId(@Param("uid")String uid,@Param("state")int state,
+                                @Param("offset")int offset,@Param("limit")int limit);
 
 
     /**
@@ -55,7 +60,9 @@ public interface OrderformDao {
      * @param limit 限制数量
      * @return
      */
-    List<Orderform> selectByState(int state,int offset,int limit);
+    List<Orderform> selectByState(@Param("state")int state,
+                                  @Param("offset")int offset,
+                                  @Param("limit")int limit);
 
   /**
    *  根据位置信息查询订单
@@ -67,9 +74,12 @@ public interface OrderformDao {
    * @param limit 限制数量
    * @return
    */
-  List<Orderform> selectByPositon(double locationX,double locationY,
-                                  String geohash,double distance,
-                                  int offset,int limit);
+  List<Orderform> selectByPositon(@Param("locationX")double locationX,
+                                  @Param("locationY")double locationY,
+                                  @Param("geohash")String geohash,
+                                  @Param("distance")double distance,
+                                  @Param("offset")int offset,
+                                  @Param("limit")int limit);
 
   /**
    * 更改订单信息
@@ -78,7 +88,8 @@ public interface OrderformDao {
    * @param appointTime
    * @return 返回更新数量
    */
-  int updateOrderform(long id, int aid, Timestamp appointTime);
+  int updateOrderform(@Param("id")long id, @Param("aid")int aid,
+                      @Param("appointTime")Timestamp appointTime);
 
     /**
      * 提交订单资料，需要判断属性非空

@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.ScrapMessage;
 
 import java.util.List;
@@ -13,7 +14,10 @@ public interface ScrapMessageDao {
      * @param price
      * @return 返回插入数量
      */
-    int insertScrapMessage(String oid,int scrapid,double weight,double price);
+    int insertScrapMessage(@Param("oid")String oid,
+                           @Param("scrapid")int scrapid,
+                           @Param("weight")double weight,
+                           @Param("price")double price);
 
     /**
      * 删除废品信息
@@ -21,7 +25,7 @@ public interface ScrapMessageDao {
      * @param scrapid
      * @return 返回删除数量
      */
-    int deleteScrapMessage(String oid,int scrapid);
+    int deleteScrapMessage(@Param("oid")String oid,@Param("scrapid")int scrapid);
 
     /**
      * 更改信息资料
@@ -31,7 +35,8 @@ public interface ScrapMessageDao {
      * @param price
      * @return 返回更新的数量
      */
-    int updateData(String oid,int scrapid,double weight,double price);
+    int updateData(@Param("oid")String oid,@Param("scrapid")int scrapid,
+                   @Param("weight")double weight,@Param("price")double price);
 
     /**
      * 根据订单id查询废品信息
@@ -40,7 +45,9 @@ public interface ScrapMessageDao {
      * @param limit 数量
      * @return
      */
-    List<ScrapMessage> selectByOId(long oid,int offset,int limit);
+    List<ScrapMessage> selectByOId(@Param("oid")long oid,
+                                   @Param("offset")int offset,
+                                   @Param("limit")int limit);
 
     /**
      * 根据废品id查询订单信息
@@ -49,5 +56,7 @@ public interface ScrapMessageDao {
      * @param limit 数量
      * @return
      */
-    List<ScrapMessage> selectByScId(int scrapId,int offset,int limit);
+    List<ScrapMessage> selectByScId(@Param("scrapId")int scrapId,
+                                    @Param("offset")int offset,
+                                    @Param("limit")int limit);
 }

@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.User;
 
 import java.util.Map;
@@ -10,10 +11,11 @@ import java.util.Map;
 public interface UserDao {
     /**
      * 插入用户
-     * @param user 存有openId,state
+     * @param openId 微信的openid,用户的唯一识别码
+     * @param state
      * @return 返回插入的数量
      */
-    int insertUser(User user);
+    int insertUser(@Param("openId") String openId,@Param("state") int state);
     /**
      * 根据id查询用户
      * @param openid
@@ -30,10 +32,11 @@ public interface UserDao {
 
     /**
      * 更改用户信息
-     * @param user 存有id,avater
+     * @param openId
+     * @param avater 头像地址
      * @return 返回更新的数量
      */
-    int updateData(User user);
+    int updateData(@Param("openId")String openId,@Param("avater")String avater);
 
   /**
    * 根据openid删除用户
