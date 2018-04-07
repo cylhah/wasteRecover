@@ -50,7 +50,7 @@ public interface CollectorDao {
 
     /**
      * 按名字搜索废品回收员
-     * @param name
+     * @param realName
      * @param offset 偏移量
      * @param limit 限制数量
      * @return Collector列表，找不到list.size()=0
@@ -58,6 +58,7 @@ public interface CollectorDao {
     List<Collector> selectByName(@Param("realName") String realName,
                                  @Param("offset") int offset,
                                  @Param("limit") int limit);
+
 
     /**
      * 更改电话号码

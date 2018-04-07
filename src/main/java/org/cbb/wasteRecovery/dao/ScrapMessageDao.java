@@ -50,7 +50,7 @@ public interface ScrapMessageDao {
                                    @Param("limit")int limit);
 
     /**
-     * 根据废品id查询订单信息
+     * 根据废品id查询废品信息
      * @param scrapId
      * @param offset 偏移量
      * @param limit 数量

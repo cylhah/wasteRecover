@@ -65,23 +65,6 @@ public interface OrderformDao {
                                   @Param("limit")int limit);
 
   /**
-   *  根据位置信息查询订单
-   * @param locationX 经度
-   * @param locationY 纬度
-   * @param geohash 用于附近距离查找的hash码
-   * @param distance 限制距离
-   * @param offset 偏移量
-   * @param limit 限制数量
-   * @return
-   */
-  List<Orderform> selectByPositon(@Param("locationX")double locationX,
-                                  @Param("locationY")double locationY,
-                                  @Param("geohash")String geohash,
-                                  @Param("distance")double distance,
-                                  @Param("offset")int offset,
-                                  @Param("limit")int limit);
-
-  /**
    * 更改订单信息
    * @param id
    * @param aid

@@ -35,7 +35,7 @@ CREATE TABLE `collector` (
   `volume` int(10) unsigned DEFAULT NULL COMMENT '成交量',
   `createTime` datetime DEFAULT NULL,
   `staid` int(10) unsigned NOT NULL,
-  `state` int(10) unsigned DEFAULT NULL,
+  `state` int(10) unsigned DEFAULT NULL COMMENT '非法用户:0,正常用户:1',
   PRIMARY KEY (`id`),
   KEY `c_name` (`realName`),
   KEY `c_phoneNumber` (`phoneNumber`),
@@ -59,7 +59,7 @@ CREATE TABLE `community` (
 CREATE TABLE `user` (
   `openid` varchar(255) NOT NULL,
   `avater` varchar(255) DEFAULT NULL COMMENT '头像地址',
-  `state` int(11) unsigned zerofill DEFAULT '00000000000',
+  `state` int(11) unsigned zerofill DEFAULT '00000000000' COMMENT '非法用户:0,正常用户:1' ,
   PRIMARY KEY (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -99,11 +99,11 @@ CREATE TABLE `orderform` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uid` varchar(255) NOT NULL COMMENT '用户id',
   `cid` int(11) unsigned DEFAULT NULL COMMENT '完成该订单的回收员id',
-  `aid` bigint(10) unsigned NOT NULL COMMENT '地址id',
-  `state` tinyint(4) DEFAULT NULL,
+  `aid` bigint(20) unsigned NOT NULL COMMENT '地址id',
+  `state` tinyint(4) DEFAULT NULL COMMENT '已提交:1,已完成:2,请求更改:3,请求取消:4',
   `weight` double DEFAULT NULL COMMENT '总重量',
   `createTime` timestamp NULL DEFAULT NULL,
-  `appointTime` timestamp NULL DEFAULT NULL COMMENT '预约开始时间',
+  `appointTime` timestamp NULL DEFAULT NULL COMMENT '预约时间',
   `updateTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `price` double(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -123,6 +123,7 @@ CREATE TABLE `scrap` (
   `totalVolume` double DEFAULT NULL COMMENT '总成交量',
   PRIMARY KEY (`id`),
   KEY `s_typeName` (`typename`)
+  KEY `s_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `scrapmessage` (
