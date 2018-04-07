@@ -5,45 +5,63 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.StationDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Station" id="tion">
   <id property="id" column="id"/>
-  <result property="money" column="money"/>
+  <result property="detailed_address" column="detailed_address"/>
   <result property="name" column="name"/>
   <result property="address" column="address"/>
   <result property="locationY" column="locationY"/>
   <result property="locationX" column="locationX"/>
-  <result property="fullAdd" column="fullAdd"/>
-  <result property="geohash" column="geohash"/>
+
+</resultMap>
+
+<resultMap type="org.cbb.wasteRecovery.bean.Station" id="tion1">
+        <id property="id" column="id"/>
+        <result property="detailed_address" column="detailed_address"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="locationY" column="locationY"/>
+        <result property="locationX" column="locationX"/>
+       <collection property="collectorList" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
+       <collection property="consultantList" resultMap="org.cbb.wasteRecovery.dao.ConsultantDao.Consultant1"/>
 </resultMap>
 
 
+    <sql id="columns">t.id,t.staid,t.password,t.username,st.name,st.address,st.detailed_address,c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume</sql>
 
-    <select id="selectById" resultType="Station" parameterType="int">
-        select name,address,detailed_address
-        from station
+
+    <select id="selectById" resultMap="tion1" parameterType="int">
+        select <include refid="columns"/>
+        from (station st
+        INNER JOIN consultant t ON st.id=t.staid)INNER JOIN collector c
+        ON st.id=c.staid
         where
-           id=#{id}
+           st.id=#{id}
        
         
     </select>
 
 
     
-    <select id="selectByAdd" resultType="Station" >
-        select name,id,detailed_address
-        from station
+    <select id="selectByAdd" resultMap="tion1" >
+       select <include refid="columns"/>
+        from (station st
+        INNER JOIN consultant t ON st.id=t.staid)INNER JOIN collector c
+         ON st.id=c.staid
         where
-        address like '%' #{address} '%'
-        order BY id
+        st.address like '%' #{address} '%'
+        order BY st.id
         limit #{offset},#{limit}
        
         
     </select>
     
-    <select id="selectByName" resultType="Station">
-        select address,id,detailed_address
-        from station
+    <select id="selectByName" resultMap="tion1">
+       select <include refid="columns"/>
+        from (station st
+        INNER JOIN consultant t ON st.id=t.staid)INNER JOIN collector c
+         ON st.id=c.staid
         where
-           name=#{name}
-        order BY id
+           st.name=#{name}
+        order BY st.id
         limit #{offset},#{limit}
        
         

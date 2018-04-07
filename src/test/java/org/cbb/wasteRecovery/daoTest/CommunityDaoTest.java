@@ -24,8 +24,8 @@ public class CommunityDaoTest {
     public void insertCommunity() throws Exception {
 
 
-        String address="杭州";
-        String name="周鹏";
+        String address="奉化";
+        String name="张琳";
        int i=communityDao.insertCommunity(address,name);
         System.out.println(i);
 

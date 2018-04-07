@@ -49,7 +49,7 @@ public class OrderformDaoTest {
     @Test
     public void selectByCId() throws Exception{
 
-        int cid=1;
+        int cid=3;
         int state=1;
         int offset=0;
         int limit=1;
@@ -65,7 +65,7 @@ public class OrderformDaoTest {
     @Test
     public void selectByUId() throws Exception{
 
-        String uid="qw";
+        String uid="qwerd";
         int state=1;
         int offset=0;
         int limit=1;

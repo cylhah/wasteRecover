@@ -4,6 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.CommunityDao">
 
+    <resultMap type="org.cbb.wasteRecovery.bean.Community" id="Community">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="cid" column="cid"/>
+        <result property="name" column="name"/>
+        <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
+    </resultMap>
+
+    <resultMap type="org.cbb.wasteRecovery.bean.Community" id="Community1">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="cid" column="cid"/>
+        <result property="name" column="name"/>
+
+    </resultMap>
+
+
+    <sql id="columns">m.id,m.address,m.name,c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,staid,c.state,c.volume</sql>
+
 
     <insert id="insertCommunity">
 
@@ -46,25 +65,29 @@
 
     </update>
 
-    <select id="selectByCid" resultType="Community" >
-        select id,address,name
-        from community
+    <select id="selectByCid" resultMap="Community" >
+        select <include refid="columns"/>
+        from community m
+        INNER JOIN collector c
+        ON m.cid=c.id
         where
-        cid=#{cid}
-        order BY id
+        m.cid=#{cid}
+        order BY m.id
         limit #{offset},#{limit}
 
 
     </select>
 
-    <select id="selectByName" resultType="Community" >
+    <select id="selectByName" resultMap="Community" >
 
-        select id,address
-        from community
+        select  <include refid="columns"/>
+        from community m
+        INNER JOIN collector c
+        ON m.cid=c.id
         where
         name like '%' #{name} '%'
 
-        order BY id
+        order BY m.id
         limit #{offset},#{limit}
 
     </select>

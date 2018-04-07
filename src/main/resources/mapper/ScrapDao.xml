@@ -5,14 +5,17 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.ScrapDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Scrap" id="Scrap">
   <id property="id" column="id"/>
-  <result property="tid" column="tid"/>
+  <result property="typeName" column="typeName"/>
   <result property="name" column="name"/>
-  <result property="unitPriceFU" column="unitPriceFU"/>
-  <result property="unitPriceFC" column="unitPriceFC"/>
+  <result property="unitPrice" column="unitPrice"/>
   <result property="monthVolume" column="monthVolume"/>
   <result property="totalVolume" column="totalVolume"/>
 
 </resultMap>
+
+    <sql id="columns">id,typeName,name,unitPrice,monthVolume,totalVolume</sql>
+
+
     <insert id="insertScrap">
 
         insert  into scrap(typeName,name,unitPrice)
@@ -20,7 +23,7 @@
     </insert>
 
     <select id="selectByid" resultType="Scrap" parameterType="int">
-        select id,typeName,name,unitPrice,monthVolume,totalVolume
+        select <include refid="columns"/>
         from scrap
         where
            id=#{id}
@@ -29,7 +32,7 @@
     </select>
 
     <select id="selectByTypeName" resultType="Scrap" >
-        select id,typeName,name,unitPrice,monthVolume,totalVolume
+        select <include refid="columns"/>
         from scrap
         where
         typeName=#{typeName}

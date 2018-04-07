@@ -3,16 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.UserDao">
+
  <resultMap type="org.cbb.wasteRecovery.bean.User" id="User">
-  <id property="id" column="id"/>
-  <result property="sex" column="sex"/>
-  <result property="name" column="name"/>
-  <result property="password" column="password"/>
-  <result property="phoneNumber" column="phoneNumber"/>
-  <result property="email" column="email"/>
-  <result property="bankAccount" column="bankAccount"/>
+  <id property="openid" column="openid"/>
+  <result property="state" column="state"/>
   <result property="avater" column="avater"/>
-     <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
+ <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
+ <collection property="accountList" resultMap="org.cbb.wasteRecovery.dao.BankAccountDao.BankAccount"/>
+</resultMap>
+<resultMap type="org.cbb.wasteRecovery.bean.User" id="User1">
+        <id property="openid" column="openid"/>
+        <result property="state" column="state"/>
+        <result property="avater" column="avater"/>
+
 </resultMap>
 
     <insert id="insertUser">
@@ -24,11 +27,14 @@
 
 
 
-  <select id="selectById" resultType="org.cbb.wasteRecovery.bean.User" parameterType="String">
-        select state,avater
-        from user
+  <select id="selectById" resultMap="User" parameterType="String">
+
+        select u.state,u.avater,u.openid,b.id,b.account,b.bank_code,b.username,a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position
+        from (user u
+        INNER JOIN useraddress a ON u.openid=a.id)INNER JOIN bankaccount b
+         ON u.openid=b.uid
         where
-           openid=#{openid}
+           u.openid=#{openid}
        
         
     </select>

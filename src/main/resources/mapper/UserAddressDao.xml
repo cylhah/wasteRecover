@@ -7,12 +7,24 @@
         <id property="id" column="id"/>
         <result property="uid" column="uid"/>
         <result property="address" column="address"/>
-        <result property="fullADD" column="fullADD"/>
+        <result property="detail" column="detail"/>
         <result property="locationX" column="locationX"/>
         <result property="locationY" column="locationY"/>
         <result property="geohash" column="geohash"/>
 
+        <result property="community_id" column="community_id"/>
+    </resultMap>
 
+    <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="Address1">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="address" column="address"/>
+        <result property="detail" column="detail"/>
+        <result property="locationX" column="locationX"/>
+        <result property="locationY" column="locationY"/>
+        <result property="geohash" column="geohash"/>
+        <result property="community_id" column="community_id"/>
+        <collection property="community" resultMap="org.cbb.wasteRecovery.dao.CommunityDao.Community1"/>
     </resultMap>
     <insert id="insertAddress">
 
@@ -22,23 +34,27 @@
 
 
 
-    <sql id="columns">id,uid,address,detail,community_id,geohash,position</sql>
+    <sql id="columns">a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position,m.id,m.address,m.name</sql>
 
-    <select id="selectById" resultType="UserAddress" parameterType="int">
+    <select id="selectById" resultMap="Address1" parameterType="int">
         select <include refid="columns"/>
-        from useraddress  
+        from useraddress  a
+        INNER JOIN community m
+        ON a.community_id=m.id
         where
-           id=#{id}
+           a.id=#{id}
        
         
     </select>
     
-    <select id="selectByUid" resultType="UserAddress" >
+    <select id="selectByUid" resultMap="Address1" >
         select <include refid="columns"/>
-        from useraddress  
+        from useraddress  a
+        INNER JOIN community m
+        ON a.community_id=m.id
         where
-           uid=#{uid}
-        order BY id
+           a.uid=#{uid}
+        order BY a.id
         limit #{offset},#{limit}
        
         

@@ -40,7 +40,7 @@ public class UserAddressDaoTest {
     @Test
     public void selectById() throws Exception{
 
-       UserAddress userAddress= userAddressDao.selectById(1);
+       UserAddress userAddress= userAddressDao.selectById(2);
         System.out.println(userAddress);
     }
     //返回值为org.cbb.wasteRecovery.bean.UserAddress@31edaa7d
@@ -50,7 +50,7 @@ public class UserAddressDaoTest {
     public void selectByUid() throws Exception{
 
         String uid="qw";
-        int offset=1;
+        int offset=0;
         int limit=1;
       List<UserAddress> userAddress= userAddressDao.selectByUid(uid,offset,limit);
         for(UserAddress userAddress1:userAddress)

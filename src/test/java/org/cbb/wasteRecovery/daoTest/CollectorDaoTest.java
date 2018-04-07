@@ -51,7 +51,7 @@ public class CollectorDaoTest {
     @Test
     public void selectById() throws Exception{
 
-     Collector collector=collectorDao.selectById(1);
+     Collector collector=collectorDao.selectById(3);
         System.out.println(collector);
     }
     // 返回值为org.cbb.wasteRecovery.bean.Collector@dc9876b
@@ -59,7 +59,7 @@ public class CollectorDaoTest {
     @Test
     public void selectByPhoneNum() throws Exception{
 
-        Collector collector=collectorDao.selectByPhoneNum("13957863999");
+        Collector collector=collectorDao.selectByPhoneNum("13867888450");
         System.out.println(collector);
 
     }
@@ -69,7 +69,7 @@ public class CollectorDaoTest {
     public void selectByPhoneNumAndPass() throws Exception{
 
         String phoneNumber="13957863999";
-        String password="roott";
+        String password="qwer";
         Collector collector=collectorDao.selectByPhoneNumAndPass(phoneNumber,password);
         System.out.println(collector);
     }
@@ -87,7 +87,7 @@ public class CollectorDaoTest {
     @Test
     public void selectByName() throws Exception{
 
-        String name="汪宏斌";
+        String name="黄书";
         int offset=0;
         int limit=1;
         List<Collector> collector= collectorDao.selectByName(name,offset,limit);

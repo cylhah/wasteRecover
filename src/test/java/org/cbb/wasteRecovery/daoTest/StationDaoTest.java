@@ -21,7 +21,7 @@ public class StationDaoTest {
     @Test
     public void selectById() throws Exception{
 
-        Station station= stationDao.selectById(1);
+        Station station= stationDao.selectById(2);
         System.out.println(station);
     }
 

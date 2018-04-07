@@ -5,83 +5,102 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.CollectorDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect">
   <id property="id" column="id"/>
-  <result property="name" column="name"/>
+  <result property="realName" column="realName"/>
   <result property="sex" column="sex"/>
   <result property="password" column="password"/>
   <result property="avater" column="avater"/>
-  <result property="email" column="email"/>
   <result property="phoneNumber" column="phoneNumber"/>
   <result property="photo" column="photo"/> 
   <result property="idCardNum" column="idCardNum"/>
   <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
   <result property="idCardBackPhoto" column="idCardBackPhoto"/>
    <result property="volume" column="volume"/>
-  <result property="creditValue" column="creditValue"/> 
   <result property="bankAccount" column="bankAccount"/> 
   <result property="state" column="state"/> 
-  <result property="createTime" column="createTime"/> 
-  <result property="locationX" column="locationX"/>
-  <result property="locationY" column="locationY"/>
-  <result property="geoHash" column="geoHash"/>
-   <collection property="orderformList" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order"/>
+  <result property="createTime" column="createTime"/>
+  <result property="staid" column="staid"/>
 
+  <collection property="unDidOrderformList" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order1"/>
 </resultMap>
-
+ <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect1">
+        <id property="id" column="id"/>
+        <result property="realName" column="realName"/>
+        <result property="sex" column="sex"/>
+        <result property="password" column="password"/>
+        <result property="avater" column="avater"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+        <result property="photo" column="photo"/>
+        <result property="idCardNum" column="idCardNum"/>
+        <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
+        <result property="idCardBackPhoto" column="idCardBackPhoto"/>
+        <result property="volume" column="volume"/>
+        <result property="bankAccount" column="bankAccount"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="createTime"/>
+        <result property="staid" column="staid"/>
+</resultMap>
     <insert id="insertCollector">
 
     insert  into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume)
     values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{staid},#{state},#{volume})
    </insert>
 
-    <sql id="columns">realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume</sql>
+    <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid</sql>
 
-    <select id="selectById" resultType="Collector" parameterType="int">
+    <select id="selectById" resultMap="Collect" parameterType="int">
         select <include refid="columns"/>
-        from collector
-
+        from collector c
+        INNER JOIN orderform o
+        ON c.id=o.cid
         where
-           id=#{id}
+           c.id=#{id}
           
         
     </select>
 
-    <select id="selectByPhoneNum" resultType="Collector" parameterType="String">
+    <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
         select <include refid="columns"/>
-        from collector
-
+        from collector c
+        INNER JOIN orderform o
+        ON c.id=o.cid
         where
-           phoneNumber=#{phoneNumber}
-          
-        
-    </select>
-    
-     <select id="selectByPhoneNumAndPass" resultType="Collector" >
-        select <include refid="columns"/>
-        from collector
-
-        where
-          phoneNumber=#{phoneNumber}
-        and password=#{password}
-        
-    </select>
-
-    <select id="selectByIdCardNum"  resultType="Collector" parameterType="String">
-        select <include refid="columns"/>
-        from collector
-
-        where
-           idCardNum=#{idCardNum}
+           c.phoneNumber=#{phoneNumber}
           
         
     </select>
     
-    <select id="selectByName" resultType="Collector">
+     <select id="selectByPhoneNumAndPass" resultMap="Collect" >
         select <include refid="columns"/>
-        from collector
+
+         from collector c
+         INNER JOIN orderform o
+         ON c.id=o.cid
+        where
+          c.phoneNumber=#{phoneNumber}
+        and c.password=#{password}
+        
+    </select>
+
+    <select id="selectByIdCardNum"  resultMap="Collect" parameterType="String">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+        ON c.id=o.cid
 
         where
-         realName=#{realName}
-        order BY id
+           c.idCardNum=#{idCardNum}
+          
+        
+    </select>
+    
+    <select id="selectByName" resultMap="Collect">
+        select <include refid="columns"/>
+        from collector c
+        INNER JOIN orderform o
+
+        where
+         c.realName=#{realName}
+        order BY c.id
         limit #{offset},#{limit}
           
         

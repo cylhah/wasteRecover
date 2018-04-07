@@ -7,22 +7,30 @@
   <id property="id" column="id"/>
   <result property="uid" column="uid"/>
   <result property="cid" column="cid"/>
-  <result property="eid" column="eid"/>
   <result property="aid" column="aid"/>
-  <result property="staid" column="staid"/>
   <result property="state" column="state"/>
   <result property="weight" column="weight"/>
   <result property="createTime" column="createTime"/>
-  <result property="appointSTime" column="appointSTime"/>
-  <result property="appointETime" column="appointETime"/>
+  <result property="appointTime" column="appointTime"/>
+  <result property="updateTime" column="updateTime"/>
   <result property="price" column="price"/>
-  <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User"/>
-  <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect"/>
-  <collection property="employee" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
-  <collection property="station" resultMap="org.cbb.wasteRecovery.dao.StationDao.tion"/>
-  <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
+  <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User1"/>
+  <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
+  <collection property="scrapMessageList" resultMap="org.cbb.wasteRecovery.dao.ScrapMessageDao.Message1"/>
   <collection property="address" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
+    <resultMap type="org.cbb.wasteRecovery.bean.Orderform" id="order1">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="cid" column="cid"/>
+        <result property="aid" column="aid"/>
+        <result property="state" column="state"/>
+        <result property="weight" column="weight"/>
+        <result property="createTime" column="createTime"/>
+        <result property="appointTime" column="appointTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="price" column="price"/>
+    </resultMap>
     <insert id="insertOrderform">
 
     insert  into orderform(state,createTime,appointTime,aid,uid)
@@ -31,39 +39,39 @@
     </insert>
 
 
-    <sql id="columns">state,weight,createTime,appointTime,updateTime,price,aid,uid,cid</sql>
+    <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position, u.state,u.avater,u.openid,sc.weight,sc.price,sc.oid,sc.scrapid</sql>
 
-     <select id="selectById"  resultType="Orderform" parameterType="long">
+     <select id="selectById"  resultMap="order" parameterType="long">
         select <include refid="columns"/>
-        from orderform
-
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
         where
-           id=#{id}
+           o.id=#{id}
        
         
     </select>
     
-    <select id="selectByCId" resultType="Orderform">
+    <select id="selectByCId" resultMap="order">
         select <include refid="columns"/>
-        from orderform
-
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
         where
-           cid=#{cid}
-        and  state=#{state}
-        order BY id
+           o.cid=#{cid}
+        and  o.state=#{state}
+        order BY o.id
         limit #{offset},#{limit}
        
         
     </select>
     
-    <select id="selectByUId" resultType="Orderform">
+    <select id="selectByUId" resultMap="order">
         select <include refid="columns"/>
-        from orderform
-
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
         where
-          uid=#{uid}
-        and  state=#{state}
-        order BY id
+          o.uid=#{uid}
+        and  o.state=#{state}
+        order BY o.id
         limit #{offset},#{limit}
         
     </select>
@@ -73,23 +81,24 @@
 
     
     
-    <select id="selectByState" resultType="Orderform">
+    <select id="selectByState" resultMap="order">
         select <include refid="columns"/>
-        from orderform
-
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
         where
-           state=#{state}
-        order BY id
+           o.state=#{state}
+        order BY o.id
         limit #{offset},#{limit}
         
     </select>
     
     <select id="selectByPositon" resultMap="order">
-        select o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,d.uid,d.address,d.detail,d.community_id,d.geohash,d.position
+        select o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,d.uid,d.address,d.detail,d.community_id,d.geohash,X(position) as X(d.position),Y(position) as Y(d.position)
+
         from orderform o
         INNER JOIN useraddress d
         where
-        Math.sqrt(toRadians(d.locationX-#{locationX}) * 6367000.0* Math.cos(toRadians((d.locationY+#{locationY})/2.0)) * toRadians(d.locationX-#{locationX}) * 6367000.0* Math.cos(toRadians((d.locationY+#{locationY})/2.0)) + 6367000.0 * toRadians(d.locationY-#{locationY}) * 6367000.0 * toRadians(d.locationY-#{locationY}))  <![CDATA[ <= ]]>#{distance}
+        Math.sqrt(toRadians(X(position) -#{locationX}) * 6367000.0* Math.cos(toRadians((Y(position) +#{locationY})/2.0)) * toRadians(X(position) -#{locationX}) * 6367000.0* Math.cos(toRadians((Y(position) +#{locationY})/2.0)) + 6367000.0 * toRadians(Y(position) -#{locationY}) * 6367000.0 * toRadians(Y(position) -#{locationY}))  <![CDATA[ <= ]]>#{distance}
 
        and d.geohash LIKE CONCAT(?, '%');
         order BY o.id
