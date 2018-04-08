@@ -31,11 +31,11 @@ public interface LoginService {
 
     /**
      * 咨询员登录
-     * @param phoneNumber
+     * @param username
      * @param password
      * @return
      */
-    Consultant consultantLogin(String phoneNumber,String password);
+    Consultant consultantLogin(String username,String password);
 
     /**
      * 咨询员退出登录

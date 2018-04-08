@@ -104,11 +104,11 @@ public class OrderformDaoTest {
         double distance=10000;
         int offset=0;
         int limit=1;
-        List<Orderform> Orderform= orderformDao.selectByPositon(locationX,locationY,geohash,distance,offset,limit);
-        for(Orderform Orderform1:Orderform)
-        {
-            System.out.println(Orderform1);
-        }
+//        List<Orderform> Orderform= orderformDao.selectByPositon(locationX,locationY,geohash,distance,offset,limit);
+//        for(Orderform Orderform1:Orderform)
+//        {
+//            System.out.println(Orderform1);
+//        }
     }
 
 

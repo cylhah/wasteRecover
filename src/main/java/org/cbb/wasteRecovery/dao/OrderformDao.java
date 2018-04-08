@@ -75,6 +75,14 @@ public interface OrderformDao {
                       @Param("appointTime")Timestamp appointTime);
 
     /**
+     * 更新订单状态
+     * @param id
+     * @param state 订单状态
+     * @return
+     */
+  int updateOrederform(long id,int state);
+
+    /**
      * 提交订单资料，需要判断属性非空
      * @param orderform 存有id,cid,weight,price,state
      * @return 返回更新数量
