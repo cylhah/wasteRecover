@@ -64,6 +64,20 @@ public interface OrderformDao {
                                   @Param("offset")int offset,
                                   @Param("limit")int limit);
 
+    /**
+     * 根据位置查询订单
+     * @param geohash
+     * @param locationX
+     * @param locationY
+     * @param distance
+     * @return
+     */
+    List<Orderform> selectByPos(@Param("openid") String openid,
+                                @Param("geohash") String geohash,
+                                @Param("locationX") double locationX,
+                                @Param("locationY") double locationY,
+                                @Param("distance") double distance);
+
   /**
    * 更改订单信息
    * @param id

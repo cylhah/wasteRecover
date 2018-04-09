@@ -20,6 +20,7 @@ public class Validate {
         return true;
     }
     public static boolean validateComplOrder(Orderform orderform){
+        if(orderform.getScrapMessageList().size()==0) return false;
         if(!validateSubmitOrder(orderform)) return false;
         if(!myMatch(DoublePattern,String.valueOf(orderform.getWeight()))) return false;
         if(!myMatch(DoublePattern,String.valueOf(orderform.getPrice()))) return false;
