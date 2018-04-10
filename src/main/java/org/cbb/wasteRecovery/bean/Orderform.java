@@ -134,4 +134,24 @@ public class Orderform {
     public void setScrapMessageList(List<ScrapMessage> scrapMessageList) {
         this.scrapMessageList = scrapMessageList;
     }
+
+    @Override
+    public String toString() {
+        return "Orderform{" +
+                "id=" + id +
+                ", uid='" + uid + '\'' +
+                ", cid=" + cid +
+                ", aid=" + aid +
+                ", state=" + state +
+                ", weight=" + weight +
+                ", createTime=" + createTime +
+                ", appointTime=" + appointTime +
+                ", updateTime=" + updateTime +
+                ", price=" + price +
+                ", user=" + user +
+                ", collector=" + collector +
+                ", address=" + address +
+                ", scrapMessageList=" + scrapMessageList +
+                '}';
+    }
 }

@@ -46,4 +46,15 @@ public class BankAccount {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id=" + id +
+                ", uid='" + uid + '\'' +
+                ", account='" + account + '\'' +
+                ", bank_code=" + bank_code +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

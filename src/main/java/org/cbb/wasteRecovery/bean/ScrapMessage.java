@@ -56,4 +56,16 @@ public class ScrapMessage {
     public void setOrderform(Orderform orderform) {
         this.orderform = orderform;
     }
+
+    @Override
+    public String toString() {
+        return "ScrapMessage{" +
+                "oid=" + oid +
+                ", scrapid=" + scrapid +
+                ", weight=" + weight +
+                ", price=" + price +
+                ", scrap=" + scrap +
+                ", orderform=" + orderform +
+                '}';
+    }
 }

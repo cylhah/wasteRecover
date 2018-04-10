@@ -170,6 +170,30 @@ public class Collector {
     public void setDidOrderformList(List<Orderform> didOrderformList) {
         DidOrderformList = didOrderformList;
     }
+
+    @Override
+    public String toString() {
+        return "Collector{" +
+                "id=" + id +
+                ", realName='" + realName + '\'' +
+                ", sex=" + sex +
+                ", avater='" + avater + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", photo='" + photo + '\'' +
+                ", idCardNum='" + idCardNum + '\'' +
+                ", idCardFrontPhoto='" + idCardFrontPhoto + '\'' +
+                ", idCardBackPhoto='" + idCardBackPhoto + '\'' +
+                ", volume=" + volume +
+                ", createTime=" + createTime +
+                ", state=" + state +
+                ", staid=" + staid +
+                ", station=" + station +
+                ", unDidOrderformList=" + unDidOrderformList +
+                ", DidOrderformList=" + DidOrderformList +
+                ", communityList=" + communityList +
+                '}';
+    }
 }
 
 

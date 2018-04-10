@@ -58,4 +58,16 @@ public class Scrap {
     public void setTotalVolume(double totalVolume) {
         this.totalVolume = totalVolume;
     }
+
+    @Override
+    public String toString() {
+        return "Scrap{" +
+                "id=" + id +
+                ", typeName='" + typeName + '\'' +
+                ", name='" + name + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", monthVolume=" + monthVolume +
+                ", totalVolume=" + totalVolume +
+                '}';
+    }
 }

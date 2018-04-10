@@ -2,6 +2,7 @@ package org.cbb.wasteRecovery.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Community;
+import org.cbb.wasteRecovery.entity.Page;
 
 import java.util.List;
 
@@ -37,18 +38,14 @@ public interface CommunityDao {
      * @param address ;
      * @return 返回更新的数量
      */
-    int updateData(@Param("name")String name,@Param("address")String address);
+    int updateData(@Param("id")int id,@Param("name")String name,@Param("address")String address);
 
     /**
      * 根据回收人员id搜索小区
      * @param cid
-     * @param offset 偏移量
-     * @param limit 限制数量
      * @return 小区列表，找不到list.size()==0
      */
-    List<Community> selectByCid(@Param("cid")int cid,
-                                @Param("offset")int offset,
-                                @Param("limit")int limit);
+    List<Community> selectByCid(@Param("cid")int cid, @Param("page")Page page);
 
     /**
      * 根据名字模糊查询小区

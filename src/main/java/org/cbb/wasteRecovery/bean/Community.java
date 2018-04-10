@@ -40,4 +40,15 @@ public class Community {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Community{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", cid=" + cid +
+                ", name='" + name + '\'' +
+                ", collector=" + collector +
+                '}';
+    }
 }

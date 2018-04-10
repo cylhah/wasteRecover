@@ -52,4 +52,15 @@ public class User {
     public void setAccountList(List<BankAccount> accountList) {
         this.accountList = accountList;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "openid='" + openid + '\'' +
+                ", avater='" + avater + '\'' +
+                ", state=" + state +
+                ", addressList=" + addressList +
+                ", accountList=" + accountList +
+                '}';
+    }
 }

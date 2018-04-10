@@ -118,4 +118,22 @@ public class UserAddress {
     public void setCommunity(Community community) {
         this.community = community;
     }
+
+    @Override
+    public String toString() {
+        return "UserAddress{" +
+                "id=" + id +
+                ", uid='" + uid + '\'' +
+                ", address='" + address + '\'' +
+                ", detail='" + detail + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", community_id=" + community_id +
+                ", community=" + community +
+                ", locationX=" + locationX +
+                ", locationY=" + locationY +
+                ", geohash='" + geohash + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

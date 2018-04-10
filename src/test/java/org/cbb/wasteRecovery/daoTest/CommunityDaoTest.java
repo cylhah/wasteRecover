@@ -3,6 +3,7 @@ package org.cbb.wasteRecovery.daoTest;
 
 import org.cbb.wasteRecovery.bean.Community;
 import org.cbb.wasteRecovery.dao.CommunityDao;
+import org.cbb.wasteRecovery.entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -61,7 +62,7 @@ public class CommunityDaoTest {
 
 
 
-        int i=communityDao.updateData(name,address);
+        int i=communityDao.updateData(1,name,address);
         System.out.println(i);
     }
     //返回值是1
@@ -73,7 +74,7 @@ public class CommunityDaoTest {
         int cid=3;
         int offset=1;
         int limit=1;
-       List<Community> community= communityDao.selectByCid(cid,offset,limit);
+       List<Community> community= communityDao.selectByCid(cid,new Page());
         for(Community community1:community)
         {
             System.out.println(community1);

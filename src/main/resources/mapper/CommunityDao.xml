@@ -21,75 +21,35 @@
     </resultMap>
 
 
-    <sql id="columns">m.id,m.address,m.name,c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,staid,c.state,c.volume</sql>
+    <sql id="columns">m.id,m.address,m.name,
+    c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,staid,c.state,c.volume</sql>
 
 
     <insert id="insertCommunity">
-
-        insert  into community(address,name)
-        values (#{address},#{name})
+        insert  into community(address,name) values (#{address},#{name})
     </insert>
 
 
     <delete id="deleteCommunity">
-        delete
-        from
-        community
-        where
-        id=#{id}
-
+        delete from community where id=#{id}
     </delete>
 
     <update id="updateCollectorOfComm">
-
-        update
-        community
-        set
-
-        cid = #{cid}
-        where
-        id = #{id}
-
+        update community set cid = #{cid} where id = #{id}
     </update>
 
 
     <update id="updateData">
-
-        update
-        community
-        set
-        address=#{address}
-
-        where
-       name = #{name}
-
+        update community set address=#{address} ,name = #{name} where id=#{id}
     </update>
 
     <select id="selectByCid" resultMap="Community" >
-        select <include refid="columns"/>
-        from community m
-        INNER JOIN collector c
-        ON m.cid=c.id
-        where
-        m.cid=#{cid}
-        order BY m.id
-        limit #{offset},#{limit}
-
-
+        select <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id where m.cid=#{cid} order BY m.id
     </select>
 
     <select id="selectByName" resultMap="Community" >
-
-        select  <include refid="columns"/>
-        from community m
-        INNER JOIN collector c
-        ON m.cid=c.id
-        where
-        name like '%' #{name} '%'
-
-        order BY m.id
-        limit #{offset},#{limit}
-
+        select  <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id
+        where name like '%' #{name} '%' order BY m.id
     </select>
 
 </mapper>

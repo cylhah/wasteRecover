@@ -82,4 +82,18 @@ public class Station {
     public void setConsultantList(List<Consultant> consultantList) {
         this.consultantList = consultantList;
     }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", detailed_address='" + detailed_address + '\'' +
+                ", locationX=" + locationX +
+                ", locationY=" + locationY +
+                ", collectorList=" + collectorList +
+                ", consultantList=" + consultantList +
+                '}';
+    }
 }

@@ -47,4 +47,15 @@ public class Consultant {
     public void setStation(Station station) {
         this.station = station;
     }
+
+    @Override
+    public String toString() {
+        return "Consultant{" +
+                "id=" + id +
+                ", staid=" + staid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", station=" + station +
+                '}';
+    }
 }
