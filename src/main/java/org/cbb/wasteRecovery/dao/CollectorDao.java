@@ -12,7 +12,7 @@ public interface CollectorDao {
 
     /**
      * 插入回收员，存有realName,sex,phoneNumber,password,photo,idCardNum,
-     * idCardFrontPhoto,idCardBackPhoto,createTime,staid,state
+     * idCardFrontPhoto,idCardBackPhoto,staid
      * @param collector
      * @return 返回插入的数量
     */
@@ -79,12 +79,6 @@ public interface CollectorDao {
                        @Param("password")String password);
 
 
-    /**
-     * 增加成交量
-     * @param id
-     * @return 返回成交量，<1代表增加失败
-     */
-    int addVolume(int id);
 
     /**
      * 更改个人资料

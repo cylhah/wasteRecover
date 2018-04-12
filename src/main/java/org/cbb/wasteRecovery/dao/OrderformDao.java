@@ -1,34 +1,35 @@
 package org.cbb.wasteRecovery.dao;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Orderform;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Colossus on 2018/3/18.
  */
 public interface OrderformDao {
     /**
-     * 插入订单,设置state为1
-     * @param createTime 预约时间
+     * 插入订单
      * @param appointTime 用户时间
      * @param aid
      * @param uid
-     * @param state
      * @return 返回插入的数量
      */
-    int insertOrderform(@Param("createTime")Timestamp createTime,
-                        @Param("appointTime")Timestamp appointTime,
+    int insertOrderform(@Param("appointTime")Timestamp appointTime,
                         @Param("aid")int aid,
-                        @Param("uid")String uid, @Param("state")int state);
+                        @Param("uid")String uid);
     /**
      * 根据id查询订单
      * @param id
      * @return
      */
     Orderform selectById(long id);
+
+    List<Orderform> filterOrder(Map constrains);
 
     /**
      * 根据回收人员id和订单状态查询订单
@@ -78,15 +79,6 @@ public interface OrderformDao {
                                 @Param("locationY") double locationY,
                                 @Param("distance") double distance);
 
-  /**
-   * 更改订单信息
-   * @param id
-   * @param aid
-   * @param appointTime
-   * @return 返回更新数量
-   */
-  int updateOrderform(@Param("id")long id, @Param("aid")int aid,
-                      @Param("appointTime")Timestamp appointTime);
 
     /**
      * 更新订单状态
@@ -94,7 +86,7 @@ public interface OrderformDao {
      * @param state 订单状态
      * @return
      */
-  int updateOrederform(long id,int state);
+  int updateOrderform(@Param("id") long id,@Param("state") int state);
 
     /**
      * 提交订单资料，需要判断属性非空

@@ -4,13 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.StationDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Station" id="tion">
-  <id property="id" column="id"/>
-  <result property="detailed_address" column="detailed_address"/>
-  <result property="name" column="name"/>
-  <result property="address" column="address"/>
-  <result property="locationY" column="locationY"/>
-  <result property="locationX" column="locationX"/>
-
+  <id property="id" column="sta_id"/>
+  <result property="detailed_address" column="sta_detailed_address"/>
+  <result property="name" column="sta_name"/>
+  <result property="address" column="sta_address"/>
 </resultMap>
 
 <resultMap type="org.cbb.wasteRecovery.bean.Station" id="tion1">
@@ -18,22 +15,33 @@
         <result property="detailed_address" column="detailed_address"/>
         <result property="name" column="name"/>
         <result property="address" column="address"/>
-        <result property="locationY" column="locationY"/>
-        <result property="locationX" column="locationX"/>
+        <result property="locationY" column="locationY" />
+        <result property="locationX" column="locationX" />
        <collection property="collectorList" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
        <collection property="consultantList" resultMap="org.cbb.wasteRecovery.dao.ConsultantDao.Consultant1"/>
 </resultMap>
 
 
-    <sql id="columns">t.id,t.staid,t.password,t.username,
-	st.name,st.address,st.detailed_address,
-	c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume
+    <sql id="columns">
+    cons.username,
+	st.id ,st.name,st.address,st.detailed_address,
+    X(st.position) locationX,
+    Y(st.position) locationY,
+	c.id col_id,
+    c.realName col_realName,
+    c.sex col_sex,
+    c.phoneNumber col_phoneNumber,
+    c.idCardNum col_idCardNum,
+    c.createTime col_createTime,
+    c.avater col_avater,
+    c.state col_state,
+    c.volume col_volume
 	</sql>
 	
 	<sql id="join">
 	(
-		station st LEFT JOIN consultant 
-		t ON st.id=t.staid
+		station st LEFT JOIN consultant cons
+        ON st.id=cons.staid
 	)
 	LEFT JOIN collector c
      ON st.id=c.staid
@@ -87,9 +95,9 @@
           station
         set
           name = #{name},
-         address = #{address},
-         detailed_address = #{detailed_address}
-
+          address = #{address},
+          detailed_address = #{detailed_address},
+          position=point(#{locationX},#{locationY})
         where
           id = #{id}
       

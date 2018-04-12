@@ -43,7 +43,7 @@ public class Consultant {
     @Override
     public String toString() {
         return "Consultant{" +
-                ", staid=" + staid +
+                " staid=" + staid +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", station=" + station +

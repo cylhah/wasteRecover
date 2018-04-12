@@ -18,14 +18,11 @@ public interface UserAddressDao {
      * @param locationX  经度
      * @param locationY 纬度
      * @param community_id 受管理小区
+     * @param name 用户姓名
+     * @param phoneNumber 电话号码
      * @return 返回插入的数量
     */
-   int insertAddress(@Param("uid")String uid, @Param("address")String address,
-                     @Param("detail")String detail,
-                     @Param("community_id")int community_id,
-                     @Param("geohash")String geohash,
-                     @Param("locationX")double locationX,
-                     @Param("locationY")double locationY);
+   int insertAddress(UserAddress userAddress);
 
     /**
      * 根据id搜索地址

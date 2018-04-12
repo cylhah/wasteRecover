@@ -19,29 +19,55 @@ CREATE TABLE `consultant` (
   CONSTRAINT `ad_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `collector` (
-  `id` int(10) unsigned auto_increment NOT NULL,
-  `openid` varchar(100) DEFAULT NULL COMMENT '回收人员openid',
-  `realName` varchar(14) DEFAULT NULL COMMENT '真实姓名',
-  `sex` varchar(4) DEFAULT NULL,
-  `avater` varchar(255) DEFAULT NULL COMMENT '头像',
-  `phoneNumber` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `idCardNum` varchar(30) NOT NULL COMMENT '身份证号',
-  `photo` varchar(255) DEFAULT NULL COMMENT '本人照片',
-  `idCardFrontPhoto` varchar(255) DEFAULT NULL COMMENT '身份证正面地址',
-  `idCardBackPhoto` varchar(255) DEFAULT NULL COMMENT '身份证背面地址',
-  `volume` int(10) unsigned DEFAULT NULL COMMENT '成交量',
-  `createTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `staid` int(10) unsigned NOT NULL,
-  `state` int(2) unsigned DEFAULT 1 COMMENT '非法用户:0,正常用户:1',
-  PRIMARY KEY (`id`),
-  KEY `c_name` (`realName`),
-  KEY `c_phoneNumber` (`phoneNumber`),
-  KEY `c_idCard` (`idCardNum`),
-  KEY `c_staid` (`staid`),
-  CONSTRAINT `c_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table collector
+(
+  id               int unsigned auto_increment
+    primary key,
+  openid           varchar(100)                        null
+  comment '回收人员openid',
+  realName         varchar(14)                         null
+  comment '真实姓名',
+  sex              varchar(4)                          null,
+  avater           varchar(255)                        null
+  comment '头像',
+  phoneNumber      varchar(30)                         not null,
+  password         varchar(30)                         not null,
+  idCardNum        varchar(30)                         not null
+  comment '身份证号',
+  photo            varchar(255)                        null
+  comment '本人照片',
+  idCardFrontPhoto varchar(255)                        null
+  comment '身份证正面地址',
+  idCardBackPhoto  varchar(255)                        null
+  comment '身份证背面地址',
+  volume           int unsigned default '0'            null
+  comment '成交量',
+  createTime       timestamp default CURRENT_TIMESTAMP not null,
+  staid            int unsigned                        not null,
+  state            int(2) unsigned default '1'         null
+  comment '非法用户:0,正常用户:1',
+  constraint collector_openid_uindex
+  unique (openid),
+  constraint c_phoneNumber
+  unique (phoneNumber),
+  constraint c_idCard
+  unique (idCardNum),
+  constraint c_staid
+  foreign key (staid) references station (id)
+    on update cascade
+    on delete cascade
+)
+  engine = InnoDB
+  charset = utf8;
+
+create index c_name
+  on collector (realName);
+
+create index c_staid
+  on collector (staid);
+
+
 
 CREATE TABLE `community` (
   `id` int(10) unsigned auto_increment NOT NULL,

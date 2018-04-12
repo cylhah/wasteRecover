@@ -38,8 +38,8 @@ public class TradeServiceImp implements TradeService {
         Timestamp createTime=new Timestamp(new Date().getTime());
         if(orderform==null||Validate.validateSubmitOrder(orderform))
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
-        int num=orderformDao.insertOrderform(createTime,orderform.getAppointTime(),
-                orderform.getAid(),orderform.getUid(),OrderStateEnum.SUBMIT.getState());
+        int num=orderformDao.insertOrderform(orderform.getAppointTime(),
+                orderform.getAid(),orderform.getUid());
         if(num==0)
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
 
@@ -53,7 +53,7 @@ public class TradeServiceImp implements TradeService {
     public boolean requestCancleOrder(String id) {
         if(id.equals("")||id==null)
             return false;
-        if(orderformDao.updateOrederform(Long.parseLong(id),OrderStateEnum.REQUEST_CANCEL.getState())==0)
+        if(orderformDao.updateOrderform(Long.parseLong(id),OrderStateEnum.REQUEST_CANCEL.getState())==0)
             return false;
         //推送给回收员消息（未做）
         return true;

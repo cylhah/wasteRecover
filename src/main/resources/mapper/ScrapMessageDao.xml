@@ -9,13 +9,13 @@
         <result property="weight" column="weight"/>
         <result property="price" column="price"/>
         <collection property="orderform" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order1"/>
-        <collection property="scrap" resultMap="org.cbb.wasteRecovery.dao.ScrapDao.Scrap"/>
+        <collection property="scrap" resultMap="org.cbb.wasteRecovery.dao.ScrapDao.ref_scr"/>
     </resultMap>
-    <resultMap type="org.cbb.wasteRecovery.bean.ScrapMessage" id="Message1">
-        <id property="oid" column="oid"/>
-        <result property="scrapid" column="scrapid"/>
-        <result property="weight" column="weight"/>
-        <result property="price" column="price"/>
+    <resultMap type="org.cbb.wasteRecovery.bean.ScrapMessage" id="ref_sm">
+        <id property="oid" column="sm_oid"/>
+        <result property="weight" column="sm_weight"/>
+        <result property="price" column="sm_price"/>
+        <collection property="scrap" resultMap="org.cbb.wasteRecovery.dao.ScrapDao.ref_scr"/>
     </resultMap>
 
 
@@ -56,31 +56,11 @@
 			scrapmessage
         set
 			weight = #{weight}
-			and  price = #{price}
+			,  price = #{price}
         where
 			scrapid = #{scrapid}
 			and oid= #{oid}
     </update>
 
-
-
-    <select id="selectByOIdPage" resultMap="Message" >
-        select <include refid="columns"/>
-        from <include refid="join"/>
-        where
-         sc.oid=#{oid}
-        order BY sc.scrapid
-
-
-    </select>
-
-    <select id="selectByScIdPage" resultMap="Message" >
-        select <include refid="columns"/>
-        from <include refid="join"/>
-        where
-        sc.scrapId= #{scrapId}
-        order BY sc.scrapid
-
-    </select>
 
 </mapper>

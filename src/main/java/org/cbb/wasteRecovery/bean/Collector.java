@@ -9,7 +9,7 @@ import java.util.List;
 public class Collector {
     private int id;
     private String realName;
-    private char sex;
+    private String sex;
     private String avater;//头像地址
     private String phoneNumber;
     private String password;
@@ -23,8 +23,6 @@ public class Collector {
     private int staid;
 
     private Station station;
-    private List<Orderform> unDidOrderformList;//负责小区内未完成订单
-    private List<Orderform> DidOrderformList;//已完成订单
     private List<Community> communityList;//负责小区
 
     public int getId() {
@@ -43,11 +41,11 @@ public class Collector {
         this.realName = realName;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -147,14 +145,6 @@ public class Collector {
         this.station = station;
     }
 
-    public List<Orderform> getUnDidOrderformList() {
-        return unDidOrderformList;
-    }
-
-    public void setUnDidOrderformList(List<Orderform> unDidOrderformList) {
-        this.unDidOrderformList = unDidOrderformList;
-    }
-
     public List<Community> getCommunityList() {
         return communityList;
     }
@@ -163,13 +153,6 @@ public class Collector {
         this.communityList = communityList;
     }
 
-    public List<Orderform> getDidOrderformList() {
-        return DidOrderformList;
-    }
-
-    public void setDidOrderformList(List<Orderform> didOrderformList) {
-        DidOrderformList = didOrderformList;
-    }
 
     @Override
     public String toString() {
@@ -189,8 +172,6 @@ public class Collector {
                 ", state=" + state +
                 ", staid=" + staid +
                 ", station=" + station +
-                ", unDidOrderformList=" + unDidOrderformList +
-                ", DidOrderformList=" + DidOrderformList +
                 ", communityList=" + communityList +
                 '}';
     }

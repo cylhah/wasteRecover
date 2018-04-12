@@ -23,49 +23,58 @@ public class CommunityDaoTest {
 
     @Test
     public void insertCommunity() throws Exception {
-
+        /**
+         * Preparing: insert into community(address,name) values (?,?)
+         * Parameters: 奉化(String), 不会饿小区(String)
+         * Updates: 1
+         */
 
         String address="奉化";
-        String name="张琳";
+        String name="不会饿小区";
        int i=communityDao.insertCommunity(address,name);
         System.out.println(i);
 
     }
-    //返回值是1
 
     @Test
     public void deleteCommunity() throws Exception{
-
-
-
+        /**
+         * Preparing: delete from community where id=?
+         * Parameters: 2(Integer)
+         * Updates: 1
+         */
 
         int i=communityDao.deleteCommunity(2);
         System.out.println(i);
     }
-    //返回值是1
 
     @Test
     public void updateCollectorOfComm() throws Exception{
-
+        /**
+         * Preparing: update community set cid = ? where id = ?
+         * Parameters: 1(Integer), 1(Integer)
+         * Updates: 1
+         */
         int id=1;
-        int cid=3;
+        int cid=1;
         int i=communityDao.updateCollectorOfComm(id,cid);
         System.out.println(i);
     }
-    //返回值是1
 
     @Test
     public void updateData() throws Exception{
+        /**
+         * Preparing: update community set address=? ,name = ? where id=?
+         * Parameters: 中国(String), 汪宏斌小区(String), 1(Integer)
+         * Updates: 1
+         */
 
-        String name="汪宏斌";
+        String name="汪宏斌小区";
         String address="中国";
-
-
 
         int i=communityDao.updateData(1,name,address);
         System.out.println(i);
     }
-    //返回值是1
 
 
     @Test
@@ -80,7 +89,6 @@ public class CommunityDaoTest {
             System.out.println(community1);
         }
     }
-    //返回值是org.cbb.wasteRecovery.bean.Community@4b2c5e02
 
 
     @Test
@@ -95,5 +103,4 @@ public class CommunityDaoTest {
             System.out.println(community1);
         }
     }
-    //返回值是org.cbb.wasteRecovery.bean.Community@19976a65
 }

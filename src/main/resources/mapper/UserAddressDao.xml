@@ -3,35 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.UserAddressDao">
-    <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="Address">
-        <id property="id" column="id"/>
-        <result property="uid" column="uid"/>
-        <result property="address" column="address"/>
-        <result property="detail" column="detail"/>
-        <result property="locationX" column="locationX"/>
-        <result property="locationY" column="locationY"/>
-        <result property="geohash" column="geohash"/>
-
-        <result property="community_id" column="community_id"/>
+    <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="ref_address">
+        <id property="id" column="ua_id"/>
+        <result property="address" column="ua_address"/>
+        <result property="detail" column="ua_detail"/>
+        <result property="phoneNumber" column="ua_phoneNumber"/>
+        <result property="name" column="ua_name"/>
     </resultMap>
 
     <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="Address1">
         <id property="id" column="id"/>
-        <result property="uid" column="uid"/>
         <result property="address" column="address"/>
         <result property="detail" column="detail"/>
-        <result property="locationX" column="locationX"/>
-        <result property="locationY" column="locationY"/>
-        <result property="geohash" column="geohash"/>
-        <result property="community_id" column="community_id"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+        <result property="name" column="name"/>
         <collection property="community" resultMap="org.cbb.wasteRecovery.dao.CommunityDao.Community1"/>
     </resultMap>
 
-    <sql id="columns">a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position,m.id,m.address,m.name</sql>
+    <sql id="columns">a.id,a.address,a.detail,a.phoneNumber,a.name,
+    m.id comm_id,
+    m.address comm_address,
+    m.name comm_name</sql>
 
-	<insert id="insertAddress">
-    insert  into useraddress(uid,address,detail,community_id,geohash,position)
-    values (#{uid},#{address},#{detail},#{community_id},#{geohash},point(#{locationX},#{locationY}))
+	<insert id="insertAddress" parameterType="UserAddress">
+    insert  into useraddress(uid,address,detail,community_id,geohash,position,phoneNumber,name)
+    values (#{uid},#{address},#{detail},#{community_id},#{geohash},
+            point(#{locationX},#{locationY}),#{phoneNumber},#{name})
    </insert>
 
     <select id="selectById" resultMap="Address1" parameterType="int">

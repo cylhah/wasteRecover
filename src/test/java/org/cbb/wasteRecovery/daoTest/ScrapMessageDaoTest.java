@@ -23,7 +23,11 @@ public class ScrapMessageDaoTest {
 
     @Test
     public void insertScrapMessage() throws Exception {
-
+        /**
+         * Preparing: insert ignore into scrapmessage(weight,price,oid,scrapid) values (?,?,?,?)
+         * Parameters: 2.3(Double), 5.36(Double), 1(Long), 3(Integer)
+         * Updates: 1
+         */
         long oid=1;
         int scrapid=3;
         double weight=2.3;
@@ -31,11 +35,15 @@ public class ScrapMessageDaoTest {
         int i=scrapMessageDao.insertScrapMessage(oid, scrapid, weight,price);
         System.out.println(i);
     }
-//返回值为1
 
 
     @Test
     public void deleteScrapMessage() throws Exception{
+        /**
+         * Preparing: delete from scrapmessage where oid=? and scrapid=?
+         * Parameters: 1(Long), 3(Integer)
+         * Updates: 1
+         */
 
         long oid=1;
         int scrapid=3;
@@ -43,47 +51,22 @@ public class ScrapMessageDaoTest {
         int i= scrapMessageDao.deleteScrapMessage(oid, scrapid);
         System.out.println(i);
     }
-//返回值为1
 
     @Test
     public void updateData() throws Exception{
 
+        /**
+         * Preparing: update scrapmessage set weight = ? ,price = ? where scrapid = ? and oid= ?
+         * Parameters: 4.5(Double), 0.3(Double), 3(Integer), 1(Long)
+         * Updates: 1
+         */
         long oid=1;
         int scrapid=3;
         double weight=4.5;
-        double price=52.36;
+        double price=0.3;
         int i= scrapMessageDao.updateData(oid, scrapid, weight,price);
         System.out.println(i);
     }
-//返回值为1
 
-    @Test
-    public void selectByOId() throws Exception{
-
-        long oid=1;
-        int offset=0;
-        int limit=1;
-        List<ScrapMessage> ScrapMessage=scrapMessageDao.selectByOId(oid,offset,limit);
-        for(ScrapMessage ScrapMessage1:ScrapMessage)
-        {
-            System.out.println(ScrapMessage1);
-        }
-    }
-    //返回值为org.cbb.wasteRecovery.bean.ScrapMessage@75c56eb9
-
-
-    @Test
-    public void selectByScId() throws Exception{
-
-        int scrapId=3;
-        int offset=0;
-        int limit=1;
-        List<ScrapMessage> ScrapMessage=scrapMessageDao.selectByScId(scrapId,offset,limit);
-        for(ScrapMessage ScrapMessage1:ScrapMessage)
-        {
-            System.out.println(ScrapMessage1);
-        }
-    }
-//返回值为org.cbb.wasteRecovery.bean.ScrapMessage@75c56eb9
 
 }
