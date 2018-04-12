@@ -20,22 +20,21 @@
 
 
     <delete id="deleteBankAccount">
-        delete
-        from
-       bankaccount
-        where
+       delete
+       from
+		bankaccount
+       where
         id=#{id}
 
     </delete>
 
     <select id="selectByUId" resultType="BankAccount" >
-        select id,account,bank_code,username
-        from bankaccount
+        select 
+			id,uid,account,bank_code,username
+        from 
+			bankaccount
         where
-        uid=#{uid}
-        order BY id
-        limit #{offset},#{limit}
-
-
+			uid=#{uid}
+			order BY id
     </select>
 </mapper>

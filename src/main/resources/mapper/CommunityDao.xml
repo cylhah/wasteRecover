@@ -43,13 +43,24 @@
         update community set address=#{address} ,name = #{name} where id=#{id}
     </update>
 
-    <select id="selectByCid" resultMap="Community" >
-        select <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id where m.cid=#{cid} order BY m.id
+    <select id="selectByCidPage" resultMap="Community" >
+        select <include refid="columns"/> 
+		from 
+			community m INNER JOIN collector c 
+			ON m.cid=c.id 
+		where 
+			m.cid=#{cid} 
+		order BY m.id
     </select>
 
-    <select id="selectByName" resultMap="Community" >
-        select  <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id
-        where name like '%' #{name} '%' order BY m.id
+    <select id="selectByNamePage" resultMap="Community" >
+        select  <include refid="columns"/> 
+		from 
+			community m INNER JOIN collector c 
+			ON m.cid=c.id
+        where 
+			m.name like '%' #{name} '%' 
+		order BY m.name
     </select>
 
 </mapper>

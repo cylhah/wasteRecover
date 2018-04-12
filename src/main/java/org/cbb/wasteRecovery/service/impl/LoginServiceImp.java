@@ -28,7 +28,7 @@ public class LoginServiceImp implements LoginService {
         if(openid.equals("")||openid==null)
             return null;
         if (userDao.selectById(openid)==null){
-            userDao.insertUser(openid,UserStateEnum.NORMAL.getState());
+            userDao.insertUser(openid);
 
         }
         return userDao.selectById(openid);

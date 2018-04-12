@@ -19,11 +19,22 @@
     </resultMap>
 
 
-    <sql id="columns">sc.weight,sc.price,sc.oid,sc.scrapid,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,s.id,s.typeName,s.name,s.unitPrice,s.monthVolume,s.totalVolume</sql>
+    <sql id="columns">sc.weight,sc.price,sc.oid,sc.scrapid,
+	o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,
+	s.id,s.typeName,s.name,s.unitPrice,s.monthVolume,s.totalVolume</sql>
+
+	<sql id="join">
+		(
+			scrapmessage sc
+			INNER JOIN orderform o 
+			ON sc.oid=o.id
+		)
+		INNER JOIN scrap s
+        ON sc.scrapid=s.id
+	</sql>
 
     <insert id="insertScrapMessage">
-
-        insert  into scrapmessage(weight,price,oid,scrapid)
+        insert ignore into scrapmessage(weight,price,oid,scrapid)
         values (#{weight},#{price},#{oid},#{scrapid})
     </insert>
 
@@ -31,10 +42,10 @@
     <delete id="deleteScrapMessage">
         delete
         from
-        scrapmessage
+			scrapmessage
         where
-        oid=#{oid}
-        and scrapid=#{scrapid}
+			oid=#{oid}
+			and scrapid=#{scrapid}
 
     </delete>
 
@@ -42,41 +53,33 @@
     <update id="updateData">
 
         update
-        scrapmessage
+			scrapmessage
         set
-
-        weight = #{weight}
-        and  price = #{price}
+			weight = #{weight}
+			and  price = #{price}
         where
-        scrapid = #{scrapid}
-         and oid= #{oid}
+			scrapid = #{scrapid}
+			and oid= #{oid}
     </update>
 
 
 
-    <select id="selectByOId" resultMap="Message" >
+    <select id="selectByOIdPage" resultMap="Message" >
         select <include refid="columns"/>
-        from (scrapmessage sc
-        INNER JOIN orderform o ON sc.oid=o.id)INNER JOIN scrap s
-        ON sc.scrapid=s.id
+        from <include refid="join"/>
         where
          sc.oid=#{oid}
-         order BY sc.weight
-        limit #{offset},#{limit}
+        order BY sc.scrapid
 
 
     </select>
 
-    <select id="selectByScId" resultMap="Message" >
+    <select id="selectByScIdPage" resultMap="Message" >
         select <include refid="columns"/>
-        from (scrapmessage sc
-        INNER JOIN orderform o ON sc.oid=o.id)INNER JOIN scrap s
-        ON sc.scrapid=s.id
+        from <include refid="join"/>
         where
         sc.scrapId= #{scrapId}
-        order BY sc.weight
-        limit #{offset},#{limit}
-
+        order BY sc.scrapid
 
     </select>
 

@@ -39,35 +39,59 @@
         <result property="createTime" column="createTime"/>
         <result property="staid" column="staid"/>
 </resultMap>
-    <insert id="insertCollector">
-
-    insert  into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume)
-    values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{staid},#{state},#{volume})
-   </insert>
 
     <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,
     o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid</sql>
 
+    <insert id="insertCollector">
+    insert  into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume)
+    values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{staid},#{state},#{volume})
+   </insert>
+
+
     <select id="selectById" resultMap="Collect" parameterType="int">
-        select <include refid="columns"/>from collector c LEFT JOIN orderform o ON c.id=o.cid where c.id=#{id}
+        select <include refid="columns"/>
+		from
+			collector c LEFT JOIN orderform o 
+			ON c.id=o.cid
+		where c.id=#{id}
     </select>
 
     <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
-        select <include refid="columns" /> from collector c LEFT JOIN orderform o ON c.id=o.cid where c.phoneNumber=#{phoneNumber}
+        select <include refid="columns" /> 
+		from 
+			collector c LEFT JOIN orderform o 
+			ON c.id=o.cid
+		where c.phoneNumber=#{phoneNumber}
     </select>
     
      <select id="selectByPhoneNumAndPass" resultMap="Collect" >
-        select <include refid="columns"/>from collector c LEFT JOIN orderform o ON c.id=o.cid
-         where c.phoneNumber=#{phoneNumber} and c.password=#{password}
+        select <include refid="columns"/>
+		from 
+			collector c LEFT JOIN orderform o 
+			ON c.id=o.cid
+        where 
+			c.phoneNumber=#{phoneNumber} 
+			and c.password=#{password}
     </select>
 
     <select id="selectByIdCardNum"  resultMap="Collect" parameterType="String">
-        select <include refid="columns"/> from collector c LEFT JOIN orderform o ON c.id=o.cid where c.idCardNum=#{idCardNum}
+        select <include refid="columns"/> 
+		from 
+			collector c LEFT JOIN orderform o 
+			ON c.id=o.cid 
+		where 
+			c.idCardNum=#{idCardNum}
     </select>
     
     <select id="selectByName" resultMap="Collect">
-        select <include refid="columns"/> from collector c LEFT JOIN orderform o ON c.id=o.cid
-        where c.realName=#{realName} order BY c.id limit #{offset},#{limit}
+        select <include refid="columns"/> 
+		from 
+			collector c LEFT JOIN orderform o 
+			ON c.id=o.cid
+        where 
+			c.realName=#{realName} 
+		order BY c.id 
     </select>
     
 

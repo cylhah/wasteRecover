@@ -31,13 +31,6 @@
         <result property="updateTime" column="updateTime"/>
         <result property="price" column="price"/>
     </resultMap>
-    <insert id="insertOrderform">
-
-    insert  into orderform(state,createTime,appointTime,aid,uid)
-    values (#{state},#{createTime},#{appointTime},#{aid},#{uid})
-
-    </insert>
-
 
     <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,
     o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,
@@ -45,62 +38,91 @@
     u.state,u.avater,u.openid,
     sc.weight,sc.price,sc.oid,sc.scrapid</sql>
 
+	<sql id="normalJoin">
+		(
+			(
+				(
+					orderform o INNER JOIN user u 
+					ON o.uid=u.openid
+				)
+				LEFT JOIN collector c 
+				ON o.cid=c.id
+			)
+			LEFT JOIN scrapmessage sc 
+			ON o.id=sc.oid
+		)
+		INNER JOIN useraddress  a 
+	</sql>
+
+	<sql id="restricJoin">
+		(
+			(
+				(
+					orderform o INNER JOIN user u 
+					ON o.uid=u.openid
+				)
+				INNER JOIN collector c 
+				ON o.cid=c.id
+			)
+			INNER JOIN scrapmessage sc 
+			ON o.id=sc.oid
+		)
+		INNER JOIN useraddress  a 
+	</sql>
+	<insert id="insertOrderform">
+
+    insert  into orderform(state,createTime,appointTime,aid,uid)
+    values (#{state},#{createTime},#{appointTime},#{aid},#{uid})
+
+    </insert>
+
      <select id="selectById"  resultMap="order" parameterType="long">
-        select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)LEFT JOIN collector c ON o.cid=c.id)
-        LEFT JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
-        where
-           o.id=#{id}
-       
+        select <include refid="columns"/> 
+		from <include refid="normalJoin"/>
+		ON o.aid=a.id
+        where 
+			o.id=#{id}     
         
     </select>
     
-    <select id="selectByCId" resultMap="order">
+    <select id="selectByCIdPage" resultMap="order">
         select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
-        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
-        where
-           o.cid=#{cid}
-        and  o.state=#{state}
-        order BY o.id
-        limit #{offset},#{limit}
-       
-        
+        from <include refid="restricJoin"/>
+		ON o.aid=a.id
+        where 
+			o.cid=#{cid}
+			and  o.state=#{state}
+        order BY o.updateTime
     </select>
     
-    <select id="selectByUId" resultMap="order">
+    <select id="selectByUIdPage" resultMap="order">
         select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
-        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
+        from <include refid="normalJoin"/>
+		ON o.aid=a.id
         where
           o.uid=#{uid}
         and  o.state=#{state}
-        order BY o.id
-        limit #{offset},#{limit}
-        
+        order BY o.updateTime
     </select>
     
-
-    
-
-    
-    
-    <select id="selectByState" resultMap="order">
+    <select id="selectByStatePage" resultMap="order">
         select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
-        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
+        from <include refid="normalJoin"/>
         where
            o.state=#{state}
-        order BY o.id
-        limit #{offset},#{limit}
+        order BY o.updateTime
         
     </select>
     
     <select id="selectByPos" resultType="Orderform">
         select x(ua.position) "address.locationX",y(ua.position) "address.locationY"
-        from orderform o INNER JOIN useraddress ua ON o.aid = ua.id where ua.geohash LIKE #{geohash} '%' AND
-        st_distance_sphere(point(#{locationX},#{locationY}),ua.position)<![CDATA[ <= ]]>#{distance}
-        AND o.uid!=#{openid}
+        from 
+			orderform o INNER JOIN useraddress ua 
+			ON o.aid = ua.id 
+		where 
+			ua.geohash LIKE #{geohash} '%' 
+			AND st_distance_sphere(point(#{locationX},#{locationY}),ua.position)<![CDATA[ <= ]]>#{distance}
+			AND o.uid!=#{openid}
         
     </select>
 
@@ -136,7 +158,7 @@
     
     <delete id="deleteOrderform">
        delete
-         from
+       from
          orderform
        where
            id=#{id}

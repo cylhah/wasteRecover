@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.UserDao;
+import org.cbb.wasteRecovery.entity.GeoHash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,13 +20,14 @@ public class UserDaoTest {
     @Resource
     private UserDao userDao;
 
+    GeoHash geoHash=new GeoHash();
+
     @Test
     public void insertUser() throws Exception{
 
-        String openId="qwerd";
 
-        int state=4;
-        int i=userDao.insertUser(openId,state);
+        String openId=geoHash.encode(90,90);
+        int i=userDao.insertUser(openId);
         System.out.println(i);
     }
 

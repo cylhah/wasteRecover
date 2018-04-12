@@ -24,54 +24,29 @@
 
 
     <insert id="insertConsultant">
-
-        insert  into consultant(staid,password,username)
-        values (#{staid},#{password},#{username})
+        insert  into consultant(staid,password,username) values (#{staid},#{password},#{username})
     </insert>
 
 
     <delete id="deleteConsultant">
-        delete
-        from
-        consultant
-        where
-        id=#{id}
-
+        delete  from  consultant  where id=#{id}
     </delete>
 
     <update id="updateStaId" >
-
-        update
-      consultant
-        set
-        staid=#{staid}
-
-        where
-        id=#{id}
-
+        update  consultant  set  staid=#{staid} where id=#{id}
     </update>
 
     <update id="updatePassword" >
-
-        update
-        consultant
-        set
-        password=#{password}
-
-        where
-        id=#{id}
+        update consultant set password=#{password} where id=#{id}
 
     </update>
 
     <select id="selectByUsername" resultMap="Consultant" parameterType="String">
-        select <include refid="columns"/>
-        from consultant t
-        INNER JOIN  station st
-        ON t.staid=st.id
-        where
-        t.username=#{username}
-
-
+        select <include refid="columns"/>  
+		from consultant t 
+		INNER JOIN  station st 
+		ON t.staid=st.id   
+		where t.username=#{username}
     </select>
 
     <select id="selectByUsernameAndPass" resultMap="Consultant" >
@@ -87,7 +62,7 @@
     </select>
 
 
-    <select id="selectByStaId" resultMap="Consultant" >
+    <select id="selectByStaIdPage" resultMap="Consultant" >
         select <include refid="columns"/>
         from consultant t
         INNER JOIN  station st
@@ -95,8 +70,5 @@
         where
         t.staid=#{staid}
         order BY t.id
-        limit #{offset},#{limit}
-
-
     </select>
 </mapper>

@@ -2,6 +2,7 @@ package org.cbb.wasteRecovery.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.BankAccount;
+import org.cbb.wasteRecovery.entity.Page;
 
 import java.util.List;
 
@@ -34,14 +35,9 @@ public interface BankAccountDao {
      * 根据用户id查询银行账户
      *
      * @param uid
-     * @param offset 偏移量
-     * @param limit  数量
      * @return
      */
-
-    List<BankAccount> selectByUId(@Param("uid") String uid,
-                                  @Param("offset") int offset,
-                                  @Param("limit") int limit);
+    List<BankAccount> selectByUId(String uid);
 
 
 }

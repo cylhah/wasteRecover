@@ -4,7 +4,7 @@ public class Page {
     private int number;
     private int totalNum;
     private int currentPageNum;
-    private int totalPageNum;
+    private Integer totalPageNum;
 
     public Page(){
         currentPageNum=1;
@@ -32,6 +32,11 @@ public class Page {
     }
 
     public void setCurrentPageNum(int currentPageNum) {
+        if(totalPageNum==null) {
+            this.currentPageNum = currentPageNum;
+            return;
+        }
+
         if(currentPageNum>totalPageNum)
             this.currentPageNum=totalPageNum;
         else if(currentPageNum<=0)

@@ -33,26 +33,23 @@
 
     <select id="selectByTypeName" resultType="Scrap" >
         select <include refid="columns"/>
-        from scrap
+        from 
+			scrap
         where
-        typeName=#{typeName}
-        order BY id
-        limit #{offset},#{limit}
-
-
+			typeName=#{typeName}
+        order BY typeName
     </select>
 
     <update id="updateData" >
 
-        update
-      scrap
-        set
+      update
+		scrap
+      set
         typeName=#{typeName},
-         name=#{name},
-          unitPrice=#{unitPrice}
-
-        where
-       id=#{id}
+        name=#{name},
+        unitPrice=#{unitPrice}
+      where
+		id=#{id}
 
     </update>
 
@@ -60,36 +57,32 @@
     <update id="updateMonthVolume"  >
 
         update
-        scrap
+			scrap
         set
-        monthVolume=#{monthVolume}
-
+			monthVolume=#{monthVolume}
 
         where
-        id=#{id}
+			id=#{id}
 
     </update>
 
 
     <update id="updateTotalVolume"  >
-
         update
-        scrap
+			scrap
         set
-        totalVolume=#{totalVolume}
-
-
+			totalVolume=#{totalVolume}
         where
-        id=#{id}
+			id=#{id}
 
     </update>
 
     <delete id="deleteScrap">
         delete
         from
-         scrap
+			scrap
         where
-        id=#{id}
+			id=#{id}
 
     </delete>
 
