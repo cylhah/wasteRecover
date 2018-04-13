@@ -49,22 +49,6 @@
         ON o.aid=a.id
 	</sql>
 
-	<sql id="restricJoin">
-		(
-			(
-				(
-					orderform o INNER JOIN user u 
-					ON o.uid=u.openid
-				)
-				INNER JOIN collector c 
-				ON o.cid=c.id
-			)
-			INNER JOIN scrapmessage sc 
-			ON o.id=sc.oid
-		)
-		INNER JOIN useraddress  a 
-	</sql>
-
 
 	<insert id="insertOrderform">
 
@@ -101,7 +85,9 @@
         
     </select>
 
-    <select id="filterOrder" resultMap="order" parameterType="Map">
+
+
+    <select id="filterOrderPage" resultMap="order" parameterType="java.util.Map">
         select
             o.id,o.state,o.updateTime,o.price,
             c.id col_id,
@@ -114,41 +100,18 @@
             scr.name scr_name
         from <include refid="normalJoin"/>
         <where>
-            <foreach collection="map" item="item" index="key" open="" separator="AND" close="">
-                <if test=""
+            <foreach collection="constrains" item="val" index="key" open="" separator="AND" close="">
+                <choose>
+                    <when test="key.equals(&quot;o.updateTime&quot;)">
+                        ${key} Like #{val} '%'
+                    </when>
+                    <otherwise>
+                        ${key} = #{val}
+                    </otherwise>
+                </choose>
             </foreach>
         </where>
 
-    </select>
-
-    
-    <select id="selectByCIdPage" resultMap="order">
-        select <include refid="columns"/>
-        from <include refid="restricJoin"/>
-		ON o.aid=a.id
-        where 
-			o.cid=#{cid}
-			and  o.state=#{state}
-        order BY o.updateTime
-    </select>
-    
-    <select id="selectByUIdPage" resultMap="order">
-        select <include refid="columns"/>
-        from <include refid="normalJoin"/>
-		ON o.aid=a.id
-        where
-          o.uid=#{uid}
-        and  o.state=#{state}
-        order BY o.updateTime
-    </select>
-    
-    <select id="selectByStatePage" resultMap="order">
-        select <include refid="columns"/>
-        from <include refid="normalJoin"/>
-        where
-           o.state=#{state}
-        order BY o.updateTime
-        
     </select>
 
 

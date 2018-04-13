@@ -1,11 +1,14 @@
 package org.cbb.wasteRecovery.daoTest;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.OrderformDao;
+import org.cbb.wasteRecovery.entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -53,51 +56,6 @@ public class OrderformDaoTest {
         Orderform orderform=orderformDao.selectById(1);
         System.out.println(orderform);
     }
-
-
-    @Test
-    public void selectByCId() throws Exception{
-
-        int cid=3;
-        int state=1;
-        int offset=0;
-        int limit=1;
-        List<Orderform> Orderform= orderformDao.selectByCId(cid,state,offset,limit);
-        for(Orderform Orderform1:Orderform)
-        {
-            System.out.println(Orderform1);
-        }
-    }
-
-
-    @Test
-    public void selectByUId() throws Exception{
-
-        String uid="qwerd";
-        int state=1;
-        int offset=0;
-        int limit=1;
-        List<Orderform> Orderform= orderformDao.selectByUId(uid,state,offset,limit);
-        for(Orderform Orderform1:Orderform)
-        {
-            System.out.println(Orderform1);
-        }
-    }
-
-
-
-    @Test
-    public void selectByState() throws Exception{
-        int state=1;
-        int offset=0;
-        int limit=1;
-        List<Orderform> Orderform= orderformDao.selectByState(state,offset,limit);
-        for(Orderform Orderform1:Orderform)
-        {
-            System.out.println(Orderform1);
-        }
-    }
-
 
 
     @Test
@@ -166,6 +124,45 @@ public class OrderformDaoTest {
 
         int i=orderformDao.deleteOrderform(3);
         System.out.println(i);
+    }
+
+    @Test
+    public void filterOrderPage() throws Exception{
+        /**
+         *  Preparing: select count(*) from (select o.id,o.state,o.updateTime,o.price, c.id col_id, c.realName col_realName, a.id ua_id, a.address ua_address, a.name ua_name, u.openid u_openid, sm.weight sm_weight, scr.name scr_name from ( ( ( orderform o INNER JOIN user u ON o.uid=u.openid ) LEFT JOIN collector c ON o.cid=c.id ) LEFT JOIN (scrapmessage sm INNER JOIN scrap scr ON scr.id=sm.scrapid) ON o.id=sm.oid ) INNER JOIN useraddress a ON o.aid=a.id WHERE o.updateTime Like ? '%' AND o.state = ?)a
+         *  Parameters: 2018-04-12(String), 2(Integer)
+         *  Preparing: select o.id,o.state,o.updateTime,o.price, c.id col_id, c.realName col_realName, a.id ua_id, a.address ua_address, a.name ua_name, u.openid u_openid, sm.weight sm_weight, scr.name scr_name from ( ( ( orderform o INNER JOIN user u ON o.uid=u.openid ) LEFT JOIN collector c ON o.cid=c.id ) LEFT JOIN (scrapmessage sm INNER JOIN scrap scr ON scr.id=sm.scrapid) ON o.id=sm.oid ) INNER JOIN useraddress a ON o.aid=a.id WHERE o.updateTime Like ? '%' AND o.state = ? limit 0,5
+         *  Parameters: 2018-04-12(String), 2(Integer)
+         *  Total: 2
+         *
+         * Orderform{id=1, uid='null', cid=0, aid=0, state=2, weight=0.0, createTime=null,
+         * appointTime=null, updateTime=2018-04-12 20:09:08.0, price=0.0,
+         * user=User{openid='1001', avater='null', state=0, addressList=null, accountList=null},
+         * collector=null, address=UserAddress{id=2, uid='null', address='杭州', detail='null', phoneNumber='null', name='李白',
+         * community_id=0, community=null, locationX=0.0, locationY=0.0, geohash='null', user=null},
+         * scrapMessageList=[ScrapMessage{oid=0, scrapid=0, weight=4.5, price=0.0, scrap=Scrap{id=0, typeName='null',
+         * name='钢化玻璃', unitPrice=0.0, monthVolume=0.0, totalVolume=0.0}, orderform=null}]}
+         *
+         * Orderform{id=2, uid='null', cid=0, aid=0, state=2, weight=0.0, createTime=null, appointTime=null,
+         * updateTime=2018-04-12 20:12:29.0, price=5.31,
+         * user=User{openid='1001', avater='null', state=0, addressList=null, accountList=null},
+         * collector=Collector{id=1, realName='江铮', sex=null, avater='null', phoneNumber='null', password='null', photo='null',
+         * idCardNum='null', idCardFrontPhoto='null', idCardBackPhoto='null', volume=0, createTime=null, state=0, staid=0,
+         * station=null, communityList=null},
+         * address=UserAddress{id=2, uid='null', address='杭州', detail='null', phoneNumber='null', name='李白',
+         * community_id=0, community=null, locationX=0.0, locationY=0.0, geohash='null', user=null}, scrapMessageList=[]}
+         */
+
+        Map constrains=new HashMap();
+        constrains.put("o.updateTime","2018-04-12");
+        constrains.put("o.state",2);
+        Page page=new Page(5);
+        page.setCurrentPageNum(1);
+
+        List<Orderform> orderformList=orderformDao.filterOrderPage(constrains,page);
+        for (Orderform orderform :orderformList) {
+            System.out.println(orderform);
+        }
     }
 
 }

@@ -1,9 +1,12 @@
 package org.cbb.wasteRecovery.daoTest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.CollectorDao;
+import org.cbb.wasteRecovery.entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -42,7 +45,7 @@ public class CollectorDaoTest {
 
         collector.setPhoto("/testphoto.jpg");
         collector.setPassword("qqwasdzxc");
-        collector.setStatid(2);
+        collector.setStaid(2);
         collector.setPhoneNumber("13867888450");
         int i=collectorDao.insertCollector(collector);
         System.out.println(i);
@@ -55,14 +58,6 @@ public class CollectorDaoTest {
         System.out.println(collector);
     }
 
-    @Test
-    public void selectByPhoneNum() throws Exception{
-
-        Collector collector=collectorDao.selectByPhoneNum("13867888450");
-        System.out.println(collector);
-
-    }
-    // 返回值为org.cbb.wasteRecovery.bean.Collector@dc9876b
 
     @Test
     public void selectByPhoneNumAndPass() throws Exception{
@@ -86,52 +81,24 @@ public class CollectorDaoTest {
 
 
     @Test
-    public void selectByIdCardNum() throws Exception{
-
-       Collector collector=collectorDao.selectByIdCardNum("330283199710211419");
-        System.out.println(collector);
-    }
-
-    @Test
-    public void selectByName() throws Exception{
-
-        String name="黄书";
-        int offset=0;
-        int limit=1;
-        List<Collector> collector= collectorDao.selectByName(name,offset,limit);
-        for(Collector collector1:collector)
-        {
-            System.out.println(collector1);
+    public void filterCollPage() throws Exception{
+        /**
+         * 2018-04-13 14:09:55,271 [main] DEBUG [org.cbb.wasteRecovery.dao.CollectorDao.filterCollPage] - ==>  Preparing: select count(*) from (select c.id,c.realName,c.sex,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.state,c.volume, sta.id sta_id, sta.detailed_address sta_detailed_address, sta.name sta_name, sta.address sta_address, comm.id comm_id, comm.address comm_address, comm.name comm_name from (collector c INNER JOIN station sta ON sta.id=c.staid)LEFT JOIN community comm on c.id = comm.cid WHERE c.realName = ? order BY c.id)a
+         * 2018-04-13 14:09:55,305 [main] DEBUG [org.cbb.wasteRecovery.dao.CollectorDao.filterCollPage] - ==> Parameters: 江铮(String)
+         * 2018-04-13 14:09:55,401 [main] DEBUG [org.cbb.wasteRecovery.dao.CollectorDao.filterCollPage] - ==>  Preparing: select c.id,c.realName,c.sex,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.state,c.volume, sta.id sta_id, sta.detailed_address sta_detailed_address, sta.name sta_name, sta.address sta_address, comm.id comm_id, comm.address comm_address, comm.name comm_name from (collector c INNER JOIN station sta ON sta.id=c.staid)LEFT JOIN community comm on c.id = comm.cid WHERE c.realName = ? order BY c.id limit 0,5
+         * 2018-04-13 14:09:55,402 [main] DEBUG [org.cbb.wasteRecovery.dao.CollectorDao.filterCollPage] - ==> Parameters: 江铮(String)
+         * 2018-04-13 14:09:55,449 [main] DEBUG [org.cbb.wasteRecovery.dao.CollectorDao.filterCollPage] - <==      Total: 2
+         * Collector{id=1, realName='江铮', sex=男, avater='/testAvater.jpg', phoneNumber='13867888450', password='null', photo='/testphoto.jpg', idCardNum='330283199710211418', idCardFrontPhoto='/testfront.jpg', idCardBackPhoto='/testback.jpg', volume=0, createTime=2018-04-12 16:58:04.0, state=1, staid=0, station=Station{id=2, name='更改测试', address='更改地址', detailed_address='更改细节', locationX=0.0, locationY=0.0, collectorList=null, consultantList=null}, communityList=[Community{id=1, address='中国', cid=0, name='汪宏斌小区', collector=null}]}
+         * Collector{id=6, realName='江铮', sex=男, avater='/testAvater.jpg', phoneNumber='13867888452', password='null', photo='/testphoto.jpg', idCardNum='330283199710211416', idCardFrontPhoto='/testfront.jpg', idCardBackPhoto='/testback.jpg', volume=0, createTime=2018-04-12 16:45:21.0, state=1, staid=0, station=Station{id=2, name='更改测试', address='更改地址', detailed_address='更改细节', locationX=0.0, locationY=0.0, collectorList=null, consultantList=null}, communityList=[]}
+         */
+        Map constrains=new HashMap();
+        constrains.put("c.realName","江铮");
+        Page page=new Page(5);
+        List<Collector> collectorList=collectorDao.filterCollPage(constrains,page);
+        for (Collector collector :
+                collectorList) {
+            System.out.println(collector);
         }
-    }
-
-    @Test
-    public void updatePhoneNum() throws Exception{
-        /**
-         * Preparing: update collector set phoneNumber = ? where id = ?
-         * Parameters: 13867888452(String), 6(Integer)
-         * Updates: 1
-         */
-
-        int id=6;
-        String phoneNumber="13867888452";
-        int i= collectorDao.updatePhoneNum(id,phoneNumber);
-        System.out.println(i);
-    }
-
-
-    @Test
-    public void updatePassword() throws Exception{
-        /**
-         * Preparing: update collector set password = ? where id = ?
-         * Parameters: root(String), 1(Integer)
-         * Updates: 1
-         */
-
-        int id=1;
-        String password="root";
-        int i= collectorDao.updatePassword(id,password);
-        System.out.println(i);
     }
 
 
@@ -156,20 +123,21 @@ public class CollectorDaoTest {
         System.out.println(i);
     }
 
+
     @Test
-    public void updateState() throws Exception{
+    public void updateData() throws Exception{
         /**
-         * Preparing: update collector set state = ? where id = ?
-         * Parameters: 0(Integer), 1(Integer)
+         * Preparing: update collector set openid=? where id = ?
+         * Parameters: 123(String), 1(Integer)
          * Updates: 1
          */
-
         int id=1;
-        int state=0;
-        int i= collectorDao.updateState(id,state);
+        Map constrains=new HashMap();
+        constrains.put("phoneNumber","13867888451");
+        int i= collectorDao.updateData(id,constrains);
         System.out.println(i);
-    }
 
+    }
     @Test
     public void deleteCollector() throws Exception{
         /**

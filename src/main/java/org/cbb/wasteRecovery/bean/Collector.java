@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Collector {
     private int id;
+    private String openid;
     private String realName;
     private String sex;
     private String avater;//头像地址
@@ -31,6 +32,22 @@ public class Collector {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public int getStaid() {
+        return staid;
+    }
+
+    public void setStaid(int staid) {
+        this.staid = staid;
     }
 
     public String getRealName() {
@@ -129,13 +146,6 @@ public class Collector {
         this.state = state;
     }
 
-    public int getStatid() {
-        return staid;
-    }
-
-    public void setStatid(int statid) {
-        this.staid = statid;
-    }
 
     public Station getStation() {
         return station;
@@ -153,13 +163,13 @@ public class Collector {
         this.communityList = communityList;
     }
 
-
     @Override
     public String toString() {
         return "Collector{" +
                 "id=" + id +
+                ", openid='" + openid + '\'' +
                 ", realName='" + realName + '\'' +
-                ", sex=" + sex +
+                ", sex='" + sex + '\'' +
                 ", avater='" + avater + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +

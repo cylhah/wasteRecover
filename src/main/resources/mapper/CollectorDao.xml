@@ -5,6 +5,7 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.CollectorDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect">
   <id property="id" column="id"/>
+    <result property="openid" column="openid"/>
   <result property="realName" column="realName"/>
   <result property="sex" column="sex"/>
   <result property="avater" column="avater"/>
@@ -33,7 +34,7 @@
 </resultMap>
 
     <sql id="columns">
-        c.id,c.realName,c.sex,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.state,c.volume,
+        c.id,c.openid,c.realName,c.sex,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.state,c.volume,
         sta.id sta_id,
         sta.detailed_address sta_detailed_address,
         sta.name sta_name,
@@ -60,12 +61,6 @@
 		where c.id=#{id}
     </select>
 
-    <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
-        select <include refid="columns" /> 
-		from 
-			collector c
-		where c.phoneNumber=#{phoneNumber}
-    </select>
     
      <select id="selectByPhoneNumAndPass" resultMap="Collect" >
         select <include refid="columns"/>
@@ -75,65 +70,30 @@
 			and c.password=#{password}
     </select>
 
-    <select id="selectByIdCardNum"  resultMap="Collect" parameterType="String">
-        select <include refid="columns"/> 
-		from 
-			collector c
-		where 
-			c.idCardNum=#{idCardNum}
-    </select>
     
-    <select id="selectByName" resultMap="Collect">
+    <select id="filterCollPage" resultMap="Collect" >
         select <include refid="columns"/> 
-		from 
-			collector c
-        where 
-			c.realName=#{realName} 
+		from <include refid="join"/>
+        <where>
+            <foreach collection="constrains" item="val" index="key" open="" separator="AND" close="">
+                <choose>
+                    <when test="key.equals(&quot;c.createTime&quot;)">
+                        ${key} Like #{val} '%'
+                    </when>
+                    <otherwise>
+                        ${key} = #{val}
+                    </otherwise>
+                </choose>
+            </foreach>
+        </where>
 		order BY c.id 
     </select>
-    
-
-    
-
-    
-    <update id="updatePhoneNum">
-       
-        update
-          collector
-        set
-          phoneNumber = #{phoneNumber}
-        where
-          id = #{id}
-      
-    </update>
-    
-    <update id="updatePassword">
-       
-        update
-          collector
-        set
-          password = #{password}
-        where
-          id = #{id}
-      
-    </update>
-    
-    <update id="updateCreditValue">
-       
-        update
-          collector
-        set
-          creditValue = #{creditValue}
-        where
-          id = #{id}
-      
-    </update>
 
 
 
-    
+
     <update id="updatePersonData">
-       
+
         update
           collector
         set
@@ -144,19 +104,23 @@
            avater=#{avater}
         where
           id = #{id}
-       
+
     </update>
 
-    <update id="updateState">
+
+    <update id="updateData">
 
         update
-        collector
+            collector
         set
-        state = #{state}
+            <foreach collection="constrains" index="key" item="val" open="" separator="," close="">
+                ${key}=#{val}
+            </foreach>
         where
-        id = #{id}
+            id = #{id}
 
     </update>
+
 
     <delete id="deleteCollector">
         delete

@@ -2,8 +2,10 @@ package org.cbb.wasteRecovery.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Collector;
+import org.cbb.wasteRecovery.entity.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Colossus on 2018/3/18.
@@ -25,12 +27,6 @@ public interface CollectorDao {
      */
     Collector selectById(int id);
 
-    /**
-     * 按电话号码查找回收员
-     * @param phoneNumber
-     * @return
-     */
-    Collector selectByPhoneNum(String phoneNumber);
 
     /**
      * 根据手机号和密码查询回收员
@@ -41,43 +37,14 @@ public interface CollectorDao {
     Collector selectByPhoneNumAndPass(@Param("phoneNumber") String phoneNumber,
                                       @Param("password") String password);
 
-    /**
-     * 按身份证号查找回收员
-     * @param idCardNum 身份证号
-     * @return
-     */
-    Collector selectByIdCardNum(String idCardNum);
 
     /**
-     * 按名字搜索废品回收员
-     * @param realName
-     * @param offset 偏移量
-     * @param limit 限制数量
+     * 筛选回收员
+     * @param constrains 筛选条件
+     * @param page 分页属性
      * @return Collector列表，找不到list.size()=0
      */
-    List<Collector> selectByName(@Param("realName") String realName,
-                                 @Param("offset") int offset,
-                                 @Param("limit") int limit);
-
-
-    /**
-     * 更改电话号码
-     * @param id
-     * @param phoneNumber
-     * @return 返回更新记录的数量
-     */
-    int updatePhoneNum(@Param("id")int id,
-                       @Param("phoneNumber")String phoneNumber);
-
-    /**
-     * 根据id更换密码
-     * @param id
-     * @param password
-     * @return 返回更新记录的数量
-     */
-    int updatePassword(@Param("id")int id,
-                       @Param("password")String password);
-
+    List<Collector> filterCollPage(@Param("constrains")Map constrains, @Param("page")Page page);
 
 
     /**
@@ -87,14 +54,15 @@ public interface CollectorDao {
      */
     int updatePersonData(Collector collector);
 
+
     /**
-     * 更改状态
+     * 更改回收员资料
      * @param id
-     * @param state
-     * @return 返回更新记录的数量
+     * @param map 约束条件
+     * @return
      */
-    int updateState(@Param("id")int id,
-                    @Param("state")int state);
+    int updateData(@Param("id")int id,@Param("constrains")Map map);
+
 
     /**
      * 删除回收员

@@ -49,7 +49,7 @@ public class PageInterceptor implements Interceptor {
                 page.setTotalNum(resultSet.getInt(1));
                 page.count();
                 //确保limit上下界
-                page.setCurrentPageNum(page.getNumber());
+                page.setCurrentPageNum(page.getCurrentPageNum());
             }
 
             //动态拼接分页查询语句

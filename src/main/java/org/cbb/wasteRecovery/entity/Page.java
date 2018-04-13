@@ -51,7 +51,7 @@ public class Page {
     }
 
     public int count(){
-        if(totalNum% number !=0){
+        if(totalNum% number !=0||totalNum==0){
             return  totalPageNum=totalNum/ number +1;
         }
         else

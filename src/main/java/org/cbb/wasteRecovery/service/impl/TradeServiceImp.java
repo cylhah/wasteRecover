@@ -3,10 +3,13 @@ package org.cbb.wasteRecovery.service.impl;
 import org.cbb.wasteRecovery.bean.Orderform;
 import org.cbb.wasteRecovery.bean.Scrap;
 import org.cbb.wasteRecovery.bean.ScrapMessage;
+import org.cbb.wasteRecovery.dao.CollectorDao;
 import org.cbb.wasteRecovery.dao.OrderformDao;
 import org.cbb.wasteRecovery.dao.ScrapDao;
 import org.cbb.wasteRecovery.dao.ScrapMessageDao;
+import org.cbb.wasteRecovery.entity.MessageTransfer;
 import org.cbb.wasteRecovery.entity.OrderformExecute;
+import org.cbb.wasteRecovery.entity.TextMessage;
 import org.cbb.wasteRecovery.entity.Validate;
 import org.cbb.wasteRecovery.enums.OrderStateEnum;
 import org.cbb.wasteRecovery.enums.SubmitOrderStatus;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,24 +34,39 @@ public class TradeServiceImp implements TradeService {
     @Autowired
     private OrderformDao orderformDao;
 
+    @Autowired
+    private CollectorDao collectorDao;
+
     private ScrapMessageDao scrapMessageDao;
 
     private ScrapDao scrapDao;
 
     public OrderformExecute submitOrderform(Orderform orderform) {
-        Timestamp createTime=new Timestamp(new Date().getTime());
         if(orderform==null||Validate.validateSubmitOrder(orderform))
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
+        //查询小区并赋值
         int num=orderformDao.insertOrderform(orderform.getAppointTime(),
                 orderform.getAid(),orderform.getUid());
         if(num==0)
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
 
         orderform.setState(OrderStateEnum.SUBMIT.getState());
-        orderform.setCreateTime(createTime);
         OrderformExecute orderformExecute=new OrderformExecute(orderform, SubmitOrderStatus.SUCCESS);
+
+        //推送给回收员消息（未测试）
+        String openid=collectorDao.selectById(orderform.getCid()).getOpenid();
+        String message=null;
+        if (openid!=null&&!openid.equals("")){
+            TextMessage textMessage=new TextMessage();
+            textMessage.setToUserName(openid);
+            textMessage.setFromUserName("我方id");
+            textMessage.setContent("您负责的小区有了新订单");
+            textMessage.setMsgType("text");
+            textMessage.setCreateTime(new Date().getTime());
+            message=MessageTransfer.textMessToXml(textMessage);
+        }
+
         return orderformExecute;
-        //推送给回收员消息（未做）
     }
 
     public boolean requestCancleOrder(String id) {

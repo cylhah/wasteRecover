@@ -3,6 +3,7 @@ package org.cbb.wasteRecovery.dao;
 import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Orderform;
+import org.cbb.wasteRecovery.entity.Page;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -29,41 +30,13 @@ public interface OrderformDao {
      */
     Orderform selectById(long id);
 
-    List<Orderform> filterOrder(Map constrains);
-
     /**
-     * 根据回收人员id和订单状态查询订单
-     * @param cid
-     * @param state
-     * @param offset 偏移量
-     * @param limit 数量
+     * 筛选订单，筛选条件不定
+     * @param constrains
      * @return
      */
-    List<Orderform> selectByCId(@Param("cid")int cid,@Param("state")int state,
-                                @Param("offset")int offset,@Param("limit")int limit);
+    List<Orderform> filterOrderPage(@Param("constrains") Map constrains, @Param("page")Page page);
 
-    /**
-     *  根据用户id和订单状态查询订单
-     * @param uid
-     * @param state
-     * @param offset 偏移量
-     * @param limit 限制数量
-     * @return
-     */
-    List<Orderform> selectByUId(@Param("uid")String uid,@Param("state")int state,
-                                @Param("offset")int offset,@Param("limit")int limit);
-
-
-    /**
-     * 根据订单状态查询订单
-     * @param state
-     * @param offset 偏移量
-     * @param limit 限制数量
-     * @return
-     */
-    List<Orderform> selectByState(@Param("state")int state,
-                                  @Param("offset")int offset,
-                                  @Param("limit")int limit);
 
     /**
      * 根据位置查询订单
