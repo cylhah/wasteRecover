@@ -111,12 +111,4 @@ public class GeoHash {
             buf[--charPos] = '-';
         return new String(buf, charPos, (65 - charPos));
     }
-
-    public static void main(String[] args)  throws Exception{
-        GeoHash geohash = new GeoHash();
-        String s = geohash.encode(45, 125);
-        System.out.println(s);
-        double[] geo = geohash.decode(s);
-        System.out.println(geo[0]+" "+geo[1]);
-    }
 }

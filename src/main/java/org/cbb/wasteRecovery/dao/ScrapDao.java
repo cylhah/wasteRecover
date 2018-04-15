@@ -47,22 +47,14 @@ public interface ScrapDao {
     int updateData(Scrap scrap);
 
     /**
-     * 更改当月成交量（重量）
+     * 增加成交量
      * @param id
-     * @param monthVolume
+     * @param volume
      * @return 返回更新数量
      */
-    int updateMonthVolume(@Param("id")int id,
-                             @Param("monthVolume")double monthVolume);
+    int AddVolume(@Param("id")int id,
+                  @Param("volume")double volume);
 
-    /**
-     * 更改总成交量
-     * @param id
-     * @param totalVolume
-     * @return 返回更新数量
-     */
-    int updateTotalVolume(@Param("id")int id,
-                             @Param("totalVolume") double totalVolume);
 
     /**
      * 根据id删除废品

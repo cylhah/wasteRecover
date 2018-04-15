@@ -20,7 +20,7 @@ public interface LoginService {
      * @param password
      * @return
      */
-    Collector collectorLogin(String phoneNumber,String password);
+    Collector collectorLogin(String phoneNumber,String password,String openid);
 
     /**
      * 回收员退出登录

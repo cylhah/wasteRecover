@@ -1,9 +1,8 @@
-﻿CREATE DATABASE replatform
-
+CREATE DATABASE replatform;
 CREATE TABLE `station` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL COMMENT '地址',
+  `name` varchar(40) NOT NULL ,
+  `address` varchar(255) NOT NULL COMMENT '地址',
   `detailed_address` varchar(255) DEFAULT NULL COMMENT '详细地址',
   `position` point NOT NULL,
   PRIMARY KEY (`id`),
@@ -11,66 +10,88 @@ CREATE TABLE `station` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `consultant` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `staid` int(10) unsigned DEFAULT NULL COMMENT '公司id',
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `username` varchar(30) NOT NULL ,
+  `password` varchar(30) not null ,
+  `staid` int(10) unsigned NOT NULL COMMENT '公司id',
+  PRIMARY KEY (`username`),
   KEY `ad_staid` (`staid`) USING BTREE,
   KEY `ad_nameAndPass` (`username`,`password`),
   CONSTRAINT `ad_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `collector` (
-  `id` int(11) unsigned auto_increment NOT NULL,
-  `realName` varchar(255) DEFAULT NULL COMMENT '真实姓名',
-  `sex` char(255) DEFAULT NULL,
-  `avater` varchar(255) DEFAULT NULL COMMENT '头像',
-  `phoneNumber` varchar(255) NOT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL COMMENT '本人照片',
-  `idCardNum` varchar(255) DEFAULT NULL COMMENT '身份证号',
-  `idCardFrontPhoto` varchar(255) DEFAULT NULL COMMENT '身份证正面地址',
-  `idCardBackPhoto` varchar(255) DEFAULT NULL COMMENT '身份证背面地址',
-  `volume` int(10) unsigned DEFAULT NULL COMMENT '成交量',
-  `createTime` datetime DEFAULT NULL,
-  `staid` int(10) unsigned NOT NULL,
-  `state` int(10) unsigned DEFAULT NULL COMMENT '非法用户:0,正常用户:1',
-  PRIMARY KEY (`id`),
-  KEY `c_name` (`realName`),
-  KEY `c_phoneNumber` (`phoneNumber`),
-  KEY `c_idCard` (`idCardNum`),
-  KEY `c_staid` (`staid`),
-  CONSTRAINT `c_staid` FOREIGN KEY (`staid`) REFERENCES `station` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table collector
+(
+  id               int unsigned auto_increment
+    primary key,
+  openid           varchar(100)                        null
+  comment '回收人员openid',
+  realName         varchar(14)                         null
+  comment '真实姓名',
+  sex              varchar(4)                          null,
+  avater           varchar(255)                        null
+  comment '头像',
+  phoneNumber      varchar(30)                         not null,
+  password         varchar(30)                         not null,
+  idCardNum        varchar(30)                         not null
+  comment '身份证号',
+  photo            varchar(255)                        null
+  comment '本人照片',
+  idCardFrontPhoto varchar(255)                        null
+  comment '身份证正面地址',
+  idCardBackPhoto  varchar(255)                        null
+  comment '身份证背面地址',
+  volume           int unsigned default '0'            null
+  comment '成交量',
+  createTime       timestamp default CURRENT_TIMESTAMP not null,
+  staid            int unsigned                        not null,
+  state            int(2) unsigned default '1'         null
+  comment '非法用户:0,正常用户:1',
+  constraint collector_openid_uindex
+  unique (openid),
+  constraint c_phoneNumber
+  unique (phoneNumber),
+  constraint c_idCard
+  unique (idCardNum),
+  constraint c_staid
+  foreign key (staid) references station (id)
+    on update cascade
+    on delete cascade
+)
+  engine = InnoDB
+  charset = utf8;
+
+create index c_name
+  on collector (realName);
+
+create index c_staid
+  on collector (staid);
 
 
 
 CREATE TABLE `community` (
-  `id` int(11) unsigned auto_increment NOT NULL,
-  `address` varchar(255) DEFAULT NULL COMMENT '小区地址',
-  `cid` int(11) unsigned DEFAULT NULL COMMENT '回收员id',
-  `name` varchar(255) DEFAULT NULL COMMENT '小区名',
+  `id` int(10) unsigned auto_increment NOT NULL,
+  `address` varchar(255) NOT NULL  COMMENT '小区地址',
+  `cid` int(10) unsigned DEFAULT NULL COMMENT '归属回收员id',
+  `name` varchar(40) DEFAULT NULL COMMENT '小区名',
   PRIMARY KEY (`id`),
   KEY `comm_cid` (`cid`),
   CONSTRAINT `comm_cid` FOREIGN KEY (`cid`) REFERENCES `collector` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user` (
-  `openid` varchar(255) NOT NULL,
+  `openid` varchar(100) NOT NULL,
   `avater` varchar(255) DEFAULT NULL COMMENT '头像地址',
-  `state` int(11) unsigned zerofill DEFAULT '00000000000' COMMENT '非法用户:0,正常用户:1' ,
+  `state` int(2) unsigned DEFAULT 1 COMMENT '非法用户:0,正常用户:1' ,
   PRIMARY KEY (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `bankaccount` (
   `id` bigint(20) unsigned auto_increment NOT NULL,
-  `uid` varchar(255) DEFAULT NULL,
+  `uid` varchar(100) NOT NULL,
   `account` varchar(255) DEFAULT NULL COMMENT '银行卡号',
-  `bank_code` int(255) unsigned DEFAULT NULL COMMENT '银行id',
-  `username` varchar(255) DEFAULT NULL COMMENT '银行卡用户名',
+  `bank_code` int(5) unsigned DEFAULT NULL COMMENT '银行id',
+  `username` varchar(20) DEFAULT NULL COMMENT '银行卡用户名',
   PRIMARY KEY (`id`),
   KEY `ba_uid` (`uid`),
   CONSTRAINT `ba_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`openid`)
@@ -78,7 +99,7 @@ CREATE TABLE `bankaccount` (
 
 CREATE TABLE `useraddress` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` varchar(255) DEFAULT NULL,
+  `uid` varchar(100) NOT NULL,
   `address` varchar(255) DEFAULT NULL COMMENT '附近坐标',
   `position` point NOT NULL COMMENT '坐标',
   `detail` varchar(255) DEFAULT NULL COMMENT '详细地址',
@@ -97,14 +118,14 @@ CREATE TABLE `useraddress` (
 
 CREATE TABLE `orderform` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` varchar(255) NOT NULL COMMENT '用户id',
-  `cid` int(11) unsigned DEFAULT NULL COMMENT '完成该订单的回收员id',
+  `uid` varchar(100) NOT NULL COMMENT '用户id',
+  `cid` int(10) unsigned DEFAULT NULL COMMENT '完成该订单的回收员id',
   `aid` bigint(20) unsigned NOT NULL COMMENT '地址id',
   `state` tinyint(4) DEFAULT NULL COMMENT '已提交:1,已完成:2,请求更改:3,请求取消:4',
   `weight` double DEFAULT NULL COMMENT '总重量',
-  `createTime` timestamp NULL DEFAULT NULL,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `appointTime` timestamp NULL DEFAULT NULL COMMENT '预约时间',
-  `updateTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `price` double(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `o_state` (`state`),
@@ -116,19 +137,19 @@ CREATE TABLE `orderform` (
 
 CREATE TABLE `scrap` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `typename` varchar(255) NOT NULL COMMENT '种类id',
-  `name` varchar(255) NOT NULL,
+  `typename` varchar(20) NOT NULL COMMENT '种类名称',
+  `name` varchar(20) NOT NULL,
   `unitPrice` double(10,2) unsigned DEFAULT NULL COMMENT '对于用户的单价',
-  `monthVolume` double DEFAULT NULL COMMENT '当月成交量',
-  `totalVolume` double DEFAULT NULL COMMENT '总成交量',
+  `monthVolume` double(10,2) DEFAULT NULL COMMENT '当月成交量',
+  `totalVolume` double(10,2) DEFAULT NULL COMMENT '总成交量',
   PRIMARY KEY (`id`),
-  KEY `s_typeName` (`typename`)
+  KEY `s_typeName` (`typename`),
   KEY `s_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `scrapmessage` (
-  `oid` bigint(20) unsigned DEFAULT NULL COMMENT '订单id',
-  `scrapid` int(10) unsigned DEFAULT NULL COMMENT '废品id',
+  `oid` bigint(20) unsigned not null COMMENT '订单id',
+  `scrapid` int(10) unsigned not null COMMENT '废品id',
   `weight` double unsigned DEFAULT NULL COMMENT '废品重量',
   `price` double unsigned DEFAULT NULL COMMENT '废品价格',
   primary key (oid, scrapid),
@@ -137,4 +158,3 @@ CREATE TABLE `scrapmessage` (
   CONSTRAINT `sm_oid` FOREIGN KEY (`oid`) REFERENCES `orderform` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sm_scrapid` FOREIGN KEY (`scrapid`) REFERENCES `scrap` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

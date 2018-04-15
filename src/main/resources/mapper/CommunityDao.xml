@@ -7,22 +7,28 @@
     <resultMap type="org.cbb.wasteRecovery.bean.Community" id="Community">
         <id property="id" column="id"/>
         <result property="address" column="address"/>
-        <result property="cid" column="cid"/>
         <result property="name" column="name"/>
         <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
     </resultMap>
 
     <resultMap type="org.cbb.wasteRecovery.bean.Community" id="Community1">
-        <id property="id" column="id"/>
-        <result property="address" column="address"/>
-        <result property="cid" column="cid"/>
-        <result property="name" column="name"/>
+        <id property="id" column="comm_id"/>
+        <result property="address" column="comm_address"/>
+        <result property="name" column="comm_name"/>
 
     </resultMap>
 
 
     <sql id="columns">m.id,m.address,m.name,
-    c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,staid,c.state,c.volume</sql>
+    c.id col_id,
+    c.realName col_realName,
+    c.avater col_avater,
+    c.sex col_sex,
+    c.phoneNumber col_phoneNumber,
+    c.idCardNum col_idCardNum,
+    c.createTime col_createTime,
+    c.state col_state,
+    c.volume col_volume</sql>
 
 
     <insert id="insertCommunity">
@@ -43,13 +49,24 @@
         update community set address=#{address} ,name = #{name} where id=#{id}
     </update>
 
-    <select id="selectByCid" resultMap="Community" >
-        select <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id where m.cid=#{cid} order BY m.id
+    <select id="selectByCidPage" resultMap="Community" >
+        select <include refid="columns"/> 
+		from 
+			community m INNER JOIN collector c 
+			ON m.cid=c.id 
+		where 
+			m.cid=#{cid} 
+		order BY m.id
     </select>
 
-    <select id="selectByName" resultMap="Community" >
-        select  <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id
-        where name like '%' #{name} '%' order BY m.id
+    <select id="selectByNamePage" resultMap="Community" >
+        select  <include refid="columns"/> 
+		from 
+			community m INNER JOIN collector c 
+			ON m.cid=c.id
+        where 
+			m.name like '%' #{name} '%' 
+		order BY m.name
     </select>
 
 </mapper>

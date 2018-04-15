@@ -38,25 +38,4 @@ public interface ScrapMessageDao {
     int updateData(@Param("oid")long oid,@Param("scrapid")int scrapid,
                    @Param("weight")double weight,@Param("price")double price);
 
-    /**
-     * 根据订单id查询废品信息
-     * @param oid
-     * @param offset 偏移量
-     * @param limit 数量
-     * @return
-     */
-    List<ScrapMessage> selectByOId(@Param("oid")long oid,
-                                   @Param("offset")int offset,
-                                   @Param("limit")int limit);
-
-    /**
-     * 根据废品id查询废品信息
-     * @param scrapId
-     * @param offset 偏移量
-     * @param limit 数量
-     * @return
-     */
-    List<ScrapMessage> selectByScId(@Param("scrapId")int scrapId,
-                                    @Param("offset")int offset,
-                                    @Param("limit")int limit);
 }

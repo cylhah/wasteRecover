@@ -1,5 +1,7 @@
 package org.cbb.wasteRecovery.bean;
 
+import org.cbb.wasteRecovery.entity.GeoHash;
+
 /**
  * Created by Colossus on 2018/3/17.
  */
@@ -91,8 +93,9 @@ public class UserAddress {
         return geohash;
     }
 
-    public void setGeohash(String geohash) {
-        this.geohash = geohash;
+    public void setGeohash() {
+        GeoHash geoHashMaker=new GeoHash();
+        geohash=geoHashMaker.encode(locationX,locationY);
     }
 
     public User getUser() {
