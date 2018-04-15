@@ -8,30 +8,24 @@ import java.util.List;
  */
 public class Collector {
     private int id;
-    private String name;
-    private String password;
+    private String realName;
     private char sex;
     private String avater;//头像地址
-    private String email;
     private String phoneNumber;
+    private String password;
     private String photo;//真人照片地址
     private String idCardNum;//身份证号
     private String idCardFrontPhoto;//身份证正面照地址
     private String idCardBackPhoto;//身份证背面照地址
     private int volume;//成交量
-    private double creditValue;//信用值
-    private String bankAccount;//转账账户
-    private int state;
     private Timestamp createTime;
+    private int state;
+    private int staid;
 
-    //经度
-    private double locationX;
-    //纬度
-    private double locationY;
-
-    private String geoHash;
-
-    List<Orderform> orderformList;//接受的未完成订单
+    private Station station;
+    private List<Orderform> unDidOrderformList;//负责小区内未完成订单
+    private List<Orderform> DidOrderformList;//已完成订单
+    private List<Community> communityList;//负责小区
 
     public int getId() {
         return id;
@@ -41,20 +35,12 @@ public class Collector {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public char getSex() {
@@ -73,20 +59,20 @@ public class Collector {
         this.avater = avater;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhoto() {
@@ -129,20 +115,12 @@ public class Collector {
         this.volume = volume;
     }
 
-    public double getCreditValue() {
-        return creditValue;
+    public Timestamp getCreateTime() {
+        return createTime;
     }
 
-    public void setCreditValue(double creditValue) {
-        this.creditValue = creditValue;
-    }
-
-    public String getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
     public int getState() {
@@ -153,44 +131,68 @@ public class Collector {
         this.state = state;
     }
 
-    public Timestamp getCreateTime() {
-        return createTime;
+    public int getStatid() {
+        return staid;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setStatid(int statid) {
+        this.staid = statid;
     }
 
-    public double getLocationX() {
-        return locationX;
+    public Station getStation() {
+        return station;
     }
 
-    public void setLocationX(double locationX) {
-        this.locationX = locationX;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
-    public double getLocationY() {
-        return locationY;
+    public List<Orderform> getUnDidOrderformList() {
+        return unDidOrderformList;
     }
 
-    public void setLocationY(double locationY) {
-        this.locationY = locationY;
+    public void setUnDidOrderformList(List<Orderform> unDidOrderformList) {
+        this.unDidOrderformList = unDidOrderformList;
     }
 
-    public String getGeoHash() {
-        return geoHash;
+    public List<Community> getCommunityList() {
+        return communityList;
     }
 
-    public void setGeoHash(String geoHash) {
-        this.geoHash = geoHash;
+    public void setCommunityList(List<Community> communityList) {
+        this.communityList = communityList;
     }
 
-    public List<Orderform> getOrderformList() {
-        return orderformList;
+    public List<Orderform> getDidOrderformList() {
+        return DidOrderformList;
     }
 
-    public void setOrderformList(List<Orderform> orderformList) {
-        this.orderformList = orderformList;
+    public void setDidOrderformList(List<Orderform> didOrderformList) {
+        DidOrderformList = didOrderformList;
+    }
+
+    @Override
+    public String toString() {
+        return "Collector{" +
+                "id=" + id +
+                ", realName='" + realName + '\'' +
+                ", sex=" + sex +
+                ", avater='" + avater + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", photo='" + photo + '\'' +
+                ", idCardNum='" + idCardNum + '\'' +
+                ", idCardFrontPhoto='" + idCardFrontPhoto + '\'' +
+                ", idCardBackPhoto='" + idCardBackPhoto + '\'' +
+                ", volume=" + volume +
+                ", createTime=" + createTime +
+                ", state=" + state +
+                ", staid=" + staid +
+                ", station=" + station +
+                ", unDidOrderformList=" + unDidOrderformList +
+                ", DidOrderformList=" + DidOrderformList +
+                ", communityList=" + communityList +
+                '}';
     }
 }
 

@@ -1,158 +1,250 @@
+
+var loginCtrl = angular.module('loginCtrl',[]);
+
+loginCtrl.controller('loginFormCtrl',function ($scope,$http) {
+    $scope.loginType = "client";
+    $scope.login = function () {
+        var data = {"loginType":$scope.loginType,"account":$scope.account,"password":$scope.password};
+        $http({
+            method:"post",
+            url:"login",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data:$.param(data)
+        }).success(function (result) {
+            if(result=="false")
+            {
+                $("#message").html('<span class="glyphicon glyphicon-remove-sign""></span>'+"用户名或密码错误");
+            }
+            else
+            {
+                $("#message").html("");
+                if($scope.loginType=="client"){
+                    window.location.href = "client.jsp";
+                }
+                else if($scope.loginType=="server"){
+                    window.location.href = "server.jsp";
+                }
+                else if($scope.loginType=="corporation"){
+                    window.location.href = "corporation.jsp";
+                }
+            }
+        });
+    }
+});
+
+var map;
+$(document).ready(function(){
+    map = new BMap.Map("myMap");
+    map.enableScrollWheelZoom(true);
+    map.centerAndZoom("浙江科技学院",17);
+});
+
 var clientCtrl = angular.module('clientCtrl',[]);
 
 clientCtrl.controller('clientViewCtrl',function ($scope) {
-    $scope.gotoMyAddress = function () {
-        window.location.href = "#!/myAddress";
-    };
     $scope.gotoMyOrders = function () {
         window.location.href = "#!/myOrders";
     };
+    $scope.gotoMyAddress = function () {
+        window.location.href = "#!/myAddress";
+    };
     $scope.gotoOrderManage = function () {
         window.location.href = "#!/orderManage";
-    }
+    };
 });
 
-clientCtrl.controller('myOrdersCtrl',function ($scope,$http,clientFty) {
-    // clientFty.getAddress();
-    $scope.address = '0';
-    $scope.submitOrder = function () {
-        var data = {"address":$scope.address,"weight":$scope.weight,"type":$scope.type,"time":GetDateStr(parseInt($scope.date))+" "+$scope.time};
-        // alert(data.address+data.weight+data.type+data.time);
-        clientFty.submitOrder(data);
-    };
-    $scope.myAddress = clientFty.addressInfo;
-    $scope.myOrders = clientFty.orderInfo;
-    $scope.weight = "<0.5kg";
-    $scope.date = '0';
-    if($scope.myAddress.length>0){
-        $scope.haveAddress = true;
+clientCtrl.controller('orderManageCtrl',function ($scope,clientFty) {
+    $scope.pages = [];
+    $scope.orders = clientFty.orderInfo;
+    $scope.ordersNum = $scope.orders.length;
+    $scope.len = parseInt(($scope.ordersNum+4)/5);  //每页放5个订单时的订单页数
+    for(var i=0;i<$scope.len;i++){
+        $scope.pages[i] = i;
     }
-    else $scope.haveAddress = false;
-    $scope.time1 = [];
-    getTime1();
-    $scope.time = $scope.time1[0];
-    $scope.time2 = ["8:00","8:30","9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30"];
+    $scope.count = [0,1,2,3,4];
+    $(document).ready(function(){
+        var swiperV = new Swiper('.swiperV',{
+            direction: 'vertical',
+            slidesPerView: 3
+        });
+        var swiperOrders = new Swiper('.swiperOrders', {
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'progressbar'
+            }
+        });
+    });
+});
 
-    function getTime1() {
+clientCtrl.controller('myOrdersCtrl',function ($scope,clientFty) {
+    map.clearOverlays();
+    $scope.date = "今天";
+    var swiper1,swiper2,swiper3;
+    var slides2 = {"s2_1":[],"s2_2":[]};
+    var slides3 = {"s3_1":[],"s3_2":[]};
+    function getTime() {
         var date = new Date();
-        var nowTime;
-        if(date.getMinutes()<10)
-        {
-            nowTime = date.getHours()+":"+"0"+date.getMinutes();
+        var nowHour = date.getHours();
+        $scope.nowHour = nowHour+"点";
+        var nowMin = date.getMinutes();
+        for(var i=7;i<=21;i++){
+            var temp = '<div class="swiper-slide">'+i+"点"+'</div>';
+            slides2.s2_2.push(temp);
         }
-        else
-        {
-            nowTime = date.getHours()+":"+date.getMinutes();
-        }
-        $scope.time1.push(nowTime);
-        if(date.getMinutes()<=30)
-        {
-            var tHour = date.getHours();
-            var tMinute = ["00","30"];
-            $scope.time1.push(tHour+":"+"30");
-            tHour = tHour+1;
-            var count = 0;
-            while (tHour<21)
-            {
-                var tTime = tHour+":"+tMinute[count];
-                $scope.time1.push(tTime);
-                count = Math.abs(count-1);
-                if(count==0)
-                {
-                    tHour = tHour+1;
-                }
+        for(var i=0;i<=5;i++){
+            var temp;
+            if(i==0){
+                temp =  '<div class="swiper-slide">'+'0'+i+"分"+'</div>';
             }
+            else {
+                temp = '<div class="swiper-slide">'+i+'0'+"分"+'</div>';
+            }
+            slides3.s3_2.push(temp);
         }
-        else
-        {
-            var tHour = date.getHours();
-            var tMinute = ["00","30"];
-            tHour = tHour+1;
-            var count = 0;
-            while (tHour<21)
-            {
-                var tTime = tHour+":"+tMinute[count];
-                $scope.time1.push(tTime);
-                count = Math.abs(count-1);
-                if(count==0)
-                {
-                    tHour = tHour+1;
-                }
+        if(nowMin>=50){
+            for(var i=nowHour+1;i<=21;i++){
+                var temp = '<div class="swiper-slide">'+i+"点"+'</div>';
+                slides2.s2_1.push(temp);
+            }
+            slides3.s3_1 = slides3.s3_2;
+        }
+        else{
+            for(var i=nowHour;i<=21;i++){
+                var temp = '<div class="swiper-slide">'+i+"点"+'</div>';
+                slides2.s2_1.push(temp);
+            }
+            var tempMin = nowMin-nowMin%10+10;
+            for(var i=tempMin;i<60;i+=10){
+                var temp = '<div class="swiper-slide">'+i+"分"+'</div>';
+                slides3.s3_1.push(temp);
             }
         }
     }
-    function GetDateStr(AddDayCount) {
+    getTime();
+    swiper3 = new Swiper('.swiper3', {
+        direction: 'vertical',
+        slidesPerView: 3,
+        loop:true
+    });
+    swiper2 = new Swiper('.swiper2', {
+        direction: 'vertical',
+        slidesPerView: 3,
+        loop:true,
+        on:{
+            slideChange:function () {
+                if($scope.date=="今天"&&$(this.slides[this.activeIndex]).text()==$scope.nowHour){
+                    swiper3.removeAllSlides();
+                    swiper3.appendSlide(slides3.s3_1);
+                    swiper3.slideToLoop(0);
+                }
+                else {
+                    swiper3.removeAllSlides();
+                    swiper3.appendSlide(slides3.s3_2);
+                    swiper3.slideToLoop(0);
+                }
+            }
+        }
+    });
+    swiper1 = new Swiper('.swiper1', {
+        direction: 'vertical',
+        slidesPerView: 3,
+        loop:true,
+        on:{
+            slideChange:function () {
+                if($(this.slides[this.activeIndex]).text()=="今天"){
+                    swiper2.removeAllSlides();
+                    swiper2.appendSlide(slides2.s2_1);
+                    swiper2.slideToLoop(0);
+                    $scope.date = "今天";
+                }
+                else{
+                    swiper2.removeAllSlides();
+                    swiper2.appendSlide(slides2.s2_2);
+                    swiper2.slideToLoop(0);
+                    $scope.date = "明天";
+                }
+            }
+        }
+    });
+    $scope.time = "请选择时间";
+    $scope.myAddress = clientFty.addressInfo;
+    $scope.haveAddress = $scope.myAddress.length>0;
+    $scope.timeTable = true;
+    $scope.weight = "<0.5kg";
+    $scope.submitOrder = function () {
+        var data = $scope.myAddress[parseInt($("#address").val())];
+        data.weight = {"约重":$scope.weight};
+        getDateStr();
+        data.time = $scope.realTime;
+        data.type = "待接单";
+        if($scope.time == "请选择时间"){
+            $("#message").text("请填写时间");
+        }
+        else{
+            clientFty.submitOrder(data);
+            window.location.href = "#!/orderManage";
+        }
+    };
+
+    // $scope.showLocation = function (index) {
+    //     map.centerAndZoom($scope.myAddress[index].address,17);
+    // };
+    $scope.closeTime = function () {
+      $scope.timeTable = true;
+    };
+    $scope.confirmTime = function () {
+        $scope.time = $(".swiper-slide-active").text();
+        $scope.timeTable = true;
+    };
+    $scope.openTimeTable = function () {
+        $scope.timeTable = !$scope.timeTable;
+    };
+    function getDateStr() {
         var dd = new Date();
-        dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+        var count;
+        if($scope.time.substring(0,2)=="今天"){
+            count = 0;
+        }
+        else if($scope.time.substring(0,2)=="明天"){
+            count = 1;
+        }
+        else {
+            count = 2;       //后天
+        }
+        dd.setDate(dd.getDate()+count);//获取AddDayCount天后的日期
         var y = dd.getFullYear();
         var m = (dd.getMonth()+1)<10?"0"+(dd.getMonth()+1):(dd.getMonth()+1);//获取当前月份的日期，不足10补0
         var d = dd.getDate()<10?"0"+dd.getDate():dd.getDate();//获取当前几号，不足10补0
-        return y+"-"+m+"-"+d;
+        $scope.realTime = y+"-"+m+"-"+d;
+        if($scope.time.length==7){
+            $scope.realTime = $scope.realTime + ' '+$scope.time.substring(2,3)+":"+$scope.time.substring(4,6);
+        }
+        else {
+            $scope.realTime = $scope.realTime + ' '+$scope.time.substring(2,4)+":"+$scope.time.substring(5,7);
+        }
     }
 });
 
-clientCtrl.controller('myAddressCtrl',function ($scope,$http,clientFty) {
-    $scope.edit = true;
-    $scope.search = true;
+clientCtrl.controller('myAddressCtrl',function ($scope,clientFty) {
     $scope.myAddress = clientFty.addressInfo;
     $scope.reviseAddress = function (index) {
-        $scope.edit = false;
-        $scope.editType = "revise";
-        $scope.name = clientFty.addressInfo[index].name;
-        $scope.phoneNumber = clientFty.addressInfo[index].phoneNumber;
-        $scope.address = clientFty.addressInfo[index].address;
-        $scope.specificAddress = clientFty.addressInfo[index].specificAddress;
-        $scope.index = index;
-    };
-    $scope.searchAddress = function () {
-      $scope.edit = true;
-      $scope.search = false;
+        clientFty.editAddressData = clientFty.addressInfo[index];
+        clientFty.editAddressData.index = index;
+        clientFty.editAddressData.editType = "revise";
+        window.location.href = "#!/addAddress";
     };
     $scope.add = function () {
-        $scope.wipeData();
-        $scope.editType = "add";
-        $scope.edit = !$scope.edit;
-        $scope.search = true;
-        $scope.address = $("#location").text();
+        clientFty.editAddressData = {"address":"请选择地址信息"};
+        clientFty.editAddressData.editType = "add";
+        window.location.href = "#!/addAddress";
     };
-    $scope.confirmAddress = function () {
-      $scope.search = true;
-      $scope.edit = false;
-    };
+});
 
-    baiduSearch();
-    locationInf();
-    $scope.getLocationInf = function () {
-        locationInf();
-    };
-    $scope.wipeData = function () {
-        $scope.name = null;
-        $scope.phoneNumber = null;
-        $scope.specificAddress = null;
-    };
-
-    $scope.submitAddress = function () {
-        var data = {"name":$scope.name,"phoneNumber":$scope.phoneNumber,"address":$scope.address,"specificAddress":$scope.specificAddress};
-        if($scope.editType=="add"){
-            clientFty.addAddress(data);
-            $scope.edit =true;
-            $scope.wipeData();
-        }
-        else if($scope.editType=="revise"){
-            clientFty.reviseAddress($scope.index,data);
-            $scope.edit =true;
-            $scope.wipeData();
-        }
-    };
-
-    function baiduSearch() {
+clientCtrl.controller('addAddressCtrl',function ($scope,clientFty) {
+    $(document).ready(function(){
         function G(id) {
             return document.getElementById(id);
         }
-
-        var map = new BMap.Map("l-map");
-        map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
-
         var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
             {"input" : "suggestId"
                 ,"location" : map
@@ -198,27 +290,33 @@ clientCtrl.controller('myAddressCtrl',function ($scope,$http,clientFty) {
             });
             local.search(myValue);
         }
-    }
-
-    function locationInf() {
-        $("#location").html("正在获取位置......");
-        var geolocation = new BMap.Geolocation();
-        geolocation.getCurrentPosition(function(r){
-            if(this.getStatus() == BMAP_STATUS_SUCCESS){
-                //以指定的经度与纬度创建一个坐标点
-                var pt = new BMap.Point(r.point.lng,r.point.lat);
-                //创建一个地理位置解析器
-                var geoc = new BMap.Geocoder();
-                geoc.getLocation(pt, function(rs){//解析格式：城市，区县，街道
-                    var addComp = rs.addressComponents;
-                    $("#location").html(addComp.city + ", " + addComp.district + ", " + addComp.street);
-                    $("#address").html(addComp.city + ", " + addComp.district + ", " + addComp.street);
-                });
-            }
-            else {
-                $("#location").html("定位失败");
-            }
-        },{enableHighAccuracy: true});
+    });
+    $scope.edit = false;
+    $scope.search = false;
+    $scope.name = clientFty.editAddressData.name;
+    $scope.phoneNumber = clientFty.editAddressData.phoneNumber;
+    $scope.address = clientFty.editAddressData.address;
+    $scope.specificAddress = clientFty.editAddressData.specificAddress;
+    $scope.editType = clientFty.editAddressData.editType;
+    $scope.index = clientFty.editAddressData.index;
+    $scope.searchAddress = function () {
+      $scope.edit = true;
+      $scope.search = true;
+    };
+    $scope.confirmAddress = function () {
+      $scope.search = false;
+      $scope.edit = false;
+    };
+    $scope.submitAddress = function () {
+        var data = {"name":$scope.name,"phoneNumber":$scope.phoneNumber,"address":$scope.address,"specificAddress":$scope.specificAddress};
+        if($scope.editType=="revise"){
+            clientFty.reviseAddress($scope.index,data);
+            window.location.href = "#!/myAddress";
+        }
+        else{
+            clientFty.addAddress(data);
+            window.location.href = "#!/myOrders";
+        }
     }
 });
 

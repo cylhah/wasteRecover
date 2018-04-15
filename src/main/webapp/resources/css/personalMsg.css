@@ -1,0 +1,49 @@
+.smal{
+    width: 80%;
+    height: 100%;
+    margin: 0;
+}
+
+.btnn{
+    left: 10px;
+    position: absolute;
+    z-index: 16;
+}
+
+.header-css{
+    min-height: 3rem;
+    line-height: 3rem;
+    top: 0;
+    background-color: #25daa9;
+    width: 100%;
+    opacity: 0.8;
+    color: white;
+    font-weight: bold;
+}
+
+a:hover{
+    color: #1d2124;
+}
+
+a{
+    color:#000000;
+}
+
+body{
+    background-color: #dedede;
+}
+
+.list-group-item-own{
+    padding: 0.25rem 1.25rem;
+}
+
+.font-right{
+    color: #dedede;
+    position: absolute;
+    right: 10px;
+}
+.font-right2{
+    color: #bcbcbc;
+    position: absolute;
+    right: 30px;
+}

@@ -8,25 +8,20 @@ import java.util.List;
  */
 public class Orderform {
     private long id;
-    private int uid;//用户id
-    private int cid;//回收人员id
-    private int eid;//员工id
+    private String uid;//用户id
+    private int cid;//完成该订单的回收人员id
     private int aid;//地址id
-    private int staid;//回收站id
     private int state;//订单状态
-    private double weight;//订单重量
+    private double weight;//废品总重量
     private Timestamp createTime;
-    private Timestamp appointSTime;//预约时间段初始时刻
-    private Timestamp appointETime;//预约结束时间
+    private Timestamp appointTime;//预约时间
     private Timestamp updateTime;//信息更新时间(数据库自动更新)
     private double price;//订单最终成交价格
 
     private User user;
     private Collector collector;
-    private Employee employee;
     private UserAddress address;
-    private Station station;
-    private List<Scraptype> scraptypeList;
+    private List<ScrapMessage> scrapMessageList;
 
     public long getId() {
         return id;
@@ -36,11 +31,11 @@ public class Orderform {
         this.id = id;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -50,14 +45,6 @@ public class Orderform {
 
     public void setCid(int cid) {
         this.cid = cid;
-    }
-
-    public int getEid() {
-        return eid;
-    }
-
-    public void setEid(int eid) {
-        this.eid = eid;
     }
 
     public int getAid() {
@@ -92,20 +79,12 @@ public class Orderform {
         this.createTime = createTime;
     }
 
-    public Timestamp getAppointSTime() {
-        return appointSTime;
+    public Timestamp getAppointTime() {
+        return appointTime;
     }
 
-    public void setAppointSTime(Timestamp appointSTime) {
-        this.appointSTime = appointSTime;
-    }
-
-    public Timestamp getAppointETime() {
-        return appointETime;
-    }
-
-    public void setAppointETime(Timestamp appointETime) {
-        this.appointETime = appointETime;
+    public void setAppointTime(Timestamp appointTime) {
+        this.appointTime = appointTime;
     }
 
     public Timestamp getUpdateTime() {
@@ -140,14 +119,6 @@ public class Orderform {
         this.collector = collector;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public UserAddress getAddress() {
         return address;
     }
@@ -156,27 +127,31 @@ public class Orderform {
         this.address = address;
     }
 
-    public List<Scraptype> getScraptypeList() {
-        return scraptypeList;
+    public List<ScrapMessage> getScrapMessageList() {
+        return scrapMessageList;
     }
 
-    public void setScraptypeList(List<Scraptype> scraptypeList) {
-        this.scraptypeList = scraptypeList;
+    public void setScrapMessageList(List<ScrapMessage> scrapMessageList) {
+        this.scrapMessageList = scrapMessageList;
     }
 
-    public int getStaid() {
-        return staid;
-    }
-
-    public void setStaid(int staid) {
-        this.staid = staid;
-    }
-
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
+    @Override
+    public String toString() {
+        return "Orderform{" +
+                "id=" + id +
+                ", uid='" + uid + '\'' +
+                ", cid=" + cid +
+                ", aid=" + aid +
+                ", state=" + state +
+                ", weight=" + weight +
+                ", createTime=" + createTime +
+                ", appointTime=" + appointTime +
+                ", updateTime=" + updateTime +
+                ", price=" + price +
+                ", user=" + user +
+                ", collector=" + collector +
+                ", address=" + address +
+                ", scrapMessageList=" + scrapMessageList +
+                '}';
     }
 }

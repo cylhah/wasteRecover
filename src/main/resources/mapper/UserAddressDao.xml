@@ -3,4 +3,82 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.UserAddressDao">
+    <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="Address">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="address" column="address"/>
+        <result property="detail" column="detail"/>
+        <result property="locationX" column="locationX"/>
+        <result property="locationY" column="locationY"/>
+        <result property="geohash" column="geohash"/>
+
+        <result property="community_id" column="community_id"/>
+    </resultMap>
+
+    <resultMap type="org.cbb.wasteRecovery.bean.UserAddress" id="Address1">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="address" column="address"/>
+        <result property="detail" column="detail"/>
+        <result property="locationX" column="locationX"/>
+        <result property="locationY" column="locationY"/>
+        <result property="geohash" column="geohash"/>
+        <result property="community_id" column="community_id"/>
+        <collection property="community" resultMap="org.cbb.wasteRecovery.dao.CommunityDao.Community1"/>
+    </resultMap>
+    <insert id="insertAddress">
+
+    insert  into useraddress(uid,address,detail,community_id,geohash,position)
+    values (#{uid},#{address},#{detail},#{community_id},#{geohash},point(#{locationX},#{locationY}))
+   </insert>
+
+
+
+    <sql id="columns">a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position,m.id,m.address,m.name</sql>
+
+    <select id="selectById" resultMap="Address1" parameterType="int">
+        select <include refid="columns"/>
+        from useraddress  a
+        INNER JOIN community m
+        ON a.community_id=m.id
+        where
+           a.id=#{id}
+       
+        
+    </select>
+    
+    <select id="selectByUid" resultMap="Address1" >
+        select <include refid="columns"/>
+        from useraddress  a
+        INNER JOIN community m
+        ON a.community_id=m.id
+        where
+           a.uid=#{uid}
+        order BY a.id
+        limit #{offset},#{limit}
+       
+        
+    </select>
+    
+    <update id="updateAddress" >
+        <!-- 具体sql -->
+        update
+          useraddress
+        set
+          address = #{address}
+        where
+          id = #{id}
+      
+    </update>
+    
+
+    
+    <delete id="deleteAddress">
+       delete
+         from
+         useraddress
+       where
+           id=#{id}
+    
+    </delete>
 </mapper>

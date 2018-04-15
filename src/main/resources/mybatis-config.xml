@@ -13,5 +13,8 @@
         <setting name="useColumnLabel" value="true"/>
         <!-- 开启驼峰命名转换：Table(create_time) -> Entity(createTime) -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 空值映射 -->
+        <setting name="callSettersOnNulls" value="true"/>
+
     </settings>
 </configuration>

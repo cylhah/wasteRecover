@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<style type="text/css">
+    .headClose{
+        min-height: 2.5rem;
+        line-height: 2.5rem;
+        padding-right: 1rem;
+
+    }
+
+    .div-height{
+        min-height: 2.5rem;
+        line-height: 2.5rem;
+    }
+    a{
+        font-size: 2rem;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+    .li-span{
+        margin-left: 3.5rem;
+    }
+</style>
+
+<div class="text-right headClose"><a href="#!/">&times;</a></div>
+<ul class="list-group list-group-flush">
+    <li class="list-group-item list-group-item-own">用户姓名:<span ng-bind="orderList.userName" class="li-span"></span></li>
+    <li class="list-group-item list-group-item-own">用户电话:<span ng-bind="orderList.telephone" class="li-span"></span></li>
+    <li class="list-group-item list-group-item-own">详细地址:<span ng-bind="orderList.address" class="li-span"></span></li>
+    <li class="list-group-item list-group-item-own">废品毛重:<span ng-bind="orderList.weight" class="li-span"></span></li>
+    <li class="list-group-item list-group-item-own">预约时间:<span ng-bind="orderList.time" class="li-span"></span></li>
+</ul>
+<div class="text-center div-height"><button class="btn" ng-click="checkOrder()">确认接受订单</button></div>

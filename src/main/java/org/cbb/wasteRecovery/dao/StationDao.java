@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Station;
 
 import java.util.List;
@@ -16,32 +17,62 @@ public interface StationDao {
      */
     Station selectById(int id);
 
-    /**
-     * 根据位置信息查询回收站
-     * @param map 存有回收人员的位置信息 ?详细暂定
-     * @return
-     */
-    List<Station> selectByPos(Map map);
 
     /**
-     * 根据地址查询回收站
+     * 根据地址模糊查询回收站
      * @param address
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<Station> selectByAdd(String address);
+
+    List<Station> selectByAdd(@Param("address")String address,
+                              @Param("offset")int offset,
+                              @Param("limit")int limit);
+
 
     /**
      * 根据名字查询回收站
      * @param name
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<Station> selectByName(String name);
+
+    List<Station> selectByName(@Param("name")String name,
+                               @Param("offset")int offset,
+                               @Param("limit")int limit);
+
+
 
     /**
-     * 更改回收站资金
-     * @param station
+     * 插入回收站
+     * @param name
+     * @param address
+     * @param detailed_address
+     * @param locationX
+     * @param locationY
+     * @return 返回插入的数量
      */
-    void updateMoney(Station station);
+
+    int insertStaion(@Param("name")String name,
+                     @Param("address")String address,
+                     @Param("detailed_address")String detailed_address,
+                     @Param("locationX")double locationX,
+                     @Param("locationY")double locationY);
 
 
+    /**
+     * 根据id删除回收站
+     * @param id
+     * @return 返回删除的数量
+     */
+    int deleteStation(int id);
+
+    /**
+     * 更改回收站资料
+     * @param station 存有 name,address,detailed_address,locationX,locationY
+     * @return 返回更新的数量
+     */
+    int updateData(Station station);
 }

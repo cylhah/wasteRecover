@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.ScrapMessageDao">
+    <resultMap type="org.cbb.wasteRecovery.bean.ScrapMessage" id="Message">
+        <id property="oid" column="oid"/>
+        <result property="scrapid" column="scrapid"/>
+        <result property="weight" column="weight"/>
+        <result property="price" column="price"/>
+        <collection property="orderform" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order1"/>
+        <collection property="scrap" resultMap="org.cbb.wasteRecovery.dao.ScrapDao.Scrap"/>
+    </resultMap>
+    <resultMap type="org.cbb.wasteRecovery.bean.ScrapMessage" id="Message1">
+        <id property="oid" column="oid"/>
+        <result property="scrapid" column="scrapid"/>
+        <result property="weight" column="weight"/>
+        <result property="price" column="price"/>
+    </resultMap>
+
+
+    <sql id="columns">sc.weight,sc.price,sc.oid,sc.scrapid,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,s.id,s.typeName,s.name,s.unitPrice,s.monthVolume,s.totalVolume</sql>
+
+    <insert id="insertScrapMessage">
+
+        insert  into scrapmessage(weight,price,oid,scrapid)
+        values (#{weight},#{price},#{oid},#{scrapid})
+    </insert>
+
+
+    <delete id="deleteScrapMessage">
+        delete
+        from
+        scrapmessage
+        where
+        oid=#{oid}
+        and scrapid=#{scrapid}
+
+    </delete>
+
+
+    <update id="updateData">
+
+        update
+        scrapmessage
+        set
+
+        weight = #{weight}
+        and  price = #{price}
+        where
+        scrapid = #{scrapid}
+         and oid= #{oid}
+    </update>
+
+
+
+    <select id="selectByOId" resultMap="Message" >
+        select <include refid="columns"/>
+        from (scrapmessage sc
+        INNER JOIN orderform o ON sc.oid=o.id)INNER JOIN scrap s
+        ON sc.scrapid=s.id
+        where
+         sc.oid=#{oid}
+         order BY sc.weight
+        limit #{offset},#{limit}
+
+
+    </select>
+
+    <select id="selectByScId" resultMap="Message" >
+        select <include refid="columns"/>
+        from (scrapmessage sc
+        INNER JOIN orderform o ON sc.oid=o.id)INNER JOIN scrap s
+        ON sc.scrapid=s.id
+        where
+        sc.scrapId= #{scrapId}
+        order BY sc.weight
+        limit #{offset},#{limit}
+
+
+    </select>
+
+</mapper>

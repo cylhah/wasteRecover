@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.CommunityDao">
+
+    <resultMap type="org.cbb.wasteRecovery.bean.Community" id="Community">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="cid" column="cid"/>
+        <result property="name" column="name"/>
+        <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
+    </resultMap>
+
+    <resultMap type="org.cbb.wasteRecovery.bean.Community" id="Community1">
+        <id property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="cid" column="cid"/>
+        <result property="name" column="name"/>
+
+    </resultMap>
+
+
+    <sql id="columns">m.id,m.address,m.name,
+    c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,staid,c.state,c.volume</sql>
+
+
+    <insert id="insertCommunity">
+        insert  into community(address,name) values (#{address},#{name})
+    </insert>
+
+
+    <delete id="deleteCommunity">
+        delete from community where id=#{id}
+    </delete>
+
+    <update id="updateCollectorOfComm">
+        update community set cid = #{cid} where id = #{id}
+    </update>
+
+
+    <update id="updateData">
+        update community set address=#{address} ,name = #{name} where id=#{id}
+    </update>
+
+    <select id="selectByCid" resultMap="Community" >
+        select <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id where m.cid=#{cid} order BY m.id
+    </select>
+
+    <select id="selectByName" resultMap="Community" >
+        select  <include refid="columns"/> from community m INNER JOIN collector c ON m.cid=c.id
+        where name like '%' #{name} '%' order BY m.id
+    </select>
+
+</mapper>

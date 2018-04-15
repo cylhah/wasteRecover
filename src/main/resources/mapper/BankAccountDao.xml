@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.BankAccountDao">
+
+    <resultMap type="org.cbb.wasteRecovery.bean.BankAccount" id="BankAccount">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="account" column="account"/>
+        <result property="bank_code" column="bank_code"/>
+        <result property="username" column="username"/>
+    </resultMap>
+
+    <insert id="insertBankAccount">
+
+        insert  into bankaccount(uid,account,bank_code,username)
+        values (#{uid},#{account},#{bank_code},#{username})
+    </insert>
+
+
+    <delete id="deleteBankAccount">
+        delete
+        from
+       bankaccount
+        where
+        id=#{id}
+
+    </delete>
+
+    <select id="selectByUId" resultType="BankAccount" >
+        select id,account,bank_code,username
+        from bankaccount
+        where
+        uid=#{uid}
+        order BY id
+        limit #{offset},#{limit}
+
+
+    </select>
+</mapper>

@@ -2,9 +2,23 @@ var clientService = angular.module('clientService',[]);
 
 clientService.factory('clientFty',function ($http) {
    var service = {
+       editAddressData:{"address":"请选择地址信息"},
        haveAddress:false,
        addressInfo:[],
-       orderInfo:[],
+       orderInfo:[
+           {"address":"浙江科技学院西和公寓","type":"待接单","time":"2018-4-6 15:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院东和","type":"待回收","time":"2018-4-6 16:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院西和公寓","type":"待接单","time":"2018-4-6 15:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院东和","type":"待回收","time":"2018-4-6 16:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院西和公寓","type":"待接单","time":"2018-4-6 15:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院东和","type":"待回收","time":"2018-4-6 16:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院西和公寓","type":"待接单","time":"2018-4-6 15:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院东和","type":"待回收","time":"2018-4-6 16:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院西和公寓","type":"待接单","time":"2018-4-6 15:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院东和","type":"待回收","time":"2018-4-6 16:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院西和公寓","type":"待接单","time":"2018-4-6 15:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}},
+           {"address":"浙江科技学院东和","type":"待回收","time":"2018-4-6 16:15","name":"江铮","server":{"name":"王宇超","phone":"13758158273"},"weight":{"塑料":"1.2kg","纸板":"0.9kg"}}
+       ],
        submitOrder:function (data) {
            service.orderInfo.unshift(data);
            // $http({

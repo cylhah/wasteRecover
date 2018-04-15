@@ -1,0 +1,52 @@
+.text-loc{
+    /*left:50%;*/
+    /*position: absolute;*/
+    /*margin-left: -35px;*/
+    width: 100%;
+}
+.text-p{
+    font-weight: bolder;
+
+}
+
+body{
+    text-align: center;
+}
+
+.smal{
+    width: 80%;
+    height: 100%;
+    margin: 0;
+}
+
+.btnn{
+    left: 10px;
+    position: absolute;
+    z-index: 16;
+}
+
+.header-css{
+    min-height: 3rem;
+    line-height: 3rem;
+    position: absolute;
+    z-index: 14;
+    top: 0;
+    background-color: white;
+    width: 100%;
+    opacity: 0.8;
+}
+
+a:hover{
+    color: #1d2124;
+}
+
+a{
+    color:#000000;
+}
+
+.img-loc{
+    /*top: 30%;*/
+    /*left:50%;*/
+    /*position: absolute;*/
+    /*margin-left: -64px;*/
+}

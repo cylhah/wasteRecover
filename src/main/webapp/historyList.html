@@ -1,0 +1,105 @@
+<html ng-app="listApp">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale-1,user-scalable=no" >
+        <link rel="stylesheet" href="resources/css/bootstrap.css">
+        <link rel="stylesheet" href="resources/font/iconfont.css">
+        <link rel="stylesheet" href="resources/css/historyList.css">
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRSBDtrWOZ6cCOoPsnEhdmLihKVGXi2s"></script>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/js/popper.min.js"></script>
+        <script src="resources/js/bootstrap.js"></script>
+        <script src="resources/js/testjs.js"></script>
+        <script src="resources/js/angular.min.js"></script>
+        <script src="resources/js/angular-route.min.js"></script>
+        <script src="resources/js/angular-animate.min.js"></script>
+        <script src="resources/js/app.js"></script>
+        <script src="resources/js/controllers.js"></script>
+        <script src="resources/js/service.js"></script>
+    </head>
+    <body ng-controller="listCtrl">
+        <div>
+            <header class="border-bottom  header-css text-center">
+                <span class=" btnn" data-toggle="modal" data-target="#myModal" role="button"><i class="iconfont icon-Shapecopy1"></i></span>
+                <span class="title-css">
+                    历史订单
+                </span>
+            </header>
+            <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+                <div class="modal-dialog smal" role="document">
+                    <div class="modal-content smal">
+                        <div class="modal-header text-lg-center">
+                            <p class="modal-title"><i class="iconfont icon-shenfenzheng"></i></p>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="receiver.html"><i class="iconfont icon-flag"></i>即时订单</a></li>
+                                <li class="list-group-item"><a href="historyList.html"><i class="iconfont icon-document"></i>历史订单</a></li>
+                                <li class="list-group-item"><a href="personalMsg.html"><i class="iconfont icon-xingming"></i>个人信息</a></li>
+                                <li class="list-group-item "><a href="creditFoot.html"><i class="iconfont icon-xinyongpingjia"></i>信用足迹</a></li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" style="width: 100%" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="screen-css">
+        <span class="screen-span" data-toggle="modal" data-target="#screen" role="button">筛选</span>
+        <span class="search-span">搜索</span>
+    </div>
+        <div class="modal fade" tabindex="-1" role="dialog" id="screen">
+            <div class="modal-dialog screen-modal" role="document">
+                <div class="modal-content screen-modal">
+                    <div class="modal-body container">
+                        <h5>快捷筛选</h5>
+                        <div>
+                            <button class="btn btn-secondary btn-sm btn-screen" ng-repeat="type in typeList">{{type}}</button>
+                        </div>
+                        <br>
+                        <h5>金额</h5>
+                        <div class="row">
+                        <div class="input-group input-group-sm col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="iconfont icon-qian"></i></span>
+                            </div>
+                            <input type="text" class="form-control screen-input-left" placeholder="最低金额" aria-label="minCost" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group input-group-sm col-6">
+                            <div class="input-group-prepend ">
+                                <span class="input-group-text" id="basic-addon2"><i class="iconfont icon-qian"></i></span>
+                            </div>
+                            <input type="text" class="form-control screen-input-left" placeholder="最高金额" aria-label="maxCost" aria-describedby="basic-addon2">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" style="width: 50%" data-dismiss="modal">重置</button>
+                        <button type="button" class="btn btn-secondary" style="width: 50%" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="monthMsg">
+    <span class="smp">本月</span>
+     <small class="small-text">订单数：{{receivedList.length}}</small>
+        <button class="btn i-text"><i class="iconfont icon-jinyiyueshouyi"></i></button>
+    </div>
+        <ul class="list-group">
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start " ng-repeat="order in receivedList">
+                <div class="d-flex w-100 justify-content-between" >
+                    <p>{{order.address}}</p>
+                    <small>{{order.time}}</small>
+                </div>
+                <div class="d-flex w-100 justify-content-between">
+                <p>质量：{{order.weight}}</p>
+                <small class="{{order.color}}">{{order.type}}</small>
+                </div>
+            </a>
+        </ul>
+    </body>
+</html>
+
+

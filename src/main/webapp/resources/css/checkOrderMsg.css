@@ -1,0 +1,47 @@
+.smal{
+    width: 80%;
+    height: 100%;
+    margin: 0px;
+}
+.btnn{
+    left: 10px;
+    position: absolute;
+    z-index: 16;
+}
+.header-css{
+    min-height: 3rem;
+    line-height: 3rem;
+    position: absolute;
+    z-index: 14;
+    top: 0;
+    background-color: white;
+    width: 100%;
+    opacity: 1;
+}
+
+.title-css{
+    font-size: 1rem;
+    height:1rem;
+}
+
+a:hover{
+    color: #1d2124;
+}
+
+a{
+    color:#000000;
+}
+
+.top-order{
+    position: absolute;
+    margin-left: -40%;
+    margin-top: -50%;
+    z-index: 18;
+    width: 80%;
+    height: 70%;
+    left: 50%;
+    top:45%;
+    background-color: white;
+    opacity: 0.9;
+    overflow:scroll;
+}

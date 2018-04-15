@@ -4,143 +4,133 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.OrderformDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Orderform" id="order">
-  <id property="id" column="id"/>
+  <id property="id" column="id" />
   <result property="uid" column="uid"/>
   <result property="cid" column="cid"/>
-  <result property="eid" column="eid"/>
   <result property="aid" column="aid"/>
-  <result property="staid" column="staid"/>
   <result property="state" column="state"/>
   <result property="weight" column="weight"/>
   <result property="createTime" column="createTime"/>
-  <result property="appointSTime" column="appointSTime"/>
-  <result property="appointETime" column="appointETime"/>
+  <result property="appointTime" column="appointTime"/>
+  <result property="updateTime" column="updateTime"/>
   <result property="price" column="price"/>
-  <collection property="user" resultMap="org.cbb.wasteRecovery.bean.User.User"/>
-  <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect"/>
-  <collection property="employee" resultMap="org.cbb.wasteRecovery.dao.EmployeeDao.Employ"/>
-  <collection property="station" resultMap="org.cbb.wasteRecovery.bean.Station.tion"/>
-  <collection property="scraptypeList" resultMap="org.cbb.wasteRecovery.dao.ScraptypeDao.type"/>
+  <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User1"/>
+  <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
+  <collection property="scrapMessageList" resultMap="org.cbb.wasteRecovery.dao.ScrapMessageDao.Message1"/>
+  <collection property="address" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
 </resultMap>
-     <select id="selectById" resultType="orderform" parameterType="long">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           id=#{id}
-       
-        
-    </select>
-    
-    <select id="selectByCId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           cid=#{cid}
-       
-        
-    </select>
-    
-    <select id="selectByUId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           uid=#{uid}
-       
-        
-    </select>
-    
-    <select id="selectByEId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           eid=#{eid}
-       
-        
-    </select>
-    
-    <select id="selectByStaId" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           staid=#{staid}
-       
-        
-    </select>
-    
-    
-    <select id="selectByState" resultType="orderform" parameterType="int">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           state=#{state}
-       
-        
-    </select>
-    
-    <select id="selectByPosAndTime" resultMap="order" parameterType="Map">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-           state=#{orderform.state}
-        and appointSTime>=#{orderform.appointSTime}  
-       and appointETime<![CDATA[ <= ]]>#{orderform.appointETime}  
-       and geoHash like '%'#{collector.geoHash}'%'
-        
-    </select>
-    
-     <select id="selectByTime" resultType="orderform" parameterType="org.cbb.wasteRecovery.bean.Orderform">
-        select id,uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid
-        from orderform
-        where
-          appointSTime=#{orderform.appointSTime}  
-       and appointETime=#{orderform.appointETime}  
-       
-        
-    </select>
-    
+    <resultMap type="org.cbb.wasteRecovery.bean.Orderform" id="order1">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="cid" column="cid"/>
+        <result property="aid" column="aid"/>
+        <result property="state" column="state"/>
+        <result property="weight" column="weight"/>
+        <result property="createTime" column="createTime"/>
+        <result property="appointTime" column="appointTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="price" column="price"/>
+    </resultMap>
     <insert id="insertOrderform">
-        
-        insert  into orderform(uid,cid,eid,aid,state,weight,createTime,appointSTime,appointETime,price,staid)
-        values (#{orderform.getUid()},#{orderform.getCid()},#{orderform.getEid()},#{orderform.getAid()},1,#{orderform.getWeight()},#{orderform.getCreateTime()},#{orderform.getAppointSTime()},#{orderform.getAppointETime()},#{orderform.getPrice()},#{orderform.getStaid()})
+
+    insert  into orderform(state,createTime,appointTime,aid,uid)
+    values (#{state},#{createTime},#{appointTime},#{aid},#{uid})
+
     </insert>
+
+
+    <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,
+    o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,
+    a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position,
+    u.state,u.avater,u.openid,
+    sc.weight,sc.price,sc.oid,sc.scrapid</sql>
+
+     <select id="selectById"  resultMap="order" parameterType="long">
+        select <include refid="columns"/>
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)LEFT JOIN collector c ON o.cid=c.id)
+        LEFT JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
+        where
+           o.id=#{id}
+       
+        
+    </select>
     
-     <update id="updateWeight">
+    <select id="selectByCId" resultMap="order">
+        select <include refid="columns"/>
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
+        where
+           o.cid=#{cid}
+        and  o.state=#{state}
+        order BY o.id
+        limit #{offset},#{limit}
+       
+        
+    </select>
+    
+    <select id="selectByUId" resultMap="order">
+        select <include refid="columns"/>
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
+        where
+          o.uid=#{uid}
+        and  o.state=#{state}
+        order BY o.id
+        limit #{offset},#{limit}
+        
+    </select>
+    
+
+    
+
+    
+    
+    <select id="selectByState" resultMap="order">
+        select <include refid="columns"/>
+        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
+        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
+        where
+           o.state=#{state}
+        order BY o.id
+        limit #{offset},#{limit}
+        
+    </select>
+    
+    <select id="selectByPos" resultType="Orderform">
+        select x(ua.position) "address.locationX",y(ua.position) "address.locationY"
+        from orderform o INNER JOIN useraddress ua ON o.aid = ua.id where ua.geohash LIKE #{geohash} '%' AND
+        st_distance_sphere(point(#{locationX},#{locationY}),ua.position)<![CDATA[ <= ]]>#{distance}
+        AND o.uid!=#{openid}
+        
+    </select>
+
+
+    
+    <update id="updateOrderform">
        
         update
           orderform
         set
-          weight = #{orderform.getWeight()}
+          aid = #{aid},
+          appointTime=#{appointTime}
         where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     
-    <update id="updateState">
+    <update id="submitData">
        
         update
           orderform
         set
-          state = #{orderform.getState()}
+          uid= #{uid},
+          cid = #{cid},
+          aid= #{aid},
+          price = #{price},
+          state = #{state},
+          weight = #{weight}
         where
-          id = #{orderform.getId()}
-      
-    </update>
-    
-    <update id="updateData">
-       
-        update
-          orderform
-        set
-          uid= #{orderform.getUid()}
-          cid = #{orderform.getCid()}
-          eid = #{orderform.getEid()}
-          aid= #{orderform.getAid()}
-          staid= #{orderform.getStaid()}
-          price = #{orderform.getPrice()}
-          state = #{orderform.getState()}
-          weight = #{orderform.getWeight()}
-        where
-          id = #{orderform.getId()}
+          id = #{id}
       
     </update>
     

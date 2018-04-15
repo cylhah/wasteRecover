@@ -8,69 +8,78 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        .orders{
+            padding: 0;
+        }
+        .oneOrder{
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgb(243,243,243);
+            line-height: 30px;
+            height: 100%;
+        }
+        .typeInfo{
+            margin-left: 5px;
+            padding: 5px;
+        }
+        .moneyInfo{
+            position: absolute;
+            right: 5%;
+            bottom: 5%;
+            color: rgb(255,186,111);
+            font-size: 20px;
+        }
+        .orderType{
+            position: absolute;
+            right: 5%;
+            top:9%;
+        }
+        .serverInfo{
+            margin: 0;
+        }
+        .clientInfo{
+            margin-top: 5px;
+        }
+        .clientInfo label{
+            margin: 0;
+        }
+        .time{
+            color: rgb(175,175,175);
+            margin: 0;
+        }
+        .swiper-container{
+            height: 384px;
+        }
+        .swiper-slide{
+            height: 128px;
+        }
+    </style>
     <title>订单管理</title>
 </head>
 <body>
-<div class="container" style="background: rgb(243,243,243);padding: 0;height: 90%">
-    <div class="col-md-12" style="color:rgb(179, 175, 170)">
-        订单管理
-    </div>
-    <div ng-repeat="order in myOrders" class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p ng-bind="order.time"></p>
-        <p><label ng-bind="order.address+' '+order.name"></label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px" ng-bind="order.money"></label></p>
-        <p ng-bind="order.type"></p>
-        <p ng-bind="order.collector"></p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 江铮</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 江铮</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 江铮</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 江铮</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 江铮</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 江铮</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
-    </div>
-    <div class="col-md-12" style="background: white;border: 3px solid rgb(243,243,243)">
-        <p>2018.3.28 8:50</p>
-        <p><label>浙江科技学院西和公寓12幢 王宇超</label></p>
-        <p><label style="float:right;color: rgb(255,186,111);font-size: 20px">5.6元</label></p>
-        <p>纸板1kg 电器2kg</p>
-        <p>回收员：陈XX 13758158243</p>
+<div class="container orders">
+    <div class="swiper-container swiperOrders">
+        <div class="swiper-wrapper" id="swiperOrders">
+            <div class="swiper-slide" ng-repeat="page in pages">
+                <div class="swiper-container swiperV">
+                    <div class="swiper-wrapper" id="oneOrder">
+                        <div class="swiper-slide" ng-repeat="x in count">
+                            <div class="col-md-12 oneOrder" ng-init="tempOrder=orders[page*5+x]" ng-if="page*5+x<ordersNum">
+                                <p class="clientInfo"><label ng-bind="tempOrder.address+' '+tempOrder.name"></label></p>
+                                <p class="orderType"><span class="label label-success" ng-bind="tempOrder.type"></span></p>
+                                <p><label class="moneyInfo" ng-bind="tempOrder.money"></label></p>
+                                <p ng-init="tempWeight=tempOrder.weight"><span class="label label-info typeInfo" ng-repeat="(i,j) in tempWeight">{{i+' '+j}}</span></p>
+                                <p class="serverInfo"><span class="glyphicon glyphicon-user"></span> 回收员：{{tempOrder.server.name}} {{tempOrder.server.phone}}</p>
+                                <p class="time" ng-bind="tempOrder.time"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
     </div>
 </div>
+
 </body>
 </html>

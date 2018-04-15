@@ -6,3 +6,5 @@
 wasteRecovery.iml
 
 src/main/resources/jdbc.properties
+
+.DS_Store

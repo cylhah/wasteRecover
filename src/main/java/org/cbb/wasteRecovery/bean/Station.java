@@ -1,21 +1,23 @@
 package org.cbb.wasteRecovery.bean;
 
+import java.util.List;
+
 /**
  * Created by Colossus on 2018/3/17.
  */
 public class Station {
     private int id;
     private String name;
-    private double money;
     private String address;
+    private String detailed_address;
 
     //经度
     private double locationX;
     //纬度
     private double locationY;
 
-    private String fullAdd;
-    private String geohash;
+    private List<Collector> collectorList;
+    private List<Consultant> consultantList;
 
     public int getId() {
         return id;
@@ -33,20 +35,20 @@ public class Station {
         this.name = name;
     }
 
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getDetailed_address() {
+        return detailed_address;
+    }
+
+    public void setDetailed_address(String detailed_address) {
+        this.detailed_address = detailed_address;
     }
 
     public double getLocationX() {
@@ -65,19 +67,33 @@ public class Station {
         this.locationY = locationY;
     }
 
-    public String getFullAdd() {
-        return fullAdd;
+    public List<Collector> getCollectorList() {
+        return collectorList;
     }
 
-    public void setFullAdd(String fullAdd) {
-        this.fullAdd = fullAdd;
+    public void setCollectorList(List<Collector> collectorList) {
+        this.collectorList = collectorList;
     }
 
-    public String getGeohash() {
-        return geohash;
+    public List<Consultant> getConsultantList() {
+        return consultantList;
     }
 
-    public void setGeohash(String geohash) {
-        this.geohash = geohash;
+    public void setConsultantList(List<Consultant> consultantList) {
+        this.consultantList = consultantList;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", detailed_address='" + detailed_address + '\'' +
+                ", locationX=" + locationX +
+                ", locationY=" + locationY +
+                ", collectorList=" + collectorList +
+                ", consultantList=" + consultantList +
+                '}';
     }
 }

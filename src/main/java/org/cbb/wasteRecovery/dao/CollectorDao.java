@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Collector;
 
 import java.util.List;
@@ -8,6 +9,15 @@ import java.util.List;
  * Created by Colossus on 2018/3/18.
  */
 public interface CollectorDao {
+
+    /**
+     * 插入回收员，存有realName,sex,phoneNumber,password,photo,idCardNum,
+     * idCardFrontPhoto,idCardBackPhoto,createTime,staid,state
+     * @param collector
+     * @return 返回插入的数量
+    */
+    int insertCollector(Collector collector);
+
     /**
      * 按id搜索废品回收员
      * @param id
@@ -23,11 +33,13 @@ public interface CollectorDao {
     Collector selectByPhoneNum(String phoneNumber);
 
     /**
-     * 按电话号码和密码查找回收员
-     * @param collector
+     * 根据手机号和密码查询回收员
+     * @param phoneNumber
+     * @param password
      * @return
      */
-    Collector selectByPhoneNumAndPass(Collector collector);
+    Collector selectByPhoneNumAndPass(@Param("phoneNumber") String phoneNumber,
+                                      @Param("password") String password);
 
     /**
      * 按身份证号查找回收员
@@ -38,58 +50,62 @@ public interface CollectorDao {
 
     /**
      * 按名字搜索废品回收员
-     * @param name
+     * @param realName
+     * @param offset 偏移量
+     * @param limit 限制数量
      * @return Collector列表，找不到list.size()=0
      */
-    List<Collector> selectByName(String name);
+    List<Collector> selectByName(@Param("realName") String realName,
+                                 @Param("offset") int offset,
+                                 @Param("limit") int limit);
+
 
     /**
-     *  按审核状态查找回收员
-     * @param state
-     * @return
+     * 更改电话号码
+     * @param id
+     * @param phoneNumber
+     * @return 返回更新记录的数量
      */
-    List<Collector> selectByState(int state);
+    int updatePhoneNum(@Param("id")int id,
+                       @Param("phoneNumber")String phoneNumber);
 
     /**
-     * 插入回收员，需要电话号码、名字、密码、性别、照片、身份证号、身份证正反照、创建时间
-     * @param collector
+     * 根据id更换密码
+     * @param id
+     * @param password
+     * @return 返回更新记录的数量
      */
-    void InsertCollector(Collector collector);
+    int updatePassword(@Param("id")int id,
+                       @Param("password")String password);
 
-    /**
-     * 根据collector中的id更改电话号码
-     * @param collector 存有id
-     */
-    void updatePhoneNum(Collector collector);
-
-    /**
-     * 根据collector中的id更换密码
-     * @param collector 存有id
-     */
-    void updatePassword(Collector collector);
-
-    /**
-     * 更改信用值
-     * @param collector 存有id
-     */
-    void updateCreditValue(Collector collector);
-
-    /**
-     * 更改转账账户
-     * @param collector 存有id
-     */
-    void updateAccount(Collector collector);
 
     /**
      * 增加成交量
-     * @param collector 存有id
+     * @param id
+     * @return 返回成交量，<1代表增加失败
      */
-    void addVolume(Collector collector);
+    int addVolume(int id);
 
     /**
      * 更改个人资料
-     * @param collector 存有id,sex,name,email,avater
+     * @param collector 存有id,sex,name,avater
+     * @return 返回更新记录的数量
      */
-    void updatePersonData(Collector collector);
+    int updatePersonData(Collector collector);
 
+    /**
+     * 更改状态
+     * @param id
+     * @param state
+     * @return 返回更新记录的数量
+     */
+    int updateState(@Param("id")int id,
+                    @Param("state")int state);
+
+    /**
+     * 删除回收员
+     * @param id 存有id
+     * @return 返回删除记录的数量
+     */
+     int deleteCollector(int id);
 }

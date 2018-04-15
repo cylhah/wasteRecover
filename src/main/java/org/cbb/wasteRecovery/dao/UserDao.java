@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.User;
 
 import java.util.Map;
@@ -9,41 +10,38 @@ import java.util.Map;
  */
 public interface UserDao {
     /**
-     * 根据id查询用户
-     * @param id
-     * @return
-     */
-    UserDao selectById(int id);
-
-    /**
-     * 根据手机号码查询用户
-     * @param phoneNumber
-     * @return
-     */
-    UserDao selectByPhoneNumber(String phoneNumber);
-
-    /**
-     * 根据手机号码和密码查询用户
-     * @param user 存有password与phoneNumber
-     * @return
-     */
-    UserDao selectByPhoneAndPass(User user);
-
-    /**
      * 插入用户
-     * @param user 存有phoneNumber,name,password
+     * @param openId 微信的openid,用户的唯一识别码
+     * @param state
+     * @return 返回插入的数量
      */
-    void insertUser(User user);
+    int insertUser(@Param("openid") String openid,@Param("state") int state);
+    /**
+     * 根据id查询用户
+     * @param openid
+     * @return
+     */
+    User selectById(String openid);
 
     /**
-     * 更新地址
-     * @param map 存有id,UserAddress
-     */
-    void updateAddress(Map map);
+     * 根据openid禁止非法用户，使state变为0
+     * @param openid
+     * @return 返回更新的数量
+    */
+    int banUser(String openid);
 
     /**
      * 更改用户信息
-     * @param user 存有id,name,sex,email,bankAccount,avater
+     * @param openId
+     * @param avater 头像地址
+     * @return 返回更新的数量
      */
-    void updateData(User user);
+    int updateData(@Param("openid")String openid,@Param("avater")String avater);
+
+  /**
+   * 根据openid删除用户
+   * @param openid
+   * @return 返回删除的数量
+   */
+  int deleteUser(String openid);
 }

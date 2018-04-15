@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cbb.wasteRecovery.dao.ConsultantDao">
+    <resultMap type="org.cbb.wasteRecovery.bean.Consultant" id="Consultant">
+        <id property="id" column="id"/>
+        <result property="staid" column="staid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="station" resultMap="org.cbb.wasteRecovery.dao.StationDao.tion"/>
+
+    </resultMap>
+    <resultMap type="org.cbb.wasteRecovery.bean.Consultant" id="Consultant1">
+        <id property="id" column="id"/>
+        <result property="staid" column="staid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+
+
+    </resultMap>
+
+    <sql id="columns">t.id,t.staid,t.password,t.username,st.name,st.address,st.detailed_address</sql>
+
+
+    <insert id="insertConsultant">
+
+        insert  into consultant(staid,password,username)
+        values (#{staid},#{password},#{username})
+    </insert>
+
+
+    <delete id="deleteConsultant">
+        delete
+        from
+        consultant
+        where
+        id=#{id}
+
+    </delete>
+
+    <update id="updateStaId" >
+
+        update
+      consultant
+        set
+        staid=#{staid}
+
+        where
+        id=#{id}
+
+    </update>
+
+    <update id="updatePassword" >
+
+        update
+        consultant
+        set
+        password=#{password}
+
+        where
+        id=#{id}
+
+    </update>
+
+    <select id="selectByUsername" resultMap="Consultant" parameterType="String">
+        select <include refid="columns"/>
+        from consultant t
+        INNER JOIN  station st
+        ON t.staid=st.id
+        where
+        t.username=#{username}
+
+
+    </select>
+
+    <select id="selectByUsernameAndPass" resultMap="Consultant" >
+        select <include refid="columns"/>
+        from consultant t
+        INNER JOIN  station st
+        ON t.staid=st.id
+        where
+        t.username=#{username}
+        and t.password=#{password}
+
+
+    </select>
+
+
+    <select id="selectByStaId" resultMap="Consultant" >
+        select <include refid="columns"/>
+        from consultant t
+        INNER JOIN  station st
+        ON t.staid=st.id
+        where
+        t.staid=#{staid}
+        order BY t.id
+        limit #{offset},#{limit}
+
+
+    </select>
+</mapper>

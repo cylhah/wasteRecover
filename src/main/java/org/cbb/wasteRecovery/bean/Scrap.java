@@ -5,11 +5,10 @@ package org.cbb.wasteRecovery.bean;
  */
 public class Scrap {
     private int id;
-    private int tid;//种类id
+    private String typeName;//种类名称
     private String name;//废品名称
-    private double unitPriceFU;//对用户的单价
-    private double unitPriceFC;//对回收人员的单价
-    private double monthVolume;//月成交额
+    private double unitPrice;//废品单价
+    private double monthVolume;//本月成交额
     private double totalVolume;//总成交额
 
     public int getId() {
@@ -20,12 +19,12 @@ public class Scrap {
         this.id = id;
     }
 
-    public int getTid() {
-        return tid;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setTid(int tid) {
-        this.tid = tid;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public String getName() {
@@ -36,20 +35,12 @@ public class Scrap {
         this.name = name;
     }
 
-    public double getUnitPriceFU() {
-        return unitPriceFU;
+    public double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setUnitPriceFU(double unitPriceFU) {
-        this.unitPriceFU = unitPriceFU;
-    }
-
-    public double getUnitPriceFC() {
-        return unitPriceFC;
-    }
-
-    public void setUnitPriceFC(double unitPriceFC) {
-        this.unitPriceFC = unitPriceFC;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public double getMonthVolume() {
@@ -66,5 +57,17 @@ public class Scrap {
 
     public void setTotalVolume(double totalVolume) {
         this.totalVolume = totalVolume;
+    }
+
+    @Override
+    public String toString() {
+        return "Scrap{" +
+                "id=" + id +
+                ", typeName='" + typeName + '\'' +
+                ", name='" + name + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", monthVolume=" + monthVolume +
+                ", totalVolume=" + totalVolume +
+                '}';
     }
 }

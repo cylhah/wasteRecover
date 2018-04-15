@@ -1,14 +1,28 @@
 package org.cbb.wasteRecovery.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Orderform;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Colossus on 2018/3/18.
  */
 public interface OrderformDao {
+    /**
+     * 插入订单,设置state为1
+     * @param createTime 预约时间
+     * @param appointTime 用户时间
+     * @param aid
+     * @param uid
+     * @param state
+     * @return 返回插入的数量
+     */
+    int insertOrderform(@Param("createTime")Timestamp createTime,
+                        @Param("appointTime")Timestamp appointTime,
+                        @Param("aid")int aid,
+                        @Param("uid")String uid, @Param("state")int state);
     /**
      * 根据id查询订单
      * @param id
@@ -17,81 +31,82 @@ public interface OrderformDao {
     Orderform selectById(long id);
 
     /**
-     * 根据回收人员id查询订单
+     * 根据回收人员id和订单状态查询订单
      * @param cid
+     * @param state
+     * @param offset 偏移量
+     * @param limit 数量
      * @return
      */
-    List<Orderform> selectByCId(int cid);
+    List<Orderform> selectByCId(@Param("cid")int cid,@Param("state")int state,
+                                @Param("offset")int offset,@Param("limit")int limit);
 
     /**
-     *  根据用户id查询订单
+     *  根据用户id和订单状态查询订单
      * @param uid
+     * @param state
+     * @param offset 偏移量
+     * @param limit 限制数量
      * @return
      */
-    List<Orderform> selectByUId(int uid);
+    List<Orderform> selectByUId(@Param("uid")String uid,@Param("state")int state,
+                                @Param("offset")int offset,@Param("limit")int limit);
 
-    /**
-     * 根据员工id查询订单
-     * @param eid
-     * @return
-     */
-    List<Orderform> selectByEId(int eid);
-
-    /**
-     * 根据回收站id查询订单
-     * @param staid
-     * @return
-     */
-    List<Orderform> selectByStaId(int staid);
 
     /**
      * 根据订单状态查询订单
      * @param state
+     * @param offset 偏移量
+     * @param limit 限制数量
      * @return
      */
-    List<Orderform> selectByState(int state);
+    List<Orderform> selectByState(@Param("state")int state,
+                                  @Param("offset")int offset,
+                                  @Param("limit")int limit);
 
     /**
-     *  根据位置、订单状态、预约时间查找订单
-     * @param map 存有appointSTime,appointETime,position,state
+     * 根据位置查询订单
+     * @param geohash
+     * @param locationX
+     * @param locationY
+     * @param distance
      * @return
      */
-    List<Orderform> selectByPosAndTime(Map map);
+    List<Orderform> selectByPos(@Param("openid") String openid,
+                                @Param("geohash") String geohash,
+                                @Param("locationX") double locationX,
+                                @Param("locationY") double locationY,
+                                @Param("distance") double distance);
+
+  /**
+   * 更改订单信息
+   * @param id
+   * @param aid
+   * @param appointTime
+   * @return 返回更新数量
+   */
+  int updateOrderform(@Param("id")long id, @Param("aid")int aid,
+                      @Param("appointTime")Timestamp appointTime);
 
     /**
-     * 根据预约时间查询订单
-     * @param orderform 存有appointSTime,appointETime
+     * 更新订单状态
+     * @param id
+     * @param state 订单状态
      * @return
      */
-    List<Orderform> selectByTime(Orderform orderform);
+  int updateOrederform(long id,int state);
 
     /**
-     * 插入订单,设置state为1
-     * @param orderform 存有uid,weight,createTime,appointSTime,appointETime,scraptypelist
+     * 提交订单资料，需要判断属性非空
+     * @param orderform 存有id,cid,weight,price,state
+     * @return 返回更新数量
      */
-    void insertOrderform(Orderform orderform);
-
-    /**
-     * 更改订单重量
-     * @param orderform 存有id,weight
-     */
-    void updateWeight(Orderform orderform);
-
-    /**
-     * 更改订单状态
-     * @param orderform 存有id,state
-     */
-    void updateState(Orderform orderform);
-
-    /**
-     * 更改订单资料，需要判断属性非空
-     * @param orderform 存有cid,eid,staid,weight,price,state
-     */
-    void updateData(Orderform orderform);//作了更改
+    int submitData(Orderform orderform);
 
     /**
      * 根据id删除订单
      * @param id
+     * @return 返回删除的数量
      */
-    void deleteOrderform(long id);
+    int deleteOrderform(long id);
 }

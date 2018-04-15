@@ -2,9 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale-1,user-scalable=no" >
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/font/iconfont.css">
+    <link rel="stylesheet" href="resources/css/personalMsg.css">
+    <script src="resources/js/jquery-3.2.1.min.js"></script>
+    <script src="resources/js/popper.min.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
+    <title>回收员个人信息</title>
 </head>
 <body>
-$END$
+<div>
+    <header class="border-bottom  header-css text-center">
+        <span class=" btnn " data-toggle="modal" data-target="#myModal" role="button"><i class="iconfont icon-Shapecopy1"></i></span>
+        <span class="title-css">
+            个人信息
+        </span>
+    </header>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog smal" role="document">
+        <div class="modal-content smal">
+            <div class="modal-header">
+                <p class="modal-title"><i class="iconfont icon-shenfenzheng text-lg-center"></i></p>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush text-dark">
+                    <li class="list-group-item "><a href="receiver.html"><i class="iconfont icon-flag"></i>即时订单</a></li>
+                    <li class="list-group-item "><a href="historyList.html"><i class="iconfont icon-document"></i>历史订单</a></li>
+                    <li class="list-group-item "><a href="personalMsg.html"><i class="iconfont icon-xingming"></i>个人信息</a></li>
+                    <li class="list-group-item "><a href="creditFoot.html"><i class="iconfont icon-xinyongpingjia"></i>信用足迹</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"style="width: 100%" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-shenfenzheng">&nbsp;</i>头像<i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-shezhi-tianchong">&nbsp;</i>个性设置<i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+    </ul>
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-Shapecopy">&nbsp;</i>名字<span class="font-right2">陈某某</span><i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-gender">&nbsp;</i>性别<span class="font-right2">男</span><i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-diqu">&nbsp;</i>地区<span class="font-right2">超人街道</span><i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+
+    </ul>
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-shouji">&nbsp;</i>手机<span class="font-right2">12345678</span><i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+        <li class="list-group-item list-group-item-own "><i class="iconfont icon-bianhao">&nbsp;</i>回收员编号<span class="font-right2">AIJ7234S</span><i class="iconfont icon-icon-arrow-right2 font-right"></i></li>
+    </ul>
+</div>
 </body>
 </html>

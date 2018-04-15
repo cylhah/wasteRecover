@@ -5,95 +5,83 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.CollectorDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect">
   <id property="id" column="id"/>
-  <result property="name" column="name"/>
+  <result property="realName" column="realName"/>
   <result property="sex" column="sex"/>
   <result property="password" column="password"/>
   <result property="avater" column="avater"/>
-  <result property="email" column="email"/>
   <result property="phoneNumber" column="phoneNumber"/>
   <result property="photo" column="photo"/> 
   <result property="idCardNum" column="idCardNum"/>
   <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
-  <result property="volume" column="volume"/> 
-  <result property="creditValue" column="creditValue"/> 
+  <result property="idCardBackPhoto" column="idCardBackPhoto"/>
+   <result property="volume" column="volume"/>
   <result property="bankAccount" column="bankAccount"/> 
   <result property="state" column="state"/> 
-  <result property="createTime" column="createTime"/> 
-  <result property="locationX" column="locationX"/> 
-  <result property="locationY" column="locationY"/> 
-  <result property="geoHash" column="geoHash"/> 
- 
+  <result property="createTime" column="createTime"/>
+  <result property="staid" column="staid"/>
 
+  <collection property="unDidOrderformList" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order1"/>
 </resultMap>
-    <select id="selectById" resultType="collector" parameterType="int">
-        select name,sex, avater,email,phoneNumber,photo,creditValue,bankAccount,idCardNum,state,id
-        from collector
-        where
-           id=#{id}
-          
-        
+ <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect1">
+        <id property="id" column="id"/>
+        <result property="realName" column="realName"/>
+        <result property="sex" column="sex"/>
+        <result property="password" column="password"/>
+        <result property="avater" column="avater"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+        <result property="photo" column="photo"/>
+        <result property="idCardNum" column="idCardNum"/>
+        <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
+        <result property="idCardBackPhoto" column="idCardBackPhoto"/>
+        <result property="volume" column="volume"/>
+        <result property="bankAccount" column="bankAccount"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="createTime"/>
+        <result property="staid" column="staid"/>
+</resultMap>
+    <insert id="insertCollector">
+
+    insert  into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume)
+    values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{staid},#{state},#{volume})
+   </insert>
+
+    <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,
+    o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid</sql>
+
+    <select id="selectById" resultMap="Collect" parameterType="int">
+        select <include refid="columns"/>from collector c LEFT JOIN orderform o ON c.id=o.cid where c.id=#{id}
     </select>
 
-    <select id="selectByPhoneNum" resultType="collector" parameterType="String">
-        select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber
-        from collector
-        where
-           phoneNumber=#{phoneNumber}
-          
-        
+    <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
+        select <include refid="columns" /> from collector c LEFT JOIN orderform o ON c.id=o.cid where c.phoneNumber=#{phoneNumber}
     </select>
     
-     <select id="selectByPhoneNumAndPass" resultType="collector" parameterType="org.cbb.wasteRecovery.bean.Collector">
-        select name,sex, avater,email,photo,creditValue,bankAccount,idCardNum,state,id,phoneNumber,password
-        from collector
-        where
-           phoneNumber=#{collector.getPhoneNumber()}
-        and password=#{collector.getPassword()}  
-        
+     <select id="selectByPhoneNumAndPass" resultMap="Collect" >
+        select <include refid="columns"/>from collector c LEFT JOIN orderform o ON c.id=o.cid
+         where c.phoneNumber=#{phoneNumber} and c.password=#{password}
     </select>
 
-    <select id="selectByIdCardNum" resultType="collector" parameterType="String">
-        select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,state,id,idCardNum
-        from collector
-        where
-           idCardNum=#{idCardNum}
-          
-        
+    <select id="selectByIdCardNum"  resultMap="Collect" parameterType="String">
+        select <include refid="columns"/> from collector c LEFT JOIN orderform o ON c.id=o.cid where c.idCardNum=#{idCardNum}
     </select>
     
-    <select id="selectByName" resultType="collector" parameterType="String">
-        select sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,state,id,name
-        from collector
-        where
-           name=#{name}
-        order by id   
-          
-        
+    <select id="selectByName" resultMap="Collect">
+        select <include refid="columns"/> from collector c LEFT JOIN orderform o ON c.id=o.cid
+        where c.realName=#{realName} order BY c.id limit #{offset},#{limit}
     </select>
     
-      <select id="selectByState" resultType="collector" parameterType="int">
-        select name,sex, avater,email,photo,creditValue,bankAccount,phoneNumber,idCardNum,id,state
-        from collector
-        where
-           state=#{state}
-        order by id   
-        
-    </select>
+
     
-    <insert id="InsertCollector">
-        
-        insert  into collector(name,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime)
-        values (#{collector.getName()},#{collector.getSex()},#{collector.getPassword()},#{collector.getPhoneNumber()},#{collector.getPhoto()},#{collector.getIdCardNum()},#{collector.getIdCardFrontPhoto()},#{collector.getIdCardBackPhoto()},#{collector.getCreateTime()})
-    </insert>
+
     
     <update id="updatePhoneNum">
        
         update
           collector
         set
-          phoneNumber = #{collector.getPhoneNumber()}
+          phoneNumber = #{phoneNumber}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -102,9 +90,9 @@
         update
           collector
         set
-          password = #{collector.getPassword()}
+          password = #{password}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
     
@@ -113,48 +101,58 @@
         update
           collector
         set
-          creditValue = #{collector.getCreditValue()}
+          creditValue = #{creditValue}
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
-    
-      <update id="updateAccount">
-       
-        update
-          collector
-        set
-          bankAccount = #{collector.getBankAccount()}
-        where
-          id = #{collector.getId()}
-      
-    </update>
+
     
     <update id="addVolume">
        
         update
           collector
         set
-          volume = #{collector.getVolume()}
+          volume = volume+1
         where
-          id = #{collector.getId()}
+          id = #{id}
       
     </update>
+
     
     <update id="updatePersonData">
        
         update
           collector
         set
-           bankAccount = #{collector.getBankAccount()},
-           phoneNumber = #{collector.getPhoneNumber()},
-           password = #{collector.getPassword()},
-           name=#{collector.getName()},
-           sex=#{collector.getSex()},
-           email=#{collector.getEmail()},
-           avater=#{collector.getAvater()}
+           phoneNumber = #{phoneNumber},
+           password = #{password},
+           realName=#{realName},
+           sex=#{sex},
+           avater=#{avater}
         where
-          id = #{collector.getId()}
+          id = #{id}
        
     </update>
+
+    <update id="updateState">
+
+        update
+        collector
+        set
+        state = #{state}
+        where
+        id = #{id}
+
+    </update>
+
+    <delete id="deleteCollector">
+        delete
+        from
+        collector
+        where
+        id=#{id}
+
+    </delete>
+
 </mapper>
