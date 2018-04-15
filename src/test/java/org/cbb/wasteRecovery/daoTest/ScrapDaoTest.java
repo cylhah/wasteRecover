@@ -21,10 +21,15 @@ public class ScrapDaoTest {
 
     @Test
     public void insertScrap() throws Exception {
+        /**
+         * Preparing: insert into scrap(typeName,name,unitPrice) values (?,?,?)
+         * Parameters: 玻璃(String), 钢化玻璃(String), 11.1(Double)
+         * Updates: 1
+         */
 
-        String typeName="可回收";
-        String name="瓶子";
-        double unitPrice=102;
+        String typeName="玻璃";
+        String name="钢化玻璃";
+        double unitPrice=11.1;
         int i=scrapDao.insertScrap(typeName,name,unitPrice);
         System.out.println(i);
 
@@ -55,53 +60,53 @@ public class ScrapDaoTest {
 
 
     }
-    //返回值为org.cbb.wasteRecovery.bean.Scrap@4bc222e
 
 
     @Test
     public void updateData() throws Exception{
+        /**
+         * Preparing: update scrap set typeName=?, name=?, unitPrice=? where id=?
+         * Parameters: 塑料(String), 塑料袋(String), 0.2(Double), 5(Integer)
+         * Updates: 1
+         */
 
         Scrap scrap=new Scrap();
         scrap.setName("塑料袋");
-        scrap.setTypeName("不可回收");
-        scrap.setUnitPrice(145.2);
-        scrap.setId(1);
+        scrap.setTypeName("塑料");
+        scrap.setUnitPrice(0.2);
+        scrap.setId(5);
         int i= scrapDao.updateData(scrap);
         System.out.println(i);
     }
-    //返回值为1
+
 
     @Test
-    public void updateMonthVolume() throws Exception {
+    public void AddVolume() throws Exception {
+        /**
+         * Preparing: update scrap set monthVolume=monthVolume+?, totalVolume=totalVolume+? where id=?
+         * Parameters: 50.0(Double), 50.0(Double), 4(Integer)
+         * Updates: 1
+         */
 
-        int id=1;
-        double monthVolume=50;
-        int i=scrapDao.updateMonthVolume(id,monthVolume);
+        int id=4;
+        double volume=50;
+        int i=scrapDao.AddVolume(id,volume);
         System.out.println(i);
 
     }
-    //返回值为1
 
-    @Test
-    public void updateTotalVolume() throws Exception {
 
-        int id=1;
-        double totalVolume=100;
-        int i=scrapDao.updateTotalVolume(id,totalVolume);
-        System.out.println(i);
-
-    }
-    //返回值为1
 
     @Test
     public void deleteScrap() throws Exception{
-
-
-
-
-        int i=scrapDao.deleteScrap(2);
+        /**
+         * Preparing: delete from scrap where id=?
+         * Parameters: 6(Integer)
+         * Updates: 1
+         */
+        int i=scrapDao.deleteScrap(6);
         System.out.println(i);
     }
-    //返回值为1
+
 
 }

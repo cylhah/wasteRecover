@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class LoginServiceImp implements LoginService {
@@ -27,17 +29,23 @@ public class LoginServiceImp implements LoginService {
     public User userLogin(String openid) {
         if(openid.equals("")||openid==null)
             return null;
-        if (userDao.selectById(openid)==null){
-            userDao.insertUser(openid,UserStateEnum.NORMAL.getState());
+        userDao.insertUser(openid);
 
-        }
         return userDao.selectById(openid);
     }
 
-    public Collector collectorLogin(String phoneNumber, String password) {
+    public Collector collectorLogin(String phoneNumber, String password,String openid) {
         if(phoneNumber.equals("")||password.equals("")||phoneNumber==null||password==null)
             return null;
-        return collectorDao.selectByPhoneNumAndPass(phoneNumber,password);
+        Collector collector= collectorDao.selectByPhoneNumAndPass(phoneNumber,password);
+        if (collector==null) return null;
+
+        Map constrains=new HashMap();
+        constrains.put("openid",openid);
+        if (collector.getOpenid().equals("")||collector.getOpenid()==null)
+            collectorDao.updateData(collector.getId(),constrains);
+        return collector;
+
     }
 
     public boolean collectorSignOut(HttpSession httpSession) {

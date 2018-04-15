@@ -6,10 +6,15 @@
 
     <resultMap type="org.cbb.wasteRecovery.bean.BankAccount" id="BankAccount">
         <id property="id" column="id"/>
-        <result property="uid" column="uid"/>
         <result property="account" column="account"/>
         <result property="bank_code" column="bank_code"/>
         <result property="username" column="username"/>
+    </resultMap>
+    <resultMap type="org.cbb.wasteRecovery.bean.BankAccount" id="ref_bankac">
+        <id property="id" column="ba_id"/>
+        <result property="account" column="ba_account"/>
+        <result property="bank_code" column="ba_bank_code"/>
+        <result property="username" column="ba_username"/>
     </resultMap>
 
     <insert id="insertBankAccount">
@@ -20,22 +25,21 @@
 
 
     <delete id="deleteBankAccount">
-        delete
-        from
-       bankaccount
-        where
+       delete
+       from
+		bankaccount
+       where
         id=#{id}
 
     </delete>
 
     <select id="selectByUId" resultType="BankAccount" >
-        select id,account,bank_code,username
-        from bankaccount
+        select 
+			id,account,bank_code,username
+        from 
+			bankaccount
         where
-        uid=#{uid}
-        order BY id
-        limit #{offset},#{limit}
-
-
+			uid=#{uid}
+			order BY id
     </select>
 </mapper>
