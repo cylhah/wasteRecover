@@ -259,3 +259,257 @@ loginCtrl.controller('loginCtrl',function ($scope,$http) {
         });
     }
 });
+// ----------------------------------------------------------------------------
+//商贩部分
+// ----------------------------------------------------------------------------
+
+var allListCtrl = angular.module('allListCtrl',[]);
+
+allListCtrl.controller('listCtrl',function ($scope) {
+    $scope.typeList=["塑料","废铁","废纸板","废铜片","塑料纸箱","废铁片","废铜板"];
+    $scope.chooseType="";
+    $scope.minCost=0;
+    $scope.maxCost=999;
+    $scope.waitList=[
+        {address:"漫威街道",time:"12:30~1:30",weight:"5kg",type:"待回收",color:"alert-success"},
+        {address:"漫威街道",time:"1:30~2:30",weight:"3kg",type:"待回收",color:"alert-success"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待回收",color:"alert-success"}
+    ];
+    $scope.receivedList=[
+        {address:"漫威街道",time:"12:30~1:30",weight:"5kg",type:"已回收",color:"text-success"},
+        {address:"漫威街道",time:"1:30~2:30",weight:"3kg",type:"已回收",color:"text-success"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"已回收",color:"text-success"}
+    ]
+})
+
+// allListCtrl.controller('historyCtrl',function ($scope) {
+//
+//
+
+//
+// })
+
+var orderMsgCtrl = angular.module('orderMsgCtrl',[]);
+
+orderMsgCtrl.controller('orderMsgOne',function ($scope) {
+    // $scope.detailed = function ($scope) {
+    // 从内置对象中取得详细数据
+    // }
+    // $scope.metal= "0";
+    // $scope.plastic= "0";
+    // $scope.cardboard= "0";
+    // $scope.battery="0";
+    $scope.orderList = {address:"漫威街道",time:"12:30~1:30",weight:"5kg",type:"待接单",color:"text-danger",userName:"陈某某",telephone:"1234567",receiverName:"江某某"}
+
+    $scope.receiveOrder=function ($scope) {
+        window.location.href='receiveOrder.html';
+    }
+})
+
+orderMsgCtrl.controller('checkOrderMsg',function ($scope) {
+    //
+    $scope.orderList = {address:"漫威街道",time:"12:30~1:30",weight:"5kg",type:"待接单",color:"text-danger",userName:"陈某某",telephone:"1234567"}
+
+    $scope.checkOrder=function ($scope) {
+        window.location.href='checkOrderMsgSuc.html';
+    }
+})
+
+orderMsgCtrl.controller('ready',function ($scope) {
+    var pointList =[{lng:"120.11937542",lat:"30.25924446",id:"1",type:"1"},{lng:"120.04937542",lat:"30.20924446",id:"2",type:"1"},{lng:"120.05937542",lat:"30.30924446",id:"3",type:"0"}];
+    $scope.orderList =[
+        {address:"漫威街道",time:"12:30~1:30",weight:"5kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"1:30~2:30",weight:"3kg",type:"已接单",color:"text-info",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"已接单",color:"text-info",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待取消",color:"text-secondary",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待取消",color:"text-secondary",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"}
+    ];
+    $scope.receivedList=[{address:"漫威街道",time:"1:30~2:30",weight:"3kg",type:"已接单",color:"text-info",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"已接单",color:"text-info",name:"陈某某",telephone:"1234567"}
+    ];
+    $scope.waitList=[
+        {address:"漫威街道",time:"12:30~1:30",weight:"5kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待接单",color:"text-danger",name:"陈某某",telephone:"1234567"}
+    ]
+    $scope.cancelList=[
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待取消",color:"text-secondary",name:"陈某某",telephone:"1234567"},
+        {address:"漫威街道",time:"2:30~4:30",weight:"7kg",type:"待取消",color:"text-secondary",name:"陈某某",telephone:"1234567"}
+    ]
+    $scope.listType=$scope.orderList;
+    $scope.changeTypeWait = function () {
+        $scope.listType = $scope.waitList;
+    }
+    $scope.changeTypeReceived = function () {
+        $scope.listType = $scope.receivedList;
+    }
+    $scope.changeTypeOrder = function () {
+        $scope.listType = $scope.orderList;
+    }
+    $scope.changeTypeCancel = function () {
+        $scope.listType = $scope.cancelList;
+    }
+    $scope.unReceive=0;
+    $scope.unCheck=0;
+    $scope.allOrder=0;
+    $scope.refresh=function () {
+        location.reload();
+    }
+    // $http({
+    //     method: 'POST',
+    //     url: '/servlet'
+    // }).then(function successCallback(response) {
+    //     // 若返回null，跳转到绑定页面
+    //     若返回了回收员的信息则继续执行ready（）
+    // }, function errorCallback(response) {
+    //     // 请求失败执行代码
+    // });
+    $(document).ready(function () {
+
+        var map = new BMap.Map("allmap");
+        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+        map.centerAndZoom("杭州市江干区", 10);
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+                    offset: new BMap.Size(10, 25), // 指定定位位置
+                    imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+                });
+                var mk = new BMap.Marker(r.point,{icon:myIcon});
+                map.addOverlay(mk);
+                map.panTo(r.point);
+            }
+            else {
+                alert('failed'+this.getStatus());
+            }
+        },{enableHighAccuracy: true})
+        //初始化回收员点
+        //----------------------
+        //上传回收员当前位置
+        // $http({
+        //     method: 'POST',
+        //     url: '/servlet'
+        // }).then(function successCallback(response) {
+        //     // 请求成功执行代码
+        // }, function errorCallback(response) {
+        //     // 请求失败执行代码
+        // });
+        //----------------------
+        //初始化用户点
+        //----------------------
+        var list = [];
+
+        for(var i=0;i<pointList.length;i++){
+            if(pointList[i].type == "1"){
+                list[i]= new BMap.Marker(new BMap.Point(parseFloat(pointList[i].lng),parseFloat(pointList[i].lat)));
+                list[i].setTitle(pointList[i].id);
+                list[i].addEventListener("click",getMsg);
+                map.addOverlay(list[i]);
+            }
+            else{
+                var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+                    offset: new BMap.Size(10, 25), // 指定定位位置
+                    imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+                });
+                list[i]= new BMap.Marker(new BMap.Point(parseFloat(pointList[i].lng),parseFloat(pointList[i].lat)),{icon:myIcon});
+                list[i].setTitle(pointList[i].id);
+                list[i].addEventListener("click",checkMsg);
+                map.addOverlay(list[i]);
+            }
+        }
+    })
+    for(var j=0;j<pointList.length;j++){
+        if(pointList[j].type == "1"){
+           $scope.unReceive++;
+        }
+        else{
+            $scope.unCheck++;
+        }
+        $scope.allOrder++;
+    }
+})
+
+
+function getMsg() {
+    // $http({
+    //     method: 'POST',
+    //     url: '/servlet'
+    // }).then(function successCallback(response) {
+    //     // 请求成功执行代码从数据库取得数据之后放进内置对象之后转向control
+        window.location.href="#!/orderMsg";
+    // }, function errorCallback(response) {
+    //     // 请求失败执行代码
+    // });
+}
+
+// orderMsgCtrl.controller('orderMsgList',function ($scope) {
+//
+// })
+
+function checkMsg() {
+    window.location.href="#!/checkOrderMsg";
+}
+
+var checkScrapCtrl = angular.module('checkScrapCtrl',[]);
+
+checkScrapCtrl.controller('checkScrap',function ($scope){
+    $scope.list = [];
+    $scope.orderValue = 0;
+    $scope.btnList=[{scrap:"塑料",scrapValue:2.2},{scrap:"废铁",scrapValue:2.1},{scrap:"废铜",scrapValue:2.3},{scrap:"塑料纸箱",scrapValue:2.0},{scrap:"废铁片",scrapValue:1.2},{scrap:"废铜板",scrapValue:3.2},{scrap:"铜板",scrapValue:2.5},{scrap:"废铁板",scrapValue:4.2}];
+    $scope.add = function () {
+        var type;
+        var index;
+        var oneValue;
+        var weight =parseFloat($scope.scrapWeight);
+        for(index=0;index<$scope.btnList.length;index++){
+            if($scope.btnList[index].scrap==$scope.scrapName){
+                oneValue=$scope.btnList[index].scrapValue;
+            }
+        }
+        if(weight<200.0){
+            type = "";
+        }
+        else if(weight<400.0){
+            type = "list-group-item-warning";
+        }
+        else{
+            type = "list-group-item-danger";
+        }
+        var allValue = weight*oneValue/1000.0;
+        allValue = allValue.toFixed(2);
+        $scope.list.push({name:$scope.scrapName,weight:$scope.scrapWeight,type:type,value:allValue});
+        $scope.orderValue = $scope.orderValue + parseFloat(allValue);//????
+    }
+    $scope.reduce=function (index) {
+        if($scope.list.length==1){
+            $scope.orderValue = 0;
+            $scope.list.splice(index,1);
+        }
+        else{
+            $scope.orderValue = $scope.orderValue - $scope.list[index].value;
+            $scope.list.splice(index,1);
+        }
+    }
+    $scope.msg = function (index) {
+        $scope.scrapName=$scope.btnList[index].scrap;
+    }
+    $scope.placeOrder = function () {
+        // $http({
+        //     method: 'POST',
+        //     url: '/servlet'
+        // }).then(function successCallback(response) {
+        //     // 提交订单成功后弹至成功页面（只有一个成功图标以及返回主页）
+        window.location.href="orderMsgSuc.html";
+        // }, function errorCallback(response) {
+        //     // 请求失败执行代码
+        // });
+    }
+
+})

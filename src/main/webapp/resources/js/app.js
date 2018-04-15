@@ -17,16 +17,34 @@ clientApp.config(function ($routeProvider) {
 
 var loginApp = angular.module('loginApp',['loginCtrl']);
 
-var testApp = angular.module('testApp',['testCtrl','ngRoute']);
+//列表显示页面-----------------------------------------------------------
 
-testApp.config(function($routeProvider){
-    $routeProvider.when('/list',{
-        templateUrl:'list.html',
-        controller:'listCtrl'
-    }).when('/history',{
-        templateUrl:'history.html',
-        controller:'historyCtrl'
+var listApp = angular.module('listApp',['allListCtrl','ngRoute']);
+
+// listApp.config(function($routeProvider){
+//     $routeProvider.when('/list',{
+//         templateUrl:'list.html',
+//         controller:'listCtrl'
+//     }).when('/history',{
+//         templateUrl:'historyList.html',
+//         controller:'historyCtrl'
+//     }).otherwise({
+//         redirect:'/history'
+//     })
+// });
+
+var receiverApp = angular.module('receiverApp',['ngRoute','orderMsgCtrl']);
+
+receiverApp.config(function ($routeProvider) {
+    $routeProvider.when('/orderMsg',{
+        templateUrl:'orderMsg.html',
+        controller:'orderMsgOne'
+    }).when('/checkOrderMsg',{
+        templateUrl:'checkOrderMsg.html',
+        controller:'checkOrderMsg'
     }).otherwise({
-        redirect:'/list'
+        redirect:'/'
     })
 });
+
+var checkScrapApp = angular.module('checkScrapApp',['ngRoute','checkScrapCtrl']);
