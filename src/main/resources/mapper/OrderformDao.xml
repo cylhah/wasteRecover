@@ -5,9 +5,6 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.OrderformDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Orderform" id="order">
   <id property="id" column="id" />
-  <result property="uid" column="uid"/>
-  <result property="cid" column="cid"/>
-  <result property="aid" column="aid"/>
   <result property="state" column="state"/>
   <result property="weight" column="weight"/>
   <result property="createTime" column="createTime"/>
@@ -16,91 +13,121 @@
   <result property="price" column="price"/>
   <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User1"/>
   <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
-  <collection property="scrapMessageList" resultMap="org.cbb.wasteRecovery.dao.ScrapMessageDao.Message1"/>
-  <collection property="address" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
+  <collection property="scrapMessageList" resultMap="org.cbb.wasteRecovery.dao.ScrapMessageDao.ref_sm"/>
+  <collection property="address" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.ref_address"/>
 </resultMap>
     <resultMap type="org.cbb.wasteRecovery.bean.Orderform" id="order1">
-        <id property="id" column="id"/>
-        <result property="uid" column="uid"/>
-        <result property="cid" column="cid"/>
-        <result property="aid" column="aid"/>
-        <result property="state" column="state"/>
-        <result property="weight" column="weight"/>
-        <result property="createTime" column="createTime"/>
-        <result property="appointTime" column="appointTime"/>
-        <result property="updateTime" column="updateTime"/>
-        <result property="price" column="price"/>
+        <id property="id" column="o_id"/>
+        <result property="state" column="o_state"/>
+        <result property="weight" column="o_weight"/>
+        <result property="createTime" column="o_createTime"/>
+        <result property="appointTime" column="o_appointTime"/>
+        <result property="updateTime" column="o_updateTime"/>
+        <result property="price" column="o_price"/>
     </resultMap>
-    <insert id="insertOrderform">
 
-    insert  into orderform(state,createTime,appointTime,aid,uid)
-    values (#{state},#{createTime},#{appointTime},#{aid},#{uid})
+    <sql id="columns">
+
+    </sql>
+
+	<sql id="normalJoin">
+        (
+            (
+                (
+                    orderform o INNER JOIN user u
+                    ON o.uid=u.openid
+                )
+                    LEFT JOIN collector c
+                    ON o.cid=c.id
+            )
+                LEFT JOIN (scrapmessage sm
+                INNER JOIN scrap scr
+                ON scr.id=sm.scrapid)
+                ON o.id=sm.oid
+        )
+        INNER JOIN useraddress  a
+        ON o.aid=a.id
+	</sql>
+
+
+	<insert id="insertOrderform">
+
+    insert  into orderform(appointTime,aid,uid)
+    values (#{appointTime},#{aid},#{uid})
 
     </insert>
 
-
-    <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,
-    o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid,
-    a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position,
-    u.state,u.avater,u.openid,
-    sc.weight,sc.price,sc.oid,sc.scrapid</sql>
-
      <select id="selectById"  resultMap="order" parameterType="long">
-        select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)LEFT JOIN collector c ON o.cid=c.id)
-        LEFT JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
-        where
-           o.id=#{id}
-       
-        
-    </select>
-    
-    <select id="selectByCId" resultMap="order">
-        select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
-        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
-        where
-           o.cid=#{cid}
-        and  o.state=#{state}
-        order BY o.id
-        limit #{offset},#{limit}
-       
-        
-    </select>
-    
-    <select id="selectByUId" resultMap="order">
-        select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
-        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
-        where
-          o.uid=#{uid}
-        and  o.state=#{state}
-        order BY o.id
-        limit #{offset},#{limit}
-        
-    </select>
-    
+        select
+            o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,
+            c.id col_id,
+            c.realName col_realName,
+            c.sex col_sex,
+            c.phoneNumber col_phoneNumber,
+            c.idCardNum col_idCardNum,
+            c.createTime col_createTime,
+            c.avater col_avater,
+            c.state col_state,
+            c.volume col_volume,
+            a.id ua_id,
+            a.name ua_name,
+            a.address ua_address,
+            u.avater u_avater,
+            u.openid u_openid,
+            sm.weight sm_weight,
+            sm.price sm_price,
+            scr.id scr_id,
+            scr.name scr_name
+		from <include refid="normalJoin"/>
 
-    
-
-    
-    
-    <select id="selectByState" resultMap="order">
-        select <include refid="columns"/>
-        from (((orderform o INNER JOIN user u ON o.uid=u.openid)INNER JOIN collector c ON o.cid=c.id)
-        INNER JOIN scrapmessage sc ON o.id=sc.oid)INNER JOIN useraddress  a ON o.aid=a.id
-        where
-           o.state=#{state}
-        order BY o.id
-        limit #{offset},#{limit}
+        where 
+			o.id=#{id}     
         
     </select>
+
+
+
+    <select id="filterOrderPage" resultMap="order" parameterType="java.util.Map">
+        select
+            o.id,o.state,o.updateTime,o.price,
+            c.id col_id,
+            c.realName col_realName,
+            a.id ua_id,
+            a.address ua_address,
+            a.name ua_name,
+            u.openid u_openid,
+            sm.weight sm_weight,
+            scr.name scr_name
+        from <include refid="normalJoin"/>
+        <where>
+            <foreach collection="constrains" item="val" index="key" open="" separator="AND" close="">
+                <choose>
+                    <when test="key.equals(&quot;o.updateTime&quot;)">
+                        ${key} Like #{val} '%'
+                    </when>
+                    <otherwise>
+                        ${key} = #{val}
+                    </otherwise>
+                </choose>
+            </foreach>
+        </where>
+
+    </select>
+
+
+
+
+
     
     <select id="selectByPos" resultType="Orderform">
         select x(ua.position) "address.locationX",y(ua.position) "address.locationY"
-        from orderform o INNER JOIN useraddress ua ON o.aid = ua.id where ua.geohash LIKE #{geohash} '%' AND
-        st_distance_sphere(point(#{locationX},#{locationY}),ua.position)<![CDATA[ <= ]]>#{distance}
-        AND o.uid!=#{openid}
+        from 
+			orderform o INNER JOIN useraddress ua 
+			ON o.aid = ua.id 
+		where 
+			ua.geohash LIKE #{geohash} '%' 
+			AND st_distance_sphere(point(#{locationX},#{locationY}),ua.position)<![CDATA[ <= ]]>#{distance}
+			AND o.uid!=#{openid}
         
     </select>
 
@@ -111,8 +138,7 @@
         update
           orderform
         set
-          aid = #{aid},
-          appointTime=#{appointTime}
+          state=#{state}
         where
           id = #{id}
       
@@ -123,9 +149,7 @@
         update
           orderform
         set
-          uid= #{uid},
           cid = #{cid},
-          aid= #{aid},
           price = #{price},
           state = #{state},
           weight = #{weight}
@@ -136,7 +160,7 @@
     
     <delete id="deleteOrderform">
        delete
-         from
+       from
          orderform
        where
            id=#{id}

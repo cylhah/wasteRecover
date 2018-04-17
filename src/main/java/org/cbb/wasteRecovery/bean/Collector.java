@@ -8,8 +8,9 @@ import java.util.List;
  */
 public class Collector {
     private int id;
+    private String openid;
     private String realName;
-    private char sex;
+    private String sex;
     private String avater;//头像地址
     private String phoneNumber;
     private String password;
@@ -23,8 +24,6 @@ public class Collector {
     private int staid;
 
     private Station station;
-    private List<Orderform> unDidOrderformList;//负责小区内未完成订单
-    private List<Orderform> DidOrderformList;//已完成订单
     private List<Community> communityList;//负责小区
 
     public int getId() {
@@ -35,6 +34,22 @@ public class Collector {
         this.id = id;
     }
 
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public int getStaid() {
+        return staid;
+    }
+
+    public void setStaid(int staid) {
+        this.staid = staid;
+    }
+
     public String getRealName() {
         return realName;
     }
@@ -43,11 +58,11 @@ public class Collector {
         this.realName = realName;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -131,13 +146,6 @@ public class Collector {
         this.state = state;
     }
 
-    public int getStatid() {
-        return staid;
-    }
-
-    public void setStatid(int statid) {
-        this.staid = statid;
-    }
 
     public Station getStation() {
         return station;
@@ -145,14 +153,6 @@ public class Collector {
 
     public void setStation(Station station) {
         this.station = station;
-    }
-
-    public List<Orderform> getUnDidOrderformList() {
-        return unDidOrderformList;
-    }
-
-    public void setUnDidOrderformList(List<Orderform> unDidOrderformList) {
-        this.unDidOrderformList = unDidOrderformList;
     }
 
     public List<Community> getCommunityList() {
@@ -163,20 +163,13 @@ public class Collector {
         this.communityList = communityList;
     }
 
-    public List<Orderform> getDidOrderformList() {
-        return DidOrderformList;
-    }
-
-    public void setDidOrderformList(List<Orderform> didOrderformList) {
-        DidOrderformList = didOrderformList;
-    }
-
     @Override
     public String toString() {
         return "Collector{" +
                 "id=" + id +
+                ", openid='" + openid + '\'' +
                 ", realName='" + realName + '\'' +
-                ", sex=" + sex +
+                ", sex='" + sex + '\'' +
                 ", avater='" + avater + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
@@ -189,8 +182,6 @@ public class Collector {
                 ", state=" + state +
                 ", staid=" + staid +
                 ", station=" + station +
-                ", unDidOrderformList=" + unDidOrderformList +
-                ", DidOrderformList=" + DidOrderformList +
                 ", communityList=" + communityList +
                 '}';
     }

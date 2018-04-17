@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.UserAddressDao;
+import org.cbb.wasteRecovery.entity.GeoHash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,24 +19,29 @@ public class UserAddressDaoTest {
     @Resource
     private UserAddressDao userAddressDao;
 
-
     @Test
     public void insertAddress() throws Exception{
-
-
-        String uid="qw";
-
-        String address="erdfa";
-        int community_id=1;
-        String geohash="asd";
-        String detail="cvb";
-        double locationX=2.34;
-        double locationY=4.56;
-        int i=userAddressDao.insertAddress(uid,address, detail, community_id, geohash, locationX, locationY);
+        /**
+         *Preparing: insert into useraddress(uid,address,detail,community_id,geohash,position,phoneNumber,name)
+         * values (?,?,?,?,?, point(?,?),?,?)
+         *Parameters: 1001(String), 浙江省杭州市浙江科技学院小和山校区(String), 西和公寓707(String), 1(Integer), ypbf(String),
+         *  89.11(Double), 91.25(Double), 137222222222(String), 汪宏斌(String)
+         *Updates: 1
+         */
+        UserAddress userAddress=new UserAddress();
+        userAddress.setUid("1001");
+        userAddress.setAddress("浙江省杭州市浙江科技学院小和山校区");
+        userAddress.setCommunity_id(1);
+        userAddress.setLocationX(89.11);
+        userAddress.setLocationY(91.25);
+        userAddress.setGeohash();
+        userAddress.setDetail("西和公寓707");
+        userAddress.setPhoneNumber("137222222222");
+        userAddress.setName("汪宏斌");
+        int i=userAddressDao.insertAddress(userAddress);
         System.out.println(i);
 
     }
-    //返回值为1
 
     @Test
     public void selectById() throws Exception{
@@ -43,13 +49,12 @@ public class UserAddressDaoTest {
        UserAddress userAddress= userAddressDao.selectById(2);
         System.out.println(userAddress);
     }
-    //返回值为org.cbb.wasteRecovery.bean.UserAddress@31edaa7d
 
 
     @Test
     public void selectByUid() throws Exception{
 
-        String uid="qw";
+        String uid="1001";
         int offset=0;
         int limit=1;
       List<UserAddress> userAddress= userAddressDao.selectByUid(uid,offset,limit);
@@ -58,10 +63,14 @@ public class UserAddressDaoTest {
             System.out.println(userAddress1);
         }
     }
-    //返回值为Disconnected from the target VM, address: '127.0.0.1:60010', transport: 'socket'
 
     @Test
     public void updateAddress() throws Exception{
+        /**
+         * Preparing: update useraddress set address = ? where id = ?
+         * Parameters: 杭州(String), 2(Integer)
+         * Updates: 1
+         */
 
       UserAddress userAddress=new UserAddress();
         userAddress.setAddress("杭州");
@@ -69,16 +78,18 @@ public class UserAddressDaoTest {
         int i=userAddressDao.updateAddress(userAddress);
         System.out.println(i);
     }
-    //返回值为0
 
     @Test
     public void deleteAddress() throws Exception{
+        /**
+         * Preparing: delete from useraddress where id=?
+         * Parameters: 3(Integer)
+         * Updates: 1
+         */
 
-
-        int i=userAddressDao.deleteAddress(1);
+        int i=userAddressDao.deleteAddress(3);
         System.out.println(i);
 
 
     }
-    //返回值为1
 }

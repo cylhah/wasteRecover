@@ -11,11 +11,10 @@ import java.util.Map;
 public interface UserDao {
     /**
      * 插入用户
-     * @param openId 微信的openid,用户的唯一识别码
-     * @param state
+     * @param openid 微信的openid,用户的唯一识别码
      * @return 返回插入的数量
      */
-    int insertUser(@Param("openid") String openid,@Param("state") int state);
+    int insertUser( String openid);
     /**
      * 根据id查询用户
      * @param openid
@@ -32,7 +31,7 @@ public interface UserDao {
 
     /**
      * 更改用户信息
-     * @param openId
+     * @param openid
      * @param avater 头像地址
      * @return 返回更新的数量
      */

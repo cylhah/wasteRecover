@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="checkScrapApp">
+<head>
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/font/iconfont.css">
+    <link rel="stylesheet" href="resources/css/receiverOrder.css">
+    <script src="resources/js/jquery-3.2.1.min.js"></script>
+    <script src="resources/js/popper.min.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
+    <script src="resources/js/angular.min.js"></script>
+    <script src="resources/js/angular-route.min.js"></script>
+    <script src="resources/js/angular-animate.min.js"></script>
+    <script src="resources/js/app.js"></script>
+    <script src="resources/js/controllers.js"></script>
+    <meta charset="UTF-8">
+    <title>确认货物</title>
+</head>
+<body ng-controller="checkScrap">
+<div>
+    <header class="border-bottom  header-css text-center">
+        <span class=" btnn " data-toggle="modal" data-target="#myModal" role="button"><i class="iconfont icon-Shapecopy1"></i></span>
+        <span class="title-css">
+               确认废品详细信息
+        </span>
+    </header>
+    <div class="row">
+        <div class="input-group input-width col-5" style="padding-right: 0">
+            <div class="input-group-prepend">
+                <span class="input-group-text" >废品</span>
+            </div>
+            <input class="form-control"typr="text" ng-model="scrapName">
+        </div>
+        <div class="input-group input-width col-5"style="padding: 0">
+            <div class="input-group-prepend">
+                <span class="input-group-text">质量</span>
+            </div>
+            <input class="form-control" typr="text" ng-model="scrapWeight">
+            <!--<div class="input-group-append">-->
+                <!--<span class="input-group-text"style="padding: 0">kg</span>-->
+            <!--</div>-->
+        </div>
+        <button class="btn btn-success" ng-click="add()"><i class="iconfont icon-jiahao"></i></button>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog smal" role="document">
+        <div class="modal-content smal">
+            <div class="modal-header">
+                <p class="modal-title"><i class="iconfont icon-shenfenzheng text-lg-center"></i></p>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush text-dark">
+                    <li class="list-group-item "><a href="receiver.html"><i class="iconfont icon-flag"></i>即时订单</a></li>
+                    <li class="list-group-item "><a href="historyList.html"><i class="iconfont icon-document"></i>历史订单</a></li>
+                    <li class="list-group-item "><a href="personalMsg.html"><i class="iconfont icon-xingming"></i>个人信息</a></li>
+                    <li class="list-group-item "><a href="creditFoot.html"><i class="iconfont icon-xinyongpingjia"></i>信用足迹</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"style="width: 100%" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="btn btn-light btn-css" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+    常见废品
+</a>
+<div class="btnList text-center collapse" id="collapse1">
+    <button class="btn btn-sm btn-light btn-secondary scrap-css" ng-repeat="btn in btnList" ng-click="msg($index)">{{btn.scrap}}</button>
+</div>
+<div >
+    <a class="btn btn-light btn-css" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="true" aria-controls="collapse2">
+        废品清单
+    </a>
+    <div class="collapse text-center show" id="collapse2">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-own" ng-repeat="scrap in list"><button class="btn {{scrap.type}}">{{scrap.name}}:{{scrap.weight}}g,共计:{{scrap.value}}元</button><button class="btn btn-danger  btn-right"ng-click="reduce($index)"><i class="iconfont icon-subtract"></i></button></li>
+        </ul>
+    </div>
+</div>
+<div>
+<button class="btn btn-secondary" style="width: 100%" ng-click="placeOrder()">提交(共计<span ng-bind="orderValue"></span>元)</button>
+</div>
+</body>
+</html>

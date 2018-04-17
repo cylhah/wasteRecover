@@ -1,41 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>dingDanList</title>
-</head>
-<body>
-    <div>
 
-    </div>
-</body>
-</html>
-<!--<ul class="list-group">-->
-    <!--<div>-->
-        <!--<span class="btn-lg">订单列表：</span>-->
-    <!--</div>-->
-    <!--<a href="#" class="list-group-item list-group-item-action flex-column align-items-start ">-->
-        <!--<div class="d-flex w-100 justify-content-between">-->
-            <!--<h5>留下街道</h5>-->
-            <!--<small>12:30~1:30</small>-->
-        <!--</div>-->
-        <!--<p>塑料5.0kg，纸板1.0kg，塑料5.0kg，纸板1.0kg，塑料5.0kg，纸板1.0kg。</p>-->
-        <!--<small class="alert-danger">待回收</small>-->
-    <!--</a>-->
-    <!--<a href="#" class="list-group-item list-group-item-action flex-column align-items-start ">-->
-        <!--<div class="d-flex w-100 justify-content-between">-->
-            <!--<h5>留下街道</h5>-->
-            <!--<small>12:30~1:30</small>-->
-        <!--</div>-->
-        <!--<p>塑料5.0kg，纸板1.0kg，塑料5.0kg，纸板1.0kg，塑料5.0kg，纸板1.0kg。</p>-->
-        <!--<small class="alert-info">待送往</small>-->
-    <!--</a>-->
-    <!--<a href="#" class="list-group-item list-group-item-action flex-column align-items-start ">-->
-        <!--<div class="d-flex w-100 justify-content-between">-->
-            <!--<h5>留下街道</h5>-->
-            <!--<small>12:30~1:30</small>-->
-        <!--</div>-->
-        <!--<p>塑料5.0kg，纸板1.0kg，塑料5.0kg，纸板1.0kg，塑料5.0kg，纸板1.0kg。</p>-->
-        <!--<small class="alert-info">待送往</small>-->
-    <!--</a>-->
-<!--</ul>-->
+
+<ul class="list-group">
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start " ng-repeat="order in nowList">
+        <div class="d-flex w-100 justify-content-between">
+            <h5>{{order.address}}</h5>
+            <small>{{order.time}}</small>
+        </div>
+        <p>质量：{{order.weight}}</p>
+        <small class="{{order.color}}">{{order.type}}</small>
+    </a>
+</ul>
+<span></span>

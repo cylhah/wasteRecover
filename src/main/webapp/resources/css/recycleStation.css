@@ -1,0 +1,77 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: white;
+}
+a:hover{
+    text-decoration: none;
+}
+@keyframes infoHide
+{
+    0% {
+        height: 360px;
+    }
+    100% {
+        height: 0;
+    }
+}
+/*.stationInfo{*/
+    /*z-index: 15;*/
+    /*width: 100%;*/
+    /*height: 900px;*/
+    /*color: white;*/
+/*}*/
+.nameInfo{
+    position: relative;
+    top: 30%;
+    font-size: 60px;
+    font-weight: bold;
+}
+.speInfo{
+    position: relative;
+    top: 35%;
+    font-size: 35px;
+    font-weight: bold;
+}
+.topNav{
+    height: 52px;
+    padding: 0;
+    width: 100%;
+    background: rgba(255,255,255,0);
+}
+.topNav a{
+    color: white !important;
+}
+.topNav a:hover{
+    color: rgb(1,207,207) !important;
+}
+.navbar-collapse{
+    position: absolute;
+    background: linear-gradient(to bottom right, #50a3a2, #53e3a6);
+    padding: 0;
+    border: 0;
+    width: 100%;
+}
+.navbar-toggle{
+    background:rgb(1,207,207);
+}
+.navbar{
+    background: rgba(255,255,255,0);
+    border: 0;
+}
+.navbar-brand{
+    z-index: 15;
+    font-size: 25px;
+}
+.nav{
+    position: relative;
+    margin-left: 10%;
+}
+.nav a{
+    font-size: 15px;
+}
+.nav li{
+    margin-left: 10px;
+    margin-right: 10px;
+}

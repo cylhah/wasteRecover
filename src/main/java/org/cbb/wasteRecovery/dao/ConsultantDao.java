@@ -19,27 +19,27 @@ public interface ConsultantDao {
 
     /**
      * 根据id删除咨询员
-     * @param id
+     * @param username
      * @return 返回删除的数量
      */
-    int deleteConsultant(int id);
+    int deleteConsultant(String username);
 
     /**
      * 更改staid
-     * @param id
+     * @param username 用户名
      * @param staid
      * @return 返回更新的数量
      */
-    int updateStaId(@Param("id")int id,
+    int updateStaId(@Param("username")String username,
                     @Param("staid")int staid);
 
     /**
      * 更改密码
-     * @param id
+     * @param username
      * @param password
      * @return 返回更新的数量
      */
-    int updatePassword(@Param("id")int id ,@Param("password")String password);
+    int updatePassword(@Param("username")String username ,@Param("password")String password);
 
     /**
      * 根据用户名查询咨询员，查不到返回null

@@ -4,74 +4,46 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cbb.wasteRecovery.dao.ConsultantDao">
     <resultMap type="org.cbb.wasteRecovery.bean.Consultant" id="Consultant">
-        <id property="id" column="id"/>
+        <id property="username" column="username"/>
         <result property="staid" column="staid"/>
-        <result property="username" column="username"/>
-        <result property="password" column="password"/>
         <collection property="station" resultMap="org.cbb.wasteRecovery.dao.StationDao.tion"/>
 
     </resultMap>
     <resultMap type="org.cbb.wasteRecovery.bean.Consultant" id="Consultant1">
-        <id property="id" column="id"/>
-        <result property="staid" column="staid"/>
-        <result property="username" column="username"/>
-        <result property="password" column="password"/>
-
-
+        <id property="username" column="username"/>
     </resultMap>
 
-    <sql id="columns">t.id,t.staid,t.password,t.username,st.name,st.address,st.detailed_address</sql>
+    <sql id="columns">t.staid,t.username,
+    st.id sta_id,
+    st.name sta_name,
+    st.address sta_address,
+    st.detailed_address sta_detailed_address</sql>
 
 
     <insert id="insertConsultant">
-
-        insert  into consultant(staid,password,username)
-        values (#{staid},#{password},#{username})
+        insert ignore into consultant(staid,password,username) values (#{staid},#{password},#{username})
     </insert>
 
 
     <delete id="deleteConsultant">
-        delete
-        from
-        consultant
-        where
-        id=#{id}
-
+        delete  from  consultant  where username=#{username}
     </delete>
 
     <update id="updateStaId" >
-
-        update
-      consultant
-        set
-        staid=#{staid}
-
-        where
-        id=#{id}
-
+        update  consultant  set  staid=#{staid} where username=#{username}
     </update>
 
     <update id="updatePassword" >
-
-        update
-        consultant
-        set
-        password=#{password}
-
-        where
-        id=#{id}
+        update consultant set password=#{password} where username=#{username}
 
     </update>
 
     <select id="selectByUsername" resultMap="Consultant" parameterType="String">
-        select <include refid="columns"/>
-        from consultant t
-        INNER JOIN  station st
-        ON t.staid=st.id
-        where
-        t.username=#{username}
-
-
+        select <include refid="columns"/>  
+		from consultant t 
+		INNER JOIN  station st 
+		ON t.staid=st.id   
+		where t.username=#{username}
     </select>
 
     <select id="selectByUsernameAndPass" resultMap="Consultant" >
@@ -79,15 +51,14 @@
         from consultant t
         INNER JOIN  station st
         ON t.staid=st.id
-        where
-        t.username=#{username}
+        where t.username=#{username}
         and t.password=#{password}
 
 
     </select>
 
 
-    <select id="selectByStaId" resultMap="Consultant" >
+    <select id="selectByStaIdPage" resultMap="Consultant" >
         select <include refid="columns"/>
         from consultant t
         INNER JOIN  station st
@@ -95,8 +66,5 @@
         where
         t.staid=#{staid}
         order BY t.id
-        limit #{offset},#{limit}
-
-
     </select>
 </mapper>

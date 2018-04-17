@@ -5,9 +5,9 @@
 <mapper namespace="org.cbb.wasteRecovery.dao.CollectorDao">
 <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect">
   <id property="id" column="id"/>
+    <result property="openid" column="openid"/>
   <result property="realName" column="realName"/>
   <result property="sex" column="sex"/>
-  <result property="password" column="password"/>
   <result property="avater" column="avater"/>
   <result property="phoneNumber" column="phoneNumber"/>
   <result property="photo" column="photo"/> 
@@ -18,110 +18,82 @@
   <result property="bankAccount" column="bankAccount"/> 
   <result property="state" column="state"/> 
   <result property="createTime" column="createTime"/>
-  <result property="staid" column="staid"/>
-
-  <collection property="unDidOrderformList" resultMap="org.cbb.wasteRecovery.dao.OrderformDao.order1"/>
+    <collection property="station" resultMap="org.cbb.wasteRecovery.dao.StationDao.tion"/>
+    <collection property="communityList" resultMap="org.cbb.wasteRecovery.dao.CommunityDao.Community1"/>
 </resultMap>
  <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect1">
-        <id property="id" column="id"/>
-        <result property="realName" column="realName"/>
-        <result property="sex" column="sex"/>
-        <result property="password" column="password"/>
-        <result property="avater" column="avater"/>
-        <result property="phoneNumber" column="phoneNumber"/>
-        <result property="photo" column="photo"/>
-        <result property="idCardNum" column="idCardNum"/>
-        <result property="idCardFrontPhoto" column="idCardFrontPhoto"/>
-        <result property="idCardBackPhoto" column="idCardBackPhoto"/>
-        <result property="volume" column="volume"/>
-        <result property="bankAccount" column="bankAccount"/>
-        <result property="state" column="state"/>
-        <result property="createTime" column="createTime"/>
-        <result property="staid" column="staid"/>
+        <id property="id" column="col_id"/>
+        <result property="realName" column="col_realName"/>
+        <result property="sex" column="col_sex"/>
+        <result property="avater" column="col_avater"/>
+        <result property="phoneNumber" column="col_phoneNumber"/>
+        <result property="idCardNum" column="col_idCardNum"/>
+        <result property="volume" column="col_volume"/>
+        <result property="state" column="col_state"/>
+        <result property="createTime" column="col_createTime"/>
 </resultMap>
-    <insert id="insertCollector">
 
-    insert  into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,createTime,avater,staid,state,volume)
-    values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{createTime},#{avater},#{staid},#{state},#{volume})
+    <sql id="columns">
+        c.id,c.openid,c.realName,c.sex,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.state,c.volume,
+        sta.id sta_id,
+        sta.detailed_address sta_detailed_address,
+        sta.name sta_name,
+        sta.address sta_address,
+        comm.id comm_id,
+        comm.address comm_address,
+        comm.name comm_name
+    </sql>
+
+    <sql id="join">
+        (collector c INNER JOIN station sta ON sta.id=c.staid)LEFT JOIN community comm on c.id = comm.cid
+    </sql>
+
+    <insert id="insertCollector">
+    insert ignore into collector(realName,sex,password,phoneNumber,photo,idCardNum,idCardFrontPhoto,idCardBackPhoto,avater,staid)
+    values (#{realName},#{sex},#{password},#{phoneNumber},#{photo},#{idCardNum},#{idCardFrontPhoto},#{idCardBackPhoto},#{avater},#{staid})
    </insert>
 
-    <sql id="columns">c.realName,c.sex,c.password,c.phoneNumber,c.photo,c.idCardNum,c.idCardFrontPhoto,c.idCardBackPhoto,c.createTime,c.avater,c.staid,c.state,c.volume,
-    o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.aid,o.uid,o.cid</sql>
 
     <select id="selectById" resultMap="Collect" parameterType="int">
-        select <include refid="columns"/>from collector c LEFT JOIN orderform o ON c.id=o.cid where c.id=#{id}
+        select <include refid="columns"/>
+		from
+			collector c
+		where c.id=#{id}
     </select>
 
-    <select id="selectByPhoneNum" resultMap="Collect" parameterType="String">
-        select <include refid="columns" /> from collector c LEFT JOIN orderform o ON c.id=o.cid where c.phoneNumber=#{phoneNumber}
-    </select>
     
      <select id="selectByPhoneNumAndPass" resultMap="Collect" >
-        select <include refid="columns"/>from collector c LEFT JOIN orderform o ON c.id=o.cid
-         where c.phoneNumber=#{phoneNumber} and c.password=#{password}
+        select <include refid="columns"/>
+		from <include refid="join"/>
+        where 
+			c.phoneNumber=#{phoneNumber} 
+			and c.password=#{password}
     </select>
 
-    <select id="selectByIdCardNum"  resultMap="Collect" parameterType="String">
-        select <include refid="columns"/> from collector c LEFT JOIN orderform o ON c.id=o.cid where c.idCardNum=#{idCardNum}
+    
+    <select id="filterCollPage" resultMap="Collect" >
+        select <include refid="columns"/> 
+		from <include refid="join"/>
+        <where>
+            <foreach collection="constrains" item="val" index="key" open="" separator="AND" close="">
+                <choose>
+                    <when test="key.equals(&quot;c.createTime&quot;)">
+                        ${key} Like #{val} '%'
+                    </when>
+                    <otherwise>
+                        ${key} = #{val}
+                    </otherwise>
+                </choose>
+            </foreach>
+        </where>
+		order BY c.id 
     </select>
-    
-    <select id="selectByName" resultMap="Collect">
-        select <include refid="columns"/> from collector c LEFT JOIN orderform o ON c.id=o.cid
-        where c.realName=#{realName} order BY c.id limit #{offset},#{limit}
-    </select>
-    
 
-    
 
-    
-    <update id="updatePhoneNum">
-       
-        update
-          collector
-        set
-          phoneNumber = #{phoneNumber}
-        where
-          id = #{id}
-      
-    </update>
-    
-    <update id="updatePassword">
-       
-        update
-          collector
-        set
-          password = #{password}
-        where
-          id = #{id}
-      
-    </update>
-    
-    <update id="updateCreditValue">
-       
-        update
-          collector
-        set
-          creditValue = #{creditValue}
-        where
-          id = #{id}
-      
-    </update>
 
-    
-    <update id="addVolume">
-       
-        update
-          collector
-        set
-          volume = volume+1
-        where
-          id = #{id}
-      
-    </update>
 
-    
     <update id="updatePersonData">
-       
+
         update
           collector
         set
@@ -132,19 +104,23 @@
            avater=#{avater}
         where
           id = #{id}
-       
+
     </update>
 
-    <update id="updateState">
+
+    <update id="updateData">
 
         update
-        collector
+            collector
         set
-        state = #{state}
+            <foreach collection="constrains" index="key" item="val" open="" separator="," close="">
+                ${key}=#{val}
+            </foreach>
         where
-        id = #{id}
+            id = #{id}
 
     </update>
+
 
     <delete id="deleteCollector">
         delete

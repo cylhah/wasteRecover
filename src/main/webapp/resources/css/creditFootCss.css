@@ -1,0 +1,56 @@
+.smal{
+    width: 80%;
+    height: 100%;
+    margin: 0;
+}
+
+.btnn{
+    left: 10px;
+    position: absolute;
+    z-index: 16;
+}
+
+.header-css{
+    min-height: 3rem;
+    line-height: 3rem;
+    top: 0;
+    background-color: white;
+    width: 100%;
+    opacity: 0.8;
+}
+
+a:hover{
+    color: #1d2124;
+}
+
+a{
+    color:#000000;
+}
+#pro-color{
+    animation:proColor 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes proColor{
+    0%{
+        width: 0%;
+        background-color: red;
+    }
+    100%{
+        width: 94%;
+        background-color: #00cc00;
+    }
+}
+
+.border-cir{
+    border-radius: 30px;
+}
+
+.color-blue{
+    color: #00a6ac;
+}
+
+.ddd{
+    background-color: #00a6ac;
+    padding-top: 0;
+}

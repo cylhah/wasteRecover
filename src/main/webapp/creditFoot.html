@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale-1,user-scalable=no" >
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/font/iconfont.css">
+    <link rel="stylesheet" href="resources/css/creditFootCss.css">
+    <link rel="stylesheet" href="resources/css/jquery.eeyellow.Timeline.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRSBDtrWOZ6cCOoPsnEhdmLihKVGXi2s"></script>
+    <script src="resources/js/jquery-3.2.1.min.js"></script>
+    <script src="resources/js/popper.min.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
+    <script src="resources/js/jquery.eeyellow.Timeline.js"></script>
+    <title>回收员信用足迹</title>
+</head>
+<body>
+<div class="bg-light">
+<div>
+    <header class="border-bottom  header-css text-center">
+        <span class=" btnn " data-toggle="modal" data-target="#myModal" role="button"><i class="iconfont icon-Shapecopy1"></i></span>
+        <span class="title-css">
+            信用足迹
+        </span>
+    </header>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog smal" role="document">
+        <div class="modal-content smal">
+            <div class="modal-header">
+                <p class="modal-title"><i class="iconfont icon-shenfenzheng text-lg-center"></i></p>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush text-dark">
+                    <li class="list-group-item "><a href="receiver.html"><i class="iconfont icon-flag"></i>即时订单</a></li>
+                    <li class="list-group-item "><a href="historyList.html"><i class="iconfont icon-document"></i>历史订单</a></li>
+                    <li class="list-group-item "><a href="personalMsg.html"><i class="iconfont icon-xingming"></i>个人信息</a></li>
+                    <li class="list-group-item "><a href="creditFoot.html"><i class="iconfont icon-xinyongpingjia"></i>信用足迹</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"style="width: 100%" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="text-center" >
+        <h1 class="text-success font-weight-bold" style="color:#258ab7">信用值</h1>
+    </div>
+    <br>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated font-weight-bold" id="pro-color" role="progressbar"  aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">4.7</div>
+</div>
+</div>
+<br>
+<div class="border-secondary text-center">
+    <button class="btn btn-info border-cir"type="button" data-toggle="collapse" data-target="#creditFoot" aria-expanded="false" aria-controls="creditFoot"><h5 class="text-center">我的信用足迹</h5></button>
+</div>
+
+<div class="collapse" id="creditFoot">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="VivaTimeline">
+                <dl>
+                    <dt>now</dt>
+                    <dd class="pos-left clearfix">
+                        <div class="circ"></div>
+                        <div class="time">March</div>
+                        <div class="events">
+                            <div class="events-header color-blue">优秀信用评分</div>
+                            <div class="events-body">
+                                <p class="color-blue">本月信用订单<span class="font-weight-bold">26</span><br>综合评分<span class="font-weight-bold">4.8</span></p>
+                            </div>
+                            <div class="events-footer">
+
+                            </div>
+                        </div>
+                    </dd>
+                    <dd class="pos-left clearfix">
+                        <div class="circ"></div>
+                        <div class="time">February</div>
+                        <div class="events">
+                            <div class="events-header color-blue">优秀信用评分</div>
+                            <div class="events-body">
+
+                            </div>
+                            <div class="events-footer">
+
+                            </div>
+                        </div>
+                    </dd>
+                    <dd class="pos-left clearfix">
+                        <div class="circ"></div>
+                        <div class="time">January</div>
+                        <div class="events">
+                            <div class="events-header color-blue">优秀信用评分</div>
+                            <div class="events-body">
+
+                            </div>
+                            <div class="events-footer">
+
+                            </div>
+                        </div>
+                    </dd>
+                    <dt>2017</dt>
+                    <dd class="pos-right clearfix">
+                        <div class="circ"></div>
+                        <div class="time">June</div>
+                        <div class="events">
+                            <div class="events-header color-blue">信用订单超过100</div>
+                            <div class="events-body">
+
+                            </div>
+                            <div class="events-footer">
+
+                            </div>
+                        </div>
+                    </dd>
+                    <dd class="pos-left clearfix">
+                        <div class="circ"></div>
+                        <div class="time">January</div>
+                        <div class="events">
+                            <div class="events-header color-blue">第一次信用订单</div>
+                            <div class="events-body">
+
+                            </div>
+                        </div>
+                    </dd>
+                    <dt>2016</dt>
+                    <dt>2015</dt>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+</body>
+</html>

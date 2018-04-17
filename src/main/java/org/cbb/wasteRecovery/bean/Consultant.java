@@ -1,20 +1,12 @@
 package org.cbb.wasteRecovery.bean;
 
 public class Consultant {
-    private int id;
     private int staid;
     private String username;
     private String password;
 
     private Station station;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getStaid() {
         return staid;
@@ -51,8 +43,7 @@ public class Consultant {
     @Override
     public String toString() {
         return "Consultant{" +
-                "id=" + id +
-                ", staid=" + staid +
+                " staid=" + staid +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", station=" + station +

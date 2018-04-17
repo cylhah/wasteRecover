@@ -8,20 +8,19 @@
   <id property="openid" column="openid"/>
   <result property="state" column="state"/>
   <result property="avater" column="avater"/>
- <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.Address"/>
- <collection property="accountList" resultMap="org.cbb.wasteRecovery.dao.BankAccountDao.BankAccount"/>
+ <collection property="addressList" resultMap="org.cbb.wasteRecovery.dao.UserAddressDao.ref_address"/>
+ <collection property="accountList" resultMap="org.cbb.wasteRecovery.dao.BankAccountDao.ref_bankac"/>
 </resultMap>
 <resultMap type="org.cbb.wasteRecovery.bean.User" id="User1">
-        <id property="openid" column="openid"/>
-        <result property="state" column="state"/>
-        <result property="avater" column="avater"/>
-
+        <id property="openid" column="u_openid"/>
+        <result property="state" column="u_state"/>
+        <result property="avater" column="u_avater"/>
 </resultMap>
 
     <insert id="insertUser">
 
-    insert  into user(openid,state)
-    values (#{openid},#{state})
+    insert ignore into user(openid)
+    values (#{openid})
 
    </insert>
 
@@ -29,10 +28,19 @@
 
   <select id="selectById" resultMap="User" parameterType="String">
 
-        select u.state,u.avater,u.openid,b.id,b.account,b.bank_code,b.username,a.id,a.uid,a.address,a.detail,a.community_id,a.geohash,a.position
-        from (user u
-        INNER JOIN useraddress a ON u.openid=a.id)INNER JOIN bankaccount b
-         ON u.openid=b.uid
+        select u.state,u.avater,u.openid,
+            ba.id ba_id,
+            ba.account ba_account,
+            ba.bank_code ba_bank_code,
+            ba.username ba_username,
+            ua.id ua_id,
+            ua.address ua_address,
+            ua.detail ua_detail
+        from
+          (user u LEFT JOIN useraddress ua
+          ON u.openid=ua.id)
+          LEFT JOIN bankaccount ba
+          ON u.openid=ba.uid
         where
            u.openid=#{openid}
        

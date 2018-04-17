@@ -1,0 +1,94 @@
+.header-css{
+    min-height: 3rem;
+    line-height: 3rem;
+    top: 0;
+    background-color: white;
+    width: 100%;
+}
+
+.smal{
+    width: 80%;
+    height: 100%;
+    margin: 0px;
+}
+.btnn{
+    background: white;
+    left: 10px;
+    position: absolute;
+    z-index: 16;
+}
+
+.btn-css{
+    width:100%;
+}
+
+.btn-screen{
+    width: 30%;
+    background-color: #ebebeb;
+    margin: 1%;
+    color: black;
+    border: #ebebeb;
+}
+
+.order-small{
+    float: right;
+}
+
+a:hover{
+    color: #1d2124;
+}
+
+a{
+    color:#000000;
+}
+
+.screen-css{
+    border-bottom: 1px solid #dee2e6;
+    min-height: 2.5rem;
+    line-height: 2.5rem;
+    color: #989a9d;
+}
+
+.screen-span{
+    left: 1rem;
+    position: absolute;
+}
+
+.search-span{
+    right:1rem;
+    position: absolute;
+}
+
+.screen-modal{
+    width: 100%;
+    height: 90%;
+    margin: 0px;
+}
+.screen-input-left{
+    width: 40%;
+    /*position: absolute;*/
+}
+
+.screen-input-right{
+    width: 40%;
+    /*position: absolute;*/
+}
+
+.monthMsg{
+    background-color: rgba(235, 235, 235, 0.75);
+    min-height: 2.5rem;
+    line-height: 2.5rem;
+
+}
+
+.smp{
+    margin-left: 1rem;
+    color: black;
+
+}
+.small-text{
+    color: #9fa1a4;
+}
+.i-text{
+    float: right;
+}
