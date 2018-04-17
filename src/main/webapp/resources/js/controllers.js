@@ -33,15 +33,22 @@ loginCtrl.controller('loginFormCtrl',function ($scope,$http) {
 });
 
 var map;
-$(document).ready(function(){
-    map = new BMap.Map("myMap");
-    map.enableScrollWheelZoom(true);
-    map.centerAndZoom("浙江科技学院",17);
-});
 
 var clientCtrl = angular.module('clientCtrl',[]);
 
-clientCtrl.controller('clientViewCtrl',function ($scope) {
+clientCtrl.controller('clientViewCtrl',function ($scope,clientFty) {
+    $(document).ready(function(){
+        map = new BMap.Map("myMap");
+        map.enableScrollWheelZoom(true);
+        map.centerAndZoom("北京",10);
+        map.centerAndZoom(clientFty.addressInfo[0].address,18);
+        var marker = new BMap.Marker(new BMap.Point(clientFty.addressInfo[0].point.lng, clientFty.addressInfo[0].point.lat),{icon:new BMap.Icon("../images/myicon_order.jpg", new BMap.Size(50,42))});
+        marker.addEventListener('click',startOrder);
+        for (var i=0;i<clientFty.ordersAroundInfo.length;i++){
+            map.addOverlay(new BMap.Marker(new BMap.Point(clientFty.ordersAroundInfo[i].lng, clientFty.ordersAroundInfo[i].lat),{icon:new BMap.Icon("../images/neiborIcon.png", new BMap.Size(30,24))}));
+        }
+        map.addOverlay(marker);
+    });
     $scope.gotoMyOrders = function () {
         window.location.href = "#!/myOrders";
     };
@@ -51,9 +58,14 @@ clientCtrl.controller('clientViewCtrl',function ($scope) {
     $scope.gotoOrderManage = function () {
         window.location.href = "#!/orderManage";
     };
+    function startOrder() {
+        window.location.href = "#!/myOrders";
+    }
 });
 
 clientCtrl.controller('orderManageCtrl',function ($scope,clientFty) {
+    $scope.score = "4";
+    $scope.scoreTable = true;
     $scope.pages = [];
     $scope.orders = clientFty.orderInfo;
     $scope.ordersNum = $scope.orders.length;
@@ -74,10 +86,19 @@ clientCtrl.controller('orderManageCtrl',function ($scope,clientFty) {
             }
         });
     });
+    $scope.scoreCol = function (index) {
+        $scope.scoreTable = false;
+        $scope.scoreIndex = index;
+    };
+    $scope.submitScore = function () {
+        $scope.scoreTable = true;
+        $scope.orders[$scope.scoreIndex].scoreType = 1;
+        var data1 = {"orderId":$scope[$scope.scoreIndex].orderId,"colId":$scope[$scope.scoreIndex].server.id,"score":$scope.score};
+        // clientFty
+    }
 });
 
 clientCtrl.controller('myOrdersCtrl',function ($scope,clientFty) {
-    map.clearOverlays();
     $scope.date = "今天";
     var swiper1,swiper2,swiper3;
     var slides2 = {"s2_1":[],"s2_2":[]};
@@ -166,19 +187,42 @@ clientCtrl.controller('myOrdersCtrl',function ($scope,clientFty) {
             }
         }
     });
+    $scope.addressIndex = "0";
     $scope.time = "请选择时间";
     $scope.myAddress = clientFty.addressInfo;
     $scope.haveAddress = $scope.myAddress.length>0;
+    if(!$scope.haveAddress){
+        $("#address").css({"display":"none"});
+    }
     $scope.timeTable = true;
     $scope.weight = "<0.5kg";
+    $scope.animationCount = 0;
+    $scope.$watch('addressIndex',function () {
+        map.clearOverlays();
+        $scope.aroundNum = clientFty.ordersAroundInfo.length;
+        for (var i=0;i<$scope.aroundNum;i++){
+            map.addOverlay(new BMap.Marker(new BMap.Point(clientFty.ordersAroundInfo[i].lng, clientFty.ordersAroundInfo[i].lat),{icon:new BMap.Icon("../images/neiborIcon.png", new BMap.Size(30,24))}));
+        }
+        var temp = $scope.myAddress[parseInt($scope.addressIndex)];
+        map.centerAndZoom(temp.address,18);
+        map.addOverlay(new BMap.Marker(new BMap.Point(temp.point.lng, temp.point.lat),{icon:new BMap.Icon("../images/myicon.png", new BMap.Size(80,67))}));
+    });
     $scope.submitOrder = function () {
-        var data = $scope.myAddress[parseInt($("#address").val())];
+        var data = $scope.myAddress[parseInt($scope.addressIndex)];
         data.weight = {"约重":$scope.weight};
         getDateStr();
         data.time = $scope.realTime;
         data.type = "待接单";
         if($scope.time == "请选择时间"){
-            $("#message").text("请填写时间");
+            $(".message").text("请填写时间");
+            if($scope.animationCount==0){
+                $(".message").css({"animation":"msgFade 3s"});
+                $scope.animationCount = 1;
+            }
+            else {
+                $(".message").css({"animation":"msgFade1 3s"});
+                $scope.animationCount = 0;
+            }
         }
         else{
             clientFty.submitOrder(data);
@@ -186,11 +230,8 @@ clientCtrl.controller('myOrdersCtrl',function ($scope,clientFty) {
         }
     };
 
-    // $scope.showLocation = function (index) {
-    //     map.centerAndZoom($scope.myAddress[index].address,17);
-    // };
     $scope.closeTime = function () {
-      $scope.timeTable = true;
+        $scope.timeTable = true;
     };
     $scope.confirmTime = function () {
         $scope.time = $(".swiper-slide-active").text();
@@ -282,6 +323,8 @@ clientCtrl.controller('addAddressCtrl',function ($scope,clientFty) {
             map.clearOverlays();    //清除地图上所有覆盖物
             function myFun(){
                 var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                $scope.addressLng = pp.lng;
+                $scope.addressLat = pp.lat;
                 map.centerAndZoom(pp, 18);
                 map.addOverlay(new BMap.Marker(pp));    //添加标注
             }
@@ -300,15 +343,15 @@ clientCtrl.controller('addAddressCtrl',function ($scope,clientFty) {
     $scope.editType = clientFty.editAddressData.editType;
     $scope.index = clientFty.editAddressData.index;
     $scope.searchAddress = function () {
-      $scope.edit = true;
-      $scope.search = true;
+        $scope.edit = true;
+        $scope.search = true;
     };
     $scope.confirmAddress = function () {
-      $scope.search = false;
-      $scope.edit = false;
+        $scope.search = false;
+        $scope.edit = false;
     };
     $scope.submitAddress = function () {
-        var data = {"name":$scope.name,"phoneNumber":$scope.phoneNumber,"address":$scope.address,"specificAddress":$scope.specificAddress};
+        var data = {"name":$scope.name,"phoneNumber":$scope.phoneNumber,"address":$scope.address,"specificAddress":$scope.specificAddress,"point":{"lng":$scope.addressLng,"lat":$scope.addressLat}};
         if($scope.editType=="revise"){
             clientFty.reviseAddress($scope.index,data);
             window.location.href = "#!/myAddress";
@@ -320,3 +363,235 @@ clientCtrl.controller('addAddressCtrl',function ($scope,clientFty) {
     }
 });
 
+var stationCtrl = angular.module('stationCtrl',[]);
+
+stationCtrl.controller('stationViewCtrl',function ($scope) {
+});
+
+stationCtrl.controller('sOrderCtrl',function ($scope,stationFty) {
+    $(".title").css('border','0');
+    $("#orderManage").css('border-bottom','2px solid grey');
+    var date = new Date();
+    $scope.filDay = "-1";
+    $scope.filType = "-1";
+    $scope.dayPerMon = [31,28,31,30,31,30,31,31,30,31,30,31];
+    $scope.year = date.getFullYear();
+    $scope.page = 0;
+    $scope.allOrders = [];
+    $scope.index = [];
+    $scope.pages = [];
+    $scope.day = [];
+    for(var i=0;i<2;i++){
+        for(var t=0;t<18;t++){
+            var tt = i*18+t;
+            $scope.allOrders.push({"time":"2018-4-5 13:13","address":"杭州市西湖区北山路","clientName":"张花","scrap":"纸板1.3kg 铁片0.7kg","orderType":0,"price":"3.4元","colName":"张晔"+tt});
+        }
+    }
+    for(var i=0;i<3;i++){
+        for(var t=0;t<18;t++){
+            var tt = i*18+t;
+            $scope.allOrders.push({"time":"2018-4-12 13:13","address":"杭州市西湖区北山路","clientName":"张花","scrap":"纸板1.3kg 铁片0.7kg","orderType":1,"price":"3.4元","colName":"张晔"+tt});
+        }
+    }
+    for(var i=0;i<2;i++){
+        for(var t=0;t<18;t++){
+            var tt = i*18+t;
+            $scope.allOrders.push({"time":"2018-4-12 13:13","address":"杭州市西湖区北山路","clientName":"张花","scrap":"纸板1.3kg 铁片0.7kg","orderType":0,"price":"3.4元","colName":"张晔"+tt});
+        }
+    }
+    for(var i=0;i<$scope.allOrders.length;i++){
+        if($scope.allOrders[i].orderType==0){
+            $scope.allOrders[i].orderType = "未完成";
+            $scope.allOrders[i].orderColor = "color0";
+        }
+        else if($scope.allOrders[i].orderType==1){
+            $scope.allOrders[i].orderType = "已完成";
+            $scope.allOrders[i].orderColor = "color1";
+        }
+    }
+    $scope.pageNum = parseInt(($scope.allOrders.length+17)/18);
+    for(var i=0;i<$scope.pageNum;i++){
+        $scope.pages[i] = i;
+    }
+    for(var i=0;i<18;i++){
+        $scope.index[i] = i;
+    }
+    var swiperY = new Swiper('.swiperY', {
+        pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true
+        }
+        // on:{
+        //     slideChange:function () {
+        //         $scope.year = $(this.slides[this.activeIndex]).text();
+        //     }
+        // }
+    });
+    for(var i=0;i<3;i++){
+        var temp = $scope.year - i;
+        swiperY.appendSlide('<div class="swiper-slide">'+temp+'年</div>')
+    }
+    $scope.gotoPage = function (index) {
+        $scope.page = index;
+        $(".page").css('color','white');
+        var idStr = "page"+index;
+        $("#"+idStr).css('color','black');
+    };
+    $scope.filterData = function () {
+        var data = {};
+        if($scope.filDay!="-1"){
+            data.time = $scope.year+"-"+$scope.month+"-"+$scope.filDay;
+        }
+        else data.time = $scope.year+"-"+$scope.month;
+        if($scope.filType!="-1"){
+            data.orderType = $scope.filType;
+        }
+        if($scope.filName!=""){
+            data.colName = $scope.filName;
+        }
+        // $scope.allOrders = stationFty.orders;
+        // $scope.allOrders.splice(0,36);
+        // $scope.allOrders.splice(0,18);
+    };
+    $scope.chooseMon = function (event) {
+        var tempM = $(event.target).attr('id');
+        var tempY = $(".swiper-slide-active").text();
+        $scope.year = parseInt(tempY.substring(0,tempY.length));
+        $scope.month = parseInt(tempM.substring(1,tempM.length));
+        $(".item").css({"color":"black","border-right":"2px solid grey"});
+        $("#"+tempM).css({"color":"rgb(1,207,207)","border-right":"2px solid rgb(1,207,207)"});
+        var day;
+        if($scope.month==2&&($scope.year % 4 == 0) && ($scope.year % 100 != 0 || $scope.year % 400 == 0)){
+            day = 29;
+        }
+        else{
+            day = $scope.dayPerMon[$scope.month-1];
+        }
+        for(var i=0;i<day;i++){
+            $scope.day[i] = i+1;
+        }
+    }
+});
+
+stationCtrl.controller('sColCtrl',function ($scope,$http,stationFty) {
+    $(".title").css('border','0');
+    $("#collectorManage").css('border-bottom','2px solid grey');
+    // stationFty.getCollectors();
+    $scope.noEdit = true;
+    $scope.filType = "name";
+    $scope.colTable = true;
+    $scope.colInfo = true;
+    $scope.menu = false;
+    $scope.page = 0;
+    $scope.orderPage = 0;
+    $scope.orderPages = [];
+    $scope.pages = [];
+    $scope.index = [];
+    $scope.oneCol = {};
+    $scope.collectorInfo = [];
+    $scope.collectorInfo = stationFty.collectors;
+    for(var i=0;i<7;i++){
+        for(var t=0;t<18;t++){
+            var temp = i*18+t;
+            $scope.collectorInfo.push({"name":"张晔"+t,"gender":"女","cId":temp,"idNumber":"330327199909093344","entryTime":"2018-4-11","dealNum":304,"community":"四季花苑","colColor":"color1"});
+        }
+    }
+    $scope.pageNum = parseInt(($scope.collectorInfo.length+17)/18);
+    for(var i=0;i<18;i++){
+        $scope.index[i] = i;
+    }
+    for(var i=0;i<$scope.pageNum;i++){
+        $scope.pages[i] = i;
+    }
+    $scope.query = function () {
+        $scope.colTable = false;
+        $scope.menu = true;
+    };
+    $scope.gotoPage = function (index) {
+        $scope.page = index;
+        $(".page").css('color','white');
+        var idStr = "page"+index;
+        $("#"+idStr).css('color','black');
+    };
+    $scope.gotoOrderPage = function (index) {
+        $scope.orderPage = index;
+        $(".page").css('color','white');
+        var idStr = "orderPage"+index;
+        $("#"+idStr).css('color','black');
+    };
+    $scope.filterData = function () {
+        // $scope.collectorInfo.splice(1,9999);
+        var data = {};
+        data[$scope.filType] = $scope.filData;
+        $scope.collectorInfo = stationFty.selectCollectors(data);
+    };
+    $scope.saveInfo = function () {
+        var data = {"name":$scope.oneCol.name,"gender":$scope.oneCol.gender,"cId":$scope.oneCol.cId,"idNumber":$scope.oneCol.idNumber,"entryTime":$scope.oneCol.entryTime,"dealNum":$scope.oneCol.dealNum,"community":$scope.oneCol.community};
+        $scope.noEdit = true;
+    };
+    $scope.getColInfo = function (index) {
+        $scope.oneCol = $scope.collectorInfo[index];
+        $scope.oneCol.orders = [];
+        $scope.colInfo = false;
+        $scope.colTable = true;
+        // var data = {"cId":$scope.oneCol.cId};
+        // stationFty.getOrderByCid(data);
+        // $scope.oneCol.orders = stationFty.ordersOfOne;
+        for(var i=0;i<5;i++){
+            for(var t=0;t<18;t++){
+                var tt = i*18+t;
+                $scope.oneCol.orders.push({"time":"2018-4-12 13:13","address":"杭州市西湖区北山路","clientName":"张花"+tt,"scrap":"纸板1.3kg 铁片0.7kg","orderType":"已完成","price":"3.4元","colName":"张晔","orderColor":"color1"});
+            }
+        }
+        var len = parseInt(($scope.oneCol.orders.length+17)/18);
+        for(var i=0;i<len;i++){
+            $scope.orderPages[i] = i;
+        }
+    };
+});
+
+stationCtrl.controller('scrapCtrl',function ($scope) {
+    $scope.noEdit = true;
+    $scope.scrapInfo = true;
+    $scope.scrapTable = false;
+    $scope.index = [];
+    $scope.scraps = [];
+    $scope.oneScrap = {};
+    $scope.scrapPages = [];
+    $scope.page = 0;
+    for(var i=0;i<18;i++){
+        $scope.index[i] = i;
+    }
+    for(var i=0;i<6;i++){
+        for(var t=0;t<18;t++){
+            var tt = i*18+t;
+            $scope.scraps.push({"sId":tt,"typeName":"金属","name":"铁片"+tt,"unitPrice":1.2,"monthVolume":345,"totalVolume":4473});
+        }
+    }
+    for(var i=0;i<parseInt(($scope.scraps.length+17)/18);i++){
+        $scope.scrapPages[i] = i;
+    }
+    $scope.filterData = function () {
+        // $scope.scraps.splice(1,999);
+    };
+    $scope.search = function () {
+        $scope.scrapInfo = true;
+        $scope.scrapTable = false;
+    };
+    $scope.add = function () {
+        $scope.scrapInfo = false;
+        $scope.scrapTable = true;
+        $scope.noEdit = false;
+        $scope.oneScrap = {};
+    };
+    $scope.gotoScrapPage = function (index) {
+        $scope.page = index;
+        $(".page").css('color','white');
+        $("#"+"scrapPage"+index).css('color','black');
+    };
+    $scope.getScrapInfo = function (index) {
+        $scope.oneScrap = $scope.scraps[index];
+        $scope.scrapTable = true;
+        $scope.scrapInfo = false
+    }
+});
