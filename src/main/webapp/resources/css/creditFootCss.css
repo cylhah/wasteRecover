@@ -19,6 +19,16 @@
     opacity: 0.8;
 }
 
+.creditCss{
+    background-color: #00bfc6;
+    color: white;
+    margin: 0;
+    height: 5rem;
+    min-height: 4rem;
+    line-height: 4rem;
+    font-size: 4rem;
+}
+
 a:hover{
     color: #1d2124;
 }
