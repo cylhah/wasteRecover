@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.OrderformDao;
 import org.cbb.wasteRecovery.entity.Page;
+import org.cbb.wasteRecovery.enums.OrderStateEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -94,6 +95,14 @@ public class OrderformDaoTest {
         long id=1;
         int i=orderformDao.updateOrderform(id,2);
         System.out.println(i);
+    }
+
+    @Test
+    public void updateCollectorAndState() throws Exception{
+        long id=1;
+        int state=OrderStateEnum.RECEIVED.getState();
+        int cid=1;
+        orderformDao.updateCollectorAndState(id,state,cid);
     }
 
     @Test

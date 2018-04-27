@@ -14,6 +14,13 @@ public interface TradeService {
     OrderformExecute submitOrderform(Orderform orderform);
 
     /**
+     * 回收员接受订单
+     * @param orderform
+     * @return
+     */
+    boolean receiveOrderform(Orderform orderform);
+
+    /**
      * 用户请求取消订单,
      * @param id 订单id
      * @return 请求提交成功返回true，失败返回false
@@ -27,6 +34,13 @@ public interface TradeService {
      * @return ...
      */
     OrderformExecute completeOrder(Orderform orderform);
+
+    /**
+     * 对已完成的订单进行评分
+     * @param orderform
+     * @return
+     */
+    boolean gradeOrderform(Orderform orderform);
 
     /**
      * 回收员取消订单(只能取消state==3||state==4的订单)

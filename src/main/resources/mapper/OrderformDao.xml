@@ -143,6 +143,29 @@
           id = #{id}
       
     </update>
+
+    <update id="updateCollectorAndState">
+
+        update
+            orderform
+        set
+            state=#{state},
+            cid=#{cid}
+        where
+            id = #{id}
+
+    </update>
+
+    <update id="updateRank">
+
+        update
+            orderform
+        set
+            rank=#{rank}
+        where
+            id = #{id}
+
+    </update>
     
     <update id="submitData">
        

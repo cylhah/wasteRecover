@@ -23,11 +23,12 @@ public interface LoginService {
     Collector collectorLogin(String phoneNumber,String password,String openid);
 
     /**
-     * 回收员退出登录
-     * @param httpSession 存有回收员对象的session
+     * 回收员根据openid登录
+     * @param openid
      * @return
      */
-    boolean collectorSignOut(HttpSession httpSession);
+    Collector collectorLogin(String openid);
+
 
     /**
      * 咨询员登录

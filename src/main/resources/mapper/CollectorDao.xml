@@ -61,6 +61,12 @@
 		where c.id=#{id}
     </select>
 
+    <select id="selectByOpenid" resultMap="Collect" parameterType="int">
+        select <include refid="columns"/>
+        from
+        collector c
+        where c.openid=#{openid}
+    </select>
     
      <select id="selectByPhoneNumAndPass" resultMap="Collect" >
         select <include refid="columns"/>

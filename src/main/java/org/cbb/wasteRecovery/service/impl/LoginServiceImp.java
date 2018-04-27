@@ -48,9 +48,12 @@ public class LoginServiceImp implements LoginService {
 
     }
 
-    public boolean collectorSignOut(HttpSession httpSession) {
-        return false;
+    public Collector collectorLogin(String openid) {
+        if(openid==null||openid.equals(""))
+            return null;
+        return collectorDao.selectByOpenid(openid);
     }
+
 
     public Consultant consultantLogin(String username, String password) {
         if(username.equals("")||password.equals("")||username==null||password==null)

@@ -1,7 +1,6 @@
 var clientService = angular.module('clientService',[]);
 
 clientService.factory('clientFty',function ($http) {
-<<<<<<< HEAD
     var service = {
         editAddressData:{"address":"请选择地址信息"},
         ordersAroundInfo:[{"lng":120.156084,"lat":30.265202},{"lng":120.158013,"lat":30.265706},{"lng":120.15542,"lat":30.26681}],
@@ -142,7 +141,6 @@ stationService.factory('stationFty',function ($http) {
     } ;
     return service;
 });
-=======
    var service = {
        editAddressData:{"address":"请选择地址信息"},
        haveAddress:false,
@@ -231,4 +229,3 @@ stationService.factory('stationFty',function ($http) {
    };
    return service;
 });
->>>>>>> 7c1b81c26b6ac12d4ae2a0899a4a81a632641908

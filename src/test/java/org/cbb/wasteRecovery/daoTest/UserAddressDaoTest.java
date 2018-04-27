@@ -55,9 +55,7 @@ public class UserAddressDaoTest {
     public void selectByUid() throws Exception{
 
         String uid="1001";
-        int offset=0;
-        int limit=1;
-      List<UserAddress> userAddress= userAddressDao.selectByUid(uid,offset,limit);
+      List<UserAddress> userAddress= userAddressDao.selectByUid(uid);
         for(UserAddress userAddress1:userAddress)
         {
             System.out.println(userAddress1);

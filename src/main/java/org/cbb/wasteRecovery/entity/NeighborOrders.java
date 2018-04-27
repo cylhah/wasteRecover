@@ -4,11 +4,11 @@ import org.cbb.wasteRecovery.bean.Orderform;
 
 import java.util.List;
 
-public class NeihborOrders {
+public class NeighborOrders {
     private int number;
     private List<Orderform> orderformList;
 
-    public NeihborOrders(List<Orderform> orderformList) {
+    public NeighborOrders(List<Orderform> orderformList) {
         this.orderformList = orderformList;
         number=orderformList.size();
     }

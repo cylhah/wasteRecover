@@ -1,9 +1,12 @@
 package org.cbb.wasteRecovery.daoTest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.ScrapDao;
+import org.cbb.wasteRecovery.entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -47,12 +50,12 @@ public class ScrapDaoTest {
     //返回值为org.cbb.wasteRecovery.bean.Scrap@dc9876b
 
     @Test
-    public void selectByTypeName() throws Exception{
+    public void FilterScrapPage() throws Exception{
 
-        String typeName="可回收";
-        int offset=0;
-        int limit=1;
-        List<Scrap> scrap=scrapDao.selectByTypeName(typeName,offset, limit);
+        Map constrains=new HashMap();
+        constrains.put("typeName","玻璃");
+        Page page=new Page(2);
+        List<Scrap> scrap=scrapDao.FilterScrapPage(constrains,page);
         for(Scrap Scrap1:scrap)
         {
             System.out.println(Scrap1);

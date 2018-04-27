@@ -27,6 +27,13 @@ public interface CollectorDao {
      */
     Collector selectById(int id);
 
+    /**
+     * 根据openid查询废品回收员
+     * @param openid
+     * @return
+     */
+    Collector selectByOpenid(String openid);
+
 
     /**
      * 根据手机号和密码查询回收员

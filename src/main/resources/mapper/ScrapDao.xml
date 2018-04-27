@@ -35,13 +35,16 @@
         
     </select>
 
-    <select id="selectByTypeName" resultType="Scrap" >
+    <select id="FilterScrapPage" resultType="Scrap" >
         select <include refid="columns"/>
         from 
 			scrap
-        where
-			typeName=#{typeName}
-        order BY typeName
+        <where>
+            <foreach collection="constrains" item="value" index="key" open="" separator="AND" close="">
+                ${key} = #{value}
+            </foreach>
+        </where>
+        order BY id
     </select>
 
     <update id="updateData" >

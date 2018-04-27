@@ -2,7 +2,9 @@ package org.cbb.wasteRecovery.daoTest;
 
 
 import org.cbb.wasteRecovery.bean.Community;
+import org.cbb.wasteRecovery.bean.UserAddress;
 import org.cbb.wasteRecovery.dao.CommunityDao;
+import org.cbb.wasteRecovery.entity.MatchCommunity;
 import org.cbb.wasteRecovery.entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,6 +103,15 @@ public class CommunityDaoTest {
         for(Community community1:community)
         {
             System.out.println(community1);
+        }
+    }
+
+    @Test
+    public void selectByAddress() throws Exception{
+        String address="奉";
+        List<Community> communityList=communityDao.selectByAddress(address);
+        for(Community community:communityList){
+            System.out.println(community);
         }
     }
 }

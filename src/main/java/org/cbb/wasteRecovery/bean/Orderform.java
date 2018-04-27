@@ -17,6 +17,7 @@ public class Orderform {
     private Timestamp appointTime;//预约时间
     private Timestamp updateTime;//信息更新时间(数据库自动更新)
     private double price;//订单最终成交价格
+    private int rank;
 
     private User user;
     private Collector collector;
@@ -135,6 +136,14 @@ public class Orderform {
         this.scrapMessageList = scrapMessageList;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
     @Override
     public String toString() {
         return "Orderform{" +
@@ -148,6 +157,7 @@ public class Orderform {
                 ", appointTime=" + appointTime +
                 ", updateTime=" + updateTime +
                 ", price=" + price +
+                ", rank=" + rank +
                 ", user=" + user +
                 ", collector=" + collector +
                 ", address=" + address +

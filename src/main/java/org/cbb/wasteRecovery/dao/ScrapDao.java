@@ -2,8 +2,10 @@ package org.cbb.wasteRecovery.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.cbb.wasteRecovery.bean.Scrap;
+import org.cbb.wasteRecovery.entity.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Colossus on 2018/3/18.
@@ -28,15 +30,12 @@ public interface ScrapDao {
     Scrap selectByid(int id);
 
     /**
-     * 根据废品名精确查找
-     * @param typeName typeName
-     * @param offset 偏移量
-     * @param limit 限制数量
+     * 筛选废品
+     * @param constrains 约束调教
+     * @param page 分页属性
      * @return
      */
-    List<Scrap> selectByTypeName(@Param("typeName")String typeName,
-                                 @Param("offset")int offset,
-                                 @Param("limit")int limit);
+    List<Scrap> FilterScrapPage(@Param("constrains")Map constrains, @Param("page")Page page);
 
 
     /**

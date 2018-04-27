@@ -119,14 +119,15 @@ CREATE TABLE `useraddress` (
 CREATE TABLE `orderform` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uid` varchar(100) NOT NULL COMMENT '用户id',
-  `cid` int(10) unsigned DEFAULT NULL COMMENT '完成该订单的回收员id',
+  `cid` int(10) unsigned DEFAULT NULL COMMENT '接受该订单的回收员id',
   `aid` bigint(20) unsigned NOT NULL COMMENT '地址id',
-  `state` tinyint(4) DEFAULT NULL COMMENT '已提交:1,已完成:2,请求更改:3,请求取消:4',
+  `state` tinyint(4) DEFAULT 0 COMMENT '已提交:0,已接受:1,已完成:2,请求更改:3,请求取消:4',
   `weight` double DEFAULT NULL COMMENT '总重量',
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `appointTime` timestamp NULL DEFAULT NULL COMMENT '预约时间',
   `updateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `price` double(10,2) DEFAULT NULL,
+  `weight_state` int null comment '订单提交的重量区间',
   PRIMARY KEY (`id`),
   KEY `o_state` (`state`),
   KEY `o_uid` (`uid`),
@@ -148,7 +149,7 @@ CREATE TABLE `scrap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `scrapmessage` (
-  `oid` bigint(20) unsigned not null COMMENT '订单id',
+  `oid` bigint(20) unsigned not null  COMMENT '订单id',
   `scrapid` int(10) unsigned not null COMMENT '废品id',
   `weight` double unsigned DEFAULT NULL COMMENT '废品重量',
   `price` double unsigned DEFAULT NULL COMMENT '废品价格',

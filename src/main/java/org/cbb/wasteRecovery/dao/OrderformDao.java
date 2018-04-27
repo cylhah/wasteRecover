@@ -59,8 +59,24 @@ public interface OrderformDao {
      * @param state 订单状态
      * @return
      */
-  int updateOrderform(@Param("id") long id,@Param("state") int state);
+    int updateOrderform(@Param("id") long id,@Param("state") int state);
 
+    /**
+     * 更新订单状态与回收人员
+     * @param id
+     * @param state 订单状态
+     * @param cid 回收员id
+     * @return
+     */
+    int updateCollectorAndState(@Param("id") long id,@Param("state") int state,@Param("cid") int cid);
+
+    /**
+     * 更新订单分数
+     * @param id
+     * @param rank
+     * @return
+     */
+    int updateRank(@Param("id")long id,@Param("rank") int rank);
     /**
      * 提交订单资料，需要判断属性非空
      * @param orderform 存有id,cid,weight,price,state

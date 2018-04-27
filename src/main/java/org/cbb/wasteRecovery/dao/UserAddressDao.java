@@ -33,13 +33,9 @@ public interface UserAddressDao {
     /**
      * 根据uid搜索地址
      * @param uid 用户id
-     * @param offset 偏移量
-     * @param limit 数量
      * @return
      */
-    List<UserAddress> selectByUid(@Param("uid")String uid,
-                                  @Param("offset")int offset,
-                                  @Param("limit")int limit);
+    List<UserAddress> selectByUid(@Param("uid")String uid);
 
     /**
      * 更新地址

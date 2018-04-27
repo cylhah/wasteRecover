@@ -363,7 +363,6 @@ clientCtrl.controller('addAddressCtrl',function ($scope,clientFty) {
     }
 });
 
-<<<<<<< HEAD
 var stationCtrl = angular.module('stationCtrl',[]);
 
 stationCtrl.controller('stationViewCtrl',function ($scope) {
@@ -596,7 +595,6 @@ stationCtrl.controller('scrapCtrl',function ($scope) {
         $scope.scrapInfo = false
     }
 });
-=======
 clientCtrl.controller('orderManageCtrl',function ($scope) {
 
 });
@@ -888,4 +886,3 @@ checkScrapCtrl.controller('checkScrap',function ($scope){
     }
 
 })
->>>>>>> 7c1b81c26b6ac12d4ae2a0899a4a81a632641908

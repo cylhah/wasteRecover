@@ -57,4 +57,11 @@ public interface CommunityDao {
     List<Community> selectByName(@Param("name")String name,
                                  @Param("offset")int offset,
                                  @Param("limit")int limit);
+
+    /**
+     * 根据地址模糊查询小区
+     * @param address
+     * @return
+     */
+    List<Community> selectByAddress(String address);
 }

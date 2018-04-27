@@ -69,4 +69,8 @@
 		order BY m.name
     </select>
 
+    <select id="selectByAddress" resultMap="Community">
+        select id from community where  address like #{address} '%'
+    </select>
+
 </mapper>

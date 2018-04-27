@@ -1,7 +1,8 @@
 package org.cbb.wasteRecovery.enums;
 
 public enum OrderStateEnum {
-    SUBMIT(1,"已提交"),
+    SUBMIT(0,"已提交"),
+    RECEIVED(1,"已接受"),
     COMPLETE(2,"已完成"),
     REQUEST_UPDATE(3,"请求更改"),
     REQUEST_CANCEL(4,"请求取消");

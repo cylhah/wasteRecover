@@ -35,7 +35,8 @@ public interface RegisterService {
      * 咨询员注册
      * @param username
      * @param password
+     * @param staid
      * @return
      */
-    boolean RegisteConsultant(String username,String password);
+    boolean RegisteConsultant(String username,String password,String staid);
 }

@@ -42,7 +42,7 @@
         
     </select>
     
-    <select id="selectByUidPage" resultMap="Address1" >
+    <select id="selectByUid" resultMap="Address1" >
         select <include refid="columns"/>
         from useraddress  a
         INNER JOIN community m
