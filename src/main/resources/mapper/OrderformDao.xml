@@ -11,6 +11,7 @@
   <result property="appointTime" column="appointTime"/>
   <result property="updateTime" column="updateTime"/>
   <result property="price" column="price"/>
+    <result property="weightState" column="weight_state"/>
   <collection property="user" resultMap="org.cbb.wasteRecovery.dao.UserDao.User1"/>
   <collection property="collector" resultMap="org.cbb.wasteRecovery.dao.CollectorDao.Collect1"/>
   <collection property="scrapMessageList" resultMap="org.cbb.wasteRecovery.dao.ScrapMessageDao.ref_sm"/>
@@ -52,14 +53,14 @@
 
 	<insert id="insertOrderform">
 
-    insert  into orderform(appointTime,aid,uid)
-    values (#{appointTime},#{aid},#{uid})
+    insert  into orderform(appointTime,aid,uid,weight_state)
+    values (#{appointTime},#{aid},#{uid},#{weightState})
 
     </insert>
 
      <select id="selectById"  resultMap="order" parameterType="long">
         select
-            o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,
+            o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.weight_state,
             c.id col_id,
             c.realName col_realName,
             c.sex col_sex,
@@ -172,10 +173,7 @@
         update
           orderform
         set
-          cid = #{cid},
-          price = #{price},
-          state = #{state},
-          weight = #{weight}
+          state = #{state}
         where
           id = #{id}
       

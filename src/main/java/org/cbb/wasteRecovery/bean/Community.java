@@ -2,18 +2,18 @@ package org.cbb.wasteRecovery.bean;
 
 
 public class Community {
-    private int id;
+    private Integer id;
     private String address;//地址信息
-    private int cid; //回收员id
+    private Integer cid; //回收员id
     private String name; //小区名
 
     private Collector collector;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -25,11 +25,11 @@ public class Community {
         this.address = address;
     }
 
-    public int getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 
@@ -39,6 +39,14 @@ public class Community {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Collector getCollector() {
+        return collector;
+    }
+
+    public void setCollector(Collector collector) {
+        this.collector = collector;
     }
 
     @Override

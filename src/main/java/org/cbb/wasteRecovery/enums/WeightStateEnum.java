@@ -1,21 +1,21 @@
 package org.cbb.wasteRecovery.enums;
 
 public enum WeightStateEnum {
-    ;
+    LIGHT(1,"1kg");
     private int state;
-    private double value;
+    private String info;
 
-    WeightStateEnum(int state, double info) {
+    WeightStateEnum(int state, String info) {
         this.state = state;
-        this.value = info;
+        this.info = info;
     }
 
     public int getState() {
         return state;
     }
 
-    public double getValue() {
-        return value;
+    public String getInfo() {
+        return info;
     }
 
     public static WeightStateEnum stateof(int index){
@@ -27,10 +27,10 @@ public enum WeightStateEnum {
         return null;
     }
 
-    public static WeightStateEnum valueof(double value){
+    public static WeightStateEnum valueof(String info){
         for (WeightStateEnum weightStateEnum:
              values()) {
-            if(weightStateEnum.getValue()-value<1e-6)
+            if(weightStateEnum.getInfo().equals(info))
                 return weightStateEnum;
         }
         return null;

@@ -21,13 +21,12 @@ public class Validate {
     }
     public static boolean validateComplOrder(Orderform orderform){
         if(orderform.getScrapMessageList().size()==0) return false;
-        if(!validateSubmitOrder(orderform)) return false;
-        if(!myMatch(DoublePattern,String.valueOf(orderform.getWeight()))) return false;
-        if(!myMatch(DoublePattern,String.valueOf(orderform.getPrice()))) return false;
+//        if(!myMatch(DoublePattern,String.valueOf(orderform.getWeight()))) return false;
+//        if(!myMatch(DoublePattern,String.valueOf(orderform.getPrice()))) return false;
         for(ScrapMessage scrapMessage:orderform.getScrapMessageList()){
-            if(!myMatch(intPattern,scrapMessage.getScrapid())||!myMatch(longPattern,scrapMessage.getOid()))
+            if(!myMatch(intPattern,scrapMessage.getScrapid()))
                 return false;
-            if(!myMatch(DoublePattern,scrapMessage.getWeight())||!myMatch(DoublePattern,scrapMessage.getPrice()))
+            if(!myMatch(DoublePattern,scrapMessage.getWeight()))
                 return false;
         }
         return true;

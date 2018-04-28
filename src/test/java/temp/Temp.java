@@ -1,7 +1,10 @@
 package temp;
 
+import org.cbb.wasteRecovery.bean.Collector;
+import org.cbb.wasteRecovery.bean.Scrap;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -16,5 +19,11 @@ public class Temp {
         System.out.println(s2);
         System.out.println(pattern2.matcher(s2).matches());
         System.out.println(111);
+    }
+
+    @Test
+    public void testnull(){
+        Scrap scrap=new Scrap();
+        System.out.println(scrap.getUnitPrice()==null);
     }
 }

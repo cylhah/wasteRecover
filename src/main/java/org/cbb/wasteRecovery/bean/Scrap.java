@@ -4,18 +4,18 @@ package org.cbb.wasteRecovery.bean;
  * Created by Colossus on 2018/3/17.
  */
 public class Scrap {
-    private int id;
+    private Integer id;
     private String typeName;//种类名称
     private String name;//废品名称
-    private double unitPrice;//废品单价
-    private double monthVolume;//本月成交额
-    private double totalVolume;//总成交额
+    private Double unitPrice;//废品单价
+    private Double monthVolume;//本月成交额
+    private Double totalVolume;//总成交额
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,27 +35,27 @@ public class Scrap {
         this.name = name;
     }
 
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(double unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public double getMonthVolume() {
+    public Double getMonthVolume() {
         return monthVolume;
     }
 
-    public void setMonthVolume(double monthVolume) {
+    public void setMonthVolume(Double monthVolume) {
         this.monthVolume = monthVolume;
     }
 
-    public double getTotalVolume() {
+    public Double getTotalVolume() {
         return totalVolume;
     }
 
-    public void setTotalVolume(double totalVolume) {
+    public void setTotalVolume(Double totalVolume) {
         this.totalVolume = totalVolume;
     }
 

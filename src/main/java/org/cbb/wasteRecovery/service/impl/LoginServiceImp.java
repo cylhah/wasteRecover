@@ -6,7 +6,6 @@ import org.cbb.wasteRecovery.bean.User;
 import org.cbb.wasteRecovery.dao.CollectorDao;
 import org.cbb.wasteRecovery.dao.ConsultantDao;
 import org.cbb.wasteRecovery.dao.UserDao;
-import org.cbb.wasteRecovery.enums.UserStateEnum;
 import org.cbb.wasteRecovery.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

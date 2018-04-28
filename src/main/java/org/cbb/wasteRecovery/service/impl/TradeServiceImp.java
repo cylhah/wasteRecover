@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -42,7 +43,7 @@ public class TradeServiceImp implements TradeService {
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
 
         int num=orderformDao.insertOrderform(orderform.getAppointTime(),
-                orderform.getAid(),orderform.getUid());
+                orderform.getAid(),orderform.getUid(),orderform.getWeightState());
         if(num==0)
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
 
@@ -85,15 +86,16 @@ public class TradeServiceImp implements TradeService {
     }
 
 
+    @Transactional
     public OrderformExecute completeOrder(Orderform orderform) {
         if(orderform==null||!Validate.validateComplOrder(orderform))
             return new OrderformExecute(orderform,SubmitOrderStatus.FORMAT_EXCEPRION);
         List<ScrapMessage> scrapMessageList=orderform.getScrapMessageList();
+        orderform.setState(OrderStateEnum.COMPLETE.getState());
         int i=0;
         try {
-
             for (ScrapMessage scrapMessage : scrapMessageList) {
-                i=scrapMessageDao.insertScrapMessage(scrapMessage.getOid(), scrapMessage.getScrapid(),
+                i=scrapMessageDao.insertScrapMessage(orderform.getId(), scrapMessage.getScrapid(),
                         scrapMessage.getWeight(), scrapMessage.getPrice());
                 if(i==0)
                     throw  new ComplRepeatException("重复提交");
@@ -101,7 +103,6 @@ public class TradeServiceImp implements TradeService {
             if(orderformDao.submitData(orderform)==0){
                 throw new MessageFormatException("格式异常");
             }
-            return new OrderformExecute(orderform,SubmitOrderStatus.SUCCESS);
         }
         catch (ComplRepeatException cre){
             throw cre;
@@ -113,7 +114,9 @@ public class TradeServiceImp implements TradeService {
             logger.error(e.getMessage(),e);
             throw new CompleteOrderException("服务器内部异常："+e.getMessage());
         }
+        return new OrderformExecute(orderform,SubmitOrderStatus.SUCCESS);
     }
+
 
     public boolean gradeOrderform(Orderform orderform) {
         if(orderformDao.updateRank(orderform.getId(),orderform.getRank())<1)

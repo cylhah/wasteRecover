@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.cbb.wasteRecovery.dao.OrderformDao;
 import org.cbb.wasteRecovery.entity.Page;
 import org.cbb.wasteRecovery.enums.OrderStateEnum;
+import org.cbb.wasteRecovery.enums.WeightStateEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,7 +37,7 @@ public class OrderformDaoTest {
         int aid=2;
         String uid="1001";
 
-        int i=orderformDao.insertOrderform(appointTime, aid, uid);
+        int i=orderformDao.insertOrderform(appointTime, aid, uid,WeightStateEnum.LIGHT.getState());
         System.out.println(i);
     }
 
@@ -118,7 +119,7 @@ public class OrderformDaoTest {
         orderform.setState(2);
         orderform.setCid(1);
         orderform.setWeight(61.23);
-        orderform.setId(2);
+        orderform.setId(2L);
         int i=orderformDao.submitData(orderform);
         System.out.println(i);
     }

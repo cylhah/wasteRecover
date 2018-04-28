@@ -38,7 +38,7 @@ public class SelectServiceImp implements SelectService {
 
     private void setConstrains(FilterEnum filterEnum,Map constrains,Object object){
         try {
-            Field field=object.getClass().getField(filterEnum.getField());
+            Field field=object.getClass().getDeclaredField(filterEnum.getField());
             field.setAccessible(true);
             if (field.get(object)!=null)
                 constrains.put(filterEnum.getColumn(),field.get(object));

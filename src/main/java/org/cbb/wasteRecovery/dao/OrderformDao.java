@@ -22,7 +22,8 @@ public interface OrderformDao {
      */
     int insertOrderform(@Param("appointTime")Timestamp appointTime,
                         @Param("aid")int aid,
-                        @Param("uid")String uid);
+                        @Param("uid")String uid,
+                        @Param("weightState")int weightState);
     /**
      * 根据id查询订单
      * @param id

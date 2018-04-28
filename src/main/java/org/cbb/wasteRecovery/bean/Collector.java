@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Colossus on 2018/3/17.
  */
 public class Collector {
-    private int id;
+    private Integer id;
     private String openid;
     private String realName;
     private String sex;
@@ -18,19 +18,19 @@ public class Collector {
     private String idCardNum;//身份证号
     private String idCardFrontPhoto;//身份证正面照地址
     private String idCardBackPhoto;//身份证背面照地址
-    private int volume;//成交量
+    private Integer volume;//成交量
     private Timestamp createTime;
-    private int state;
-    private int staid;
+    private Integer state;
+    private Integer staid;
 
     private Station station;
     private List<Community> communityList;//负责小区
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,14 +40,6 @@ public class Collector {
 
     public void setOpenid(String openid) {
         this.openid = openid;
-    }
-
-    public int getStaid() {
-        return staid;
-    }
-
-    public void setStaid(int staid) {
-        this.staid = staid;
     }
 
     public String getRealName() {
@@ -122,11 +114,11 @@ public class Collector {
         this.idCardBackPhoto = idCardBackPhoto;
     }
 
-    public int getVolume() {
+    public Integer getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(Integer volume) {
         this.volume = volume;
     }
 
@@ -138,14 +130,21 @@ public class Collector {
         this.createTime = createTime;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
+    public Integer getStaid() {
+        return staid;
+    }
+
+    public void setStaid(Integer staid) {
+        this.staid = staid;
+    }
 
     public Station getStation() {
         return station;
@@ -182,7 +181,6 @@ public class Collector {
                 ", state=" + state +
                 ", staid=" + staid +
                 ", station=" + station +
-                ", communityList=" + communityList +
                 '}';
     }
 }

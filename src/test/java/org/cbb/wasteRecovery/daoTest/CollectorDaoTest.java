@@ -72,7 +72,7 @@ public class CollectorDaoTest {
          * locationX=0.0, locationY=0.0, collectorList=null, consultantList=null},
          * communityList=[]}
          */
-        String phoneNumber="13867888450";
+        String phoneNumber="13867888451";
         String password="qqwasdzxc";
         Collector collector=collectorDao.selectByPhoneNumAndPass(phoneNumber,password);
         System.out.println(collector);

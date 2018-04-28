@@ -29,5 +29,12 @@ public class OrderformExecute {
         return orderform;
     }
 
-
+    @Override
+    public String toString() {
+        return "OrderformExecute{" +
+                "state=" + state +
+                ", info='" + info + '\'' +
+                ", orderform=" + orderform +
+                '}';
+    }
 }

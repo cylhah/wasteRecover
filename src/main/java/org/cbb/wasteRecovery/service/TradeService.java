@@ -1,8 +1,11 @@
 package org.cbb.wasteRecovery.service;
 
 import org.cbb.wasteRecovery.bean.Orderform;
+import org.cbb.wasteRecovery.bean.ScrapMessage;
 import org.cbb.wasteRecovery.entity.OrderformExecute;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface TradeService {
@@ -34,6 +37,7 @@ public interface TradeService {
      * @return ...
      */
     OrderformExecute completeOrder(Orderform orderform);
+
 
     /**
      * 对已完成的订单进行评分
