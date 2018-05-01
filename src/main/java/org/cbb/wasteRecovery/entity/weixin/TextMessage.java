@@ -1,33 +1,15 @@
 package org.cbb.wasteRecovery.entity.weixin;
 
-import java.util.List;
 
-public class TextMessage {
-    private String touser;
-    private String template_id;
-    private List<String> data;
+public class TextMessage extends Message {
+    private String Content;
 
-    public String getTouser() {
-        return touser;
+    public String getContent() {
+        return Content;
     }
 
-    public void setTouser(String touser) {
-        this.touser = touser;
+    public void setContent(String content) {
+        Content = content;
     }
 
-    public String getTemplate_id() {
-        return template_id;
-    }
-
-    public void setTemplate_id(String template_id) {
-        this.template_id = template_id;
-    }
-
-    public List<String> getData() {
-        return data;
-    }
-
-    public void setData(List<String> data) {
-        this.data = data;
-    }
 }

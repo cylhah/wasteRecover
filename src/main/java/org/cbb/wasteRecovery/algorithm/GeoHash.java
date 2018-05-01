@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity;
+package org.cbb.wasteRecovery.algorithm;
 
 import java.util.BitSet;
 import java.util.HashMap;

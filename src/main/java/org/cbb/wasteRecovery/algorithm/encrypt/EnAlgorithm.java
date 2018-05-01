@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity.encrypt;
+package org.cbb.wasteRecovery.algorithm.encrypt;
 
 public interface EnAlgorithm {
     /**

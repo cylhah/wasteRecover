@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity;
+package org.cbb.wasteRecovery.algorithm;
 
 import org.cbb.wasteRecovery.bean.Community;
 import org.cbb.wasteRecovery.bean.UserAddress;

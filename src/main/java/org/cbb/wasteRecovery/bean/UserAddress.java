@@ -1,7 +1,5 @@
 package org.cbb.wasteRecovery.bean;
 
-import org.cbb.wasteRecovery.entity.GeoHash;
-
 /**
  * Created by Colossus on 2018/3/17.
  */

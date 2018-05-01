@@ -2,9 +2,7 @@ package org.cbb.wasteRecovery.daoTest;
 
 
 import org.cbb.wasteRecovery.bean.Community;
-import org.cbb.wasteRecovery.bean.UserAddress;
 import org.cbb.wasteRecovery.dao.CommunityDao;
-import org.cbb.wasteRecovery.entity.MatchCommunity;
 import org.cbb.wasteRecovery.entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;

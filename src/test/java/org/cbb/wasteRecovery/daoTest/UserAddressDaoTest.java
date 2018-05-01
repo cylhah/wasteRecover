@@ -4,7 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.UserAddressDao;
-import org.cbb.wasteRecovery.entity.GeoHash;
+import org.cbb.wasteRecovery.algorithm.GeoHash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

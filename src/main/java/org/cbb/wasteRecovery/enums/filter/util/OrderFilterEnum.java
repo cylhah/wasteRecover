@@ -1,6 +1,8 @@
-package org.cbb.wasteRecovery.enums.filter;
+package org.cbb.wasteRecovery.enums.filter.util;
 
-public enum OrderFilterEnum implements FilterEnum{
+import org.cbb.wasteRecovery.enums.filter.FilterEnum;
+
+public enum OrderFilterEnum implements FilterEnum {
     COLLECTOR("cid","cid"),
     UPDATETIME("updateTime","updateTime"),
     STATE("state","state"),

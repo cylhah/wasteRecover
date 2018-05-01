@@ -1,11 +1,10 @@
 package org.cbb.wasteRecovery.service.impl;
 
 import org.cbb.wasteRecovery.bean.Collector;
-import org.cbb.wasteRecovery.bean.Consultant;
 import org.cbb.wasteRecovery.dao.CollectorDao;
 import org.cbb.wasteRecovery.dao.ConsultantDao;
 import org.cbb.wasteRecovery.entity.Page;
-import org.cbb.wasteRecovery.enums.filter.CollectorFilterEnum;
+import org.cbb.wasteRecovery.enums.filter.util.CollectorFilterEnum;
 import org.cbb.wasteRecovery.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

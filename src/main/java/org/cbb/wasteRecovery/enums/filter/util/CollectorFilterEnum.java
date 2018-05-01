@@ -1,6 +1,8 @@
-package org.cbb.wasteRecovery.enums.filter;
+package org.cbb.wasteRecovery.enums.filter.util;
 
-public enum CollectorFilterEnum implements FilterEnum{
+import org.cbb.wasteRecovery.enums.filter.FilterEnum;
+
+public enum CollectorFilterEnum implements FilterEnum {
     NAME("realName","realName"),
     PHONE_NUMBER("phoneNumber","phoneNumber"),
     IDCARD_NUM("idCardNum","idCardNum"),;

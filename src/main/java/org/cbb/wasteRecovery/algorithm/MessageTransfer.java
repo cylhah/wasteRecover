@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity.weixin;
+package org.cbb.wasteRecovery.algorithm;
 
 import com.thoughtworks.xstream.XStream;
 import org.cbb.wasteRecovery.entity.weixin.TextMessage;

@@ -4,7 +4,7 @@ import org.cbb.wasteRecovery.bean.Orderform;
 import org.cbb.wasteRecovery.bean.ScrapMessage;
 import org.cbb.wasteRecovery.dao.*;
 import org.cbb.wasteRecovery.entity.OrderformExecute;
-import org.cbb.wasteRecovery.entity.Validate;
+import org.cbb.wasteRecovery.algorithm.Validate;
 import org.cbb.wasteRecovery.enums.OrderStateEnum;
 import org.cbb.wasteRecovery.enums.SubmitOrderStatus;
 import org.cbb.wasteRecovery.exception.ComplRepeatException;

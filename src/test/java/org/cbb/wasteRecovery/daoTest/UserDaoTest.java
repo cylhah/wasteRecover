@@ -1,11 +1,8 @@
 package org.cbb.wasteRecovery.daoTest;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.cbb.wasteRecovery.dao.UserDao;
-import org.cbb.wasteRecovery.entity.GeoHash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

@@ -1,4 +1,6 @@
-package org.cbb.wasteRecovery.entity.encrypt;
+package org.cbb.wasteRecovery.algorithm.encrypt;
+import org.cbb.wasteRecovery.algorithm.encrypt.EnAlgorithm;
+
 import java.security.MessageDigest;
 
 /**
