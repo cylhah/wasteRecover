@@ -72,7 +72,7 @@ public class SelectServiceImp implements SelectService {
         return userAddressDao.selectByUid(openid);
     }
 
-    public List<Orderform> FilterOrders(Orderform orderform, Page page) {
+    public List<Orderform> filterOrders(Orderform orderform, Page page) {
         if(orderform==null||page==null)
             return null;
         Map constrains=new HashMap();
@@ -94,7 +94,7 @@ public class SelectServiceImp implements SelectService {
         return collectorDao.selectById(Integer.parseInt(cid));
     }
 
-    public List<Collector> FilterCollector(Collector collector, Page page) {
+    public List<Collector> filterCollector(Collector collector, Page page) {
         Map constrains=new HashMap();
         for(CollectorFilterEnum filterEnum:CollectorFilterEnum.values()){
             setConstrains(filterEnum,constrains,collector);
@@ -102,7 +102,7 @@ public class SelectServiceImp implements SelectService {
         return collectorDao.filterCollPage(constrains,page);
     }
 
-    public List<Scrap> FilterScraps(Scrap scrap, Page page) {
+    public List<Scrap> filterScraps(Scrap scrap, Page page) {
         Map constrains=new HashMap();
         for(ScrapFilterEnum filterEnum:ScrapFilterEnum.values()){
             setConstrains(filterEnum,constrains,scrap);

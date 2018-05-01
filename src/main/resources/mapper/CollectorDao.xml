@@ -56,8 +56,7 @@
 
     <select id="selectById" resultMap="Collect" parameterType="int">
         select <include refid="columns"/>
-		from
-			collector c
+		from <include refid="join"/>
 		where c.id=#{id}
     </select>
 

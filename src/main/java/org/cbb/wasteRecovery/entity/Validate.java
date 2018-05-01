@@ -26,7 +26,7 @@ public class Validate {
         for(ScrapMessage scrapMessage:orderform.getScrapMessageList()){
             if(!myMatch(intPattern,scrapMessage.getScrapid()))
                 return false;
-            if(!myMatch(DoublePattern,scrapMessage.getWeight()))
+            if(!myMatch(DoublePattern,scrapMessage.getWeight())||!myMatch(DoublePattern,scrapMessage.getPrice()))
                 return false;
         }
         return true;

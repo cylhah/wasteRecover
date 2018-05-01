@@ -15,7 +15,7 @@ public class Orderform {
     private Double weight;//废品总重量
     private Timestamp createTime;
     private Timestamp appointTime;//预约时间
-    private Timestamp updateTime;//信息更新时间(数据库自动更新)
+    private String updateTime;//信息更新时间(数据库自动更新)
     private Double price;//订单最终成交价格
     private Integer rank;
     private Integer weightState;
@@ -89,11 +89,11 @@ public class Orderform {
         this.appointTime = appointTime;
     }
 
-    public Timestamp getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

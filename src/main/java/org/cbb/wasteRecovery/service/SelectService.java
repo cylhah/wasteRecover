@@ -38,7 +38,7 @@ public interface SelectService {
      * @param page
      * @return
      */
-    List<Orderform> FilterOrders(Orderform orderform,Page page);
+    List<Orderform> filterOrders(Orderform orderform, Page page);
 
     /**
      * 根据订单id查询订单详细信息
@@ -60,7 +60,7 @@ public interface SelectService {
      * @param page
      * @return
      */
-    List<Collector> FilterCollector(Collector collector,Page page);
+    List<Collector> filterCollector(Collector collector, Page page);
 
     /**
      * 筛选废品
@@ -68,7 +68,7 @@ public interface SelectService {
      * @param page
      * @return
      */
-    List<Scrap> FilterScraps(Scrap scrap,Page page);
+    List<Scrap> filterScraps(Scrap scrap, Page page);
 
 
 }

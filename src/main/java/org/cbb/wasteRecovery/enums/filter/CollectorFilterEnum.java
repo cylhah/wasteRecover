@@ -8,7 +8,7 @@ public enum CollectorFilterEnum implements FilterEnum{
     private String column;
     private String field;
 
-    private String alias="c";
+    private String alias="c.";
 
     CollectorFilterEnum(String column, String field) {
         this.column = alias+column;

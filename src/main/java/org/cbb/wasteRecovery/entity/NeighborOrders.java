@@ -20,4 +20,12 @@ public class NeighborOrders {
     public List<Orderform> getOrderformList() {
         return orderformList;
     }
+
+    @Override
+    public String toString() {
+        return "NeighborOrders{" +
+                "number=" + number +
+                ", orderformList=" + orderformList +
+                '}';
+    }
 }

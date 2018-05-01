@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity;
+package org.cbb.wasteRecovery.entity.weixin;
 
 import java.util.List;
 

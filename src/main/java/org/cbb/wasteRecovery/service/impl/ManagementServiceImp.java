@@ -3,6 +3,7 @@ package org.cbb.wasteRecovery.service.impl;
 import org.cbb.wasteRecovery.bean.Community;
 import org.cbb.wasteRecovery.bean.UserAddress;
 import org.cbb.wasteRecovery.dao.*;
+import org.cbb.wasteRecovery.entity.GeoHash;
 import org.cbb.wasteRecovery.entity.MatchCommunity;
 import org.cbb.wasteRecovery.service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class ManagementServiceImp implements ManagementService {
         if (userAddress==null) return false;
         Community community=MatchCommunity.FindCommunity(userAddress,communityDao);
         userAddress.setCommunity_id(community.getId());
+        userAddress.setGeohash(new GeoHash().encode(userAddress.getLocationX(),userAddress.getLocationY()));
         userAddressDao.insertAddress(userAddress);
         return true;
     }

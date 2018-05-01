@@ -60,7 +60,7 @@
 
      <select id="selectById"  resultMap="order" parameterType="long">
         select
-            o.id,o.state,o.weight,o.createTime,o.appointTime,o.updateTime,o.price,o.weight_state,
+            o.id,o.state,o.weight,o.createTime,o.appointTime,date_format(o.updateTime,'%Y-%m-%d %H:%i:%s') updateTime,o.price,o.weight_state,
             c.id col_id,
             c.realName col_realName,
             c.sex col_sex,
@@ -90,7 +90,7 @@
 
     <select id="filterOrderPage" resultMap="order" parameterType="java.util.Map">
         select
-            o.id,o.state,o.updateTime,o.price,
+            o.id,o.state,date_format(o.updateTime,'%Y-%m-%d %H:%i:%s') updateTime,o.price,
             c.id col_id,
             c.realName col_realName,
             a.id ua_id,

@@ -34,7 +34,7 @@ public class UserAddressDaoTest {
         userAddress.setCommunity_id(1);
         userAddress.setLocationX(89.11);
         userAddress.setLocationY(91.25);
-        userAddress.setGeohash();
+        userAddress.setGeohash(new GeoHash().encode(userAddress.getLocationX(),userAddress.getLocationY()));
         userAddress.setDetail("西和公寓707");
         userAddress.setPhoneNumber("137222222222");
         userAddress.setName("汪宏斌");
