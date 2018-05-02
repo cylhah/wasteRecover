@@ -1,5 +1,4 @@
-package org.cbb.wasteRecovery.algorithm.encrypt;
-import org.cbb.wasteRecovery.algorithm.encrypt.EnAlgorithm;
+package org.cbb.wasteRecovery.algorithm;
 
 import java.security.MessageDigest;
 
@@ -8,7 +7,7 @@ import java.security.MessageDigest;
  *
  * @author levi
  */
-public class SHA1 implements EnAlgorithm {
+public class SHA1 {
     private  final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5',
             '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 

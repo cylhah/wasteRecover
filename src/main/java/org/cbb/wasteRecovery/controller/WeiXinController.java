@@ -1,6 +1,10 @@
 package org.cbb.wasteRecovery.controller;
 
+import org.cbb.wasteRecovery.algorithm.MessageTransfer;
+import org.cbb.wasteRecovery.entity.weixin.TextMessage;
+import org.cbb.wasteRecovery.enums.MesTypeEnum;
 import org.cbb.wasteRecovery.service.WeiXinInteractService;
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,17 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/weixin")
 public class WeiXinController {
+    public static WeiXinInteractService weiXinInteractService;
+
     @Autowired
-    WeiXinInteractService weiXinInteractService;
+    public void setWeiXinInteractService(WeiXinInteractService weiXinInteractService){
+        WeiXinController.weiXinInteractService=weiXinInteractService;
+    }
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public void buttJoint(HttpServletRequest request, HttpServletResponse response)  {
+    public void buttJoint(HttpServletRequest request, HttpServletResponse response)throws IOException  {
         String signature=request.getParameter("signature");
         String timestamp=request.getParameter("timestamp");
         String nonce=request.getParameter("nonce");
@@ -32,17 +44,12 @@ public class WeiXinController {
         alls.add(nonce);
         alls.add(echostr);
 
-        PrintWriter printWriter= null;
-        try {
-            printWriter = response.getWriter();
-            for(String s:alls){
-                if(s==null||s.equals("")){
-                    printWriter.println("get存在空值");
-                    return;
-                }
+        PrintWriter printWriter= response.getWriter();
+        for(String s:alls) {
+            if (s == null || s.equals("")) {
+                printWriter.println("get存在空值");
+                return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         if(weiXinInteractService.checkSignature(signature,timestamp,nonce))
@@ -52,7 +59,14 @@ public class WeiXinController {
     }
 
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public void interact(HttpServletRequest request,HttpServletResponse response){
+    public void interact(HttpServletRequest request,HttpServletResponse response) throws IOException, DocumentException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+        Map<String,String> msg=MessageTransfer.xmlToMap(request);
+        Object obj=MessageTransfer.mapObj(msg);
+        String reply= MessageTransfer.textMessToXml((TextMessage)weiXinInteractService.TextReply(obj));
+        PrintWriter printWriter=response.getWriter();
+        printWriter.print(reply);
         return;
     }
+
+
 }

@@ -2,6 +2,8 @@ package temp;
 
 import org.cbb.wasteRecovery.bean.Collector;
 import org.cbb.wasteRecovery.bean.Scrap;
+import org.cbb.wasteRecovery.entity.weixin.Message;
+import org.cbb.wasteRecovery.entity.weixin.TextMessage;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -25,5 +27,32 @@ public class Temp {
     public void testnull(){
         Scrap scrap=new Scrap();
         System.out.println(scrap.getUnitPrice()==null);
+    }
+
+    @Test
+    public void testReflect() throws ClassNotFoundException {
+         Class myclass= Class.forName("org.cbb.wasteRecovery.entity.weixin.TextMessage");
+         Class superclass=myclass.getSuperclass();
+         Class bigsuper=superclass.getSuperclass();
+         System.out.println(bigsuper.getSimpleName());
+         Field[] fields=myclass.getDeclaredFields();
+         Field[] superfiellds=superclass.getDeclaredFields();
+
+         for(Field field:superfiellds){
+             System.out.println(field.getName());
+         }
+         for(Field field:fields){
+             System.out.println(field.getName());
+         }
+    }
+
+    @Test
+    public void testParentTransfer(){
+//        Message message = new Message();
+//        Class clazz=((TextMessage)message).getClass();
+//        Field[] fields=clazz.getDeclaredFields();
+//        for(Field field:fields){
+//            System.out.println(field.getName());
+//        }
     }
 }
