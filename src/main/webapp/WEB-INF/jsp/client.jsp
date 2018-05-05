@@ -55,6 +55,7 @@
                 <p><a href="#!/myOrders" data-dismiss="modal" ng-click="gotoMyOrders()"><span class="glyphicon glyphicon-pencil"></span>开始订单</a> </p>
                 <p><a href="#!/orderManage" data-dismiss="modal" ng-click="gotoOrderManage()"><span class="glyphicon glyphicon-file"></span>我的订单</a></p>
                 <p><a href="#!/myAddress" data-dismiss="modal" ng-click="gotoMyAddress()"><span class="glyphicon glyphicon-home"></span>地址管理</a></p>
+                <p><a href="#!/searchScrap" data-dismiss="modal" ng-click="gotoSearchScrap()"><span class="glyphicon glyphicon-search"></span>查询废品</a></p>
             </div>
         </div>
 

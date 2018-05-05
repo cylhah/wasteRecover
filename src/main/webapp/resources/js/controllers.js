@@ -58,13 +58,15 @@ clientCtrl.controller('clientViewCtrl',function ($scope,clientFty) {
     $scope.gotoOrderManage = function () {
         window.location.href = "#!/orderManage";
     };
+    $scope.gotoSearchScrap = function () {
+        window.location.href = "#!/searchScrap";
+    };
     function startOrder() {
         window.location.href = "#!/myOrders";
     }
 });
 
 clientCtrl.controller('orderManageCtrl',function ($scope,clientFty) {
-    $scope.score = "4";
     $scope.scoreTable = true;
     $scope.pages = [];
     $scope.orders = clientFty.orderInfo;
@@ -86,6 +88,14 @@ clientCtrl.controller('orderManageCtrl',function ($scope,clientFty) {
             }
         });
     });
+    var swiperScore = new Swiper('.swiperScore', {
+        direction: 'vertical',
+        slidesPerView: 3,
+        loop:true
+    });
+    $scope.closeScore = function () {
+        $scope.scoreTable = true;
+    };
     $scope.scoreCol = function (index) {
         $scope.scoreTable = false;
         $scope.scoreIndex = index;
@@ -93,7 +103,8 @@ clientCtrl.controller('orderManageCtrl',function ($scope,clientFty) {
     $scope.submitScore = function () {
         $scope.scoreTable = true;
         $scope.orders[$scope.scoreIndex].scoreType = 1;
-        var data1 = {"orderId":$scope[$scope.scoreIndex].orderId,"colId":$scope[$scope.scoreIndex].server.id,"score":$scope.score};
+        var score = parseInt($(".score.swiper-slide-active").text().substring(0,1));
+        var data1 = {"orderId":$scope[$scope.scoreIndex].orderId,"colId":$scope[$scope.scoreIndex].server.id,"score":score};
         // clientFty
     }
 });
@@ -264,6 +275,28 @@ clientCtrl.controller('myOrdersCtrl',function ($scope,clientFty) {
             $scope.realTime = $scope.realTime + ' '+$scope.time.substring(2,4)+":"+$scope.time.substring(5,7);
         }
     }
+});
+clientCtrl.controller('searchScrapCtrl',function ($scope) {
+    $scope.scrapName = "2";
+    $scope.noEdit = true;
+    $scope.oneScrap = {};
+    var count = 1;
+    $scope.$watch('scrapName',function () {
+        if(count == 1){
+            $scope.oneScrap.typeName = "金属";
+            $scope.oneScrap.name = "铁板";
+            $scope.oneScrap.unitPrice = 1.3;
+            $scope.scrapImageUrl = '../images/scrap2.png';
+            count = 2;
+        }
+        else{
+            $scope.oneScrap.typeName = "金属";
+            $scope.oneScrap.name = "铁片";
+            $scope.oneScrap.unitPrice = 0.9;
+            $scope.scrapImageUrl = '../images/scrap1.png';
+            count = 1;
+        }
+    })
 });
 
 clientCtrl.controller('myAddressCtrl',function ($scope,clientFty) {
@@ -593,43 +626,6 @@ stationCtrl.controller('scrapCtrl',function ($scope) {
         $scope.oneScrap = $scope.scraps[index];
         $scope.scrapTable = true;
         $scope.scrapInfo = false
-    }
-});
-clientCtrl.controller('orderManageCtrl',function ($scope) {
-
-});
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
-var loginCtrl = angular.module('loginCtrl',[]);
-
-loginCtrl.controller('loginCtrl',function ($scope,$http) {
-    $scope.loginType = "client";
-    $scope.login = function () {
-        var data = {"loginType":$scope.loginType,"account":$scope.account,"password":$scope.password};
-        $http({
-            method:"post",
-            url:"login",
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data:$.param(data)
-        }).success(function (result) {
-            if(result=="false")
-            {
-                $("#message").html('<span class="glyphicon glyphicon-remove-sign""></span>'+"用户名或密码错误");
-            }
-            else
-            {
-                $("#message").html("");
-                if($scope.loginType=="client"){
-                    window.location.href = "client.jsp";
-                }
-                else if($scope.loginType=="server"){
-                    window.location.href = "server.jsp";
-                }
-                else if($scope.loginType=="corporation"){
-                    window.location.href = "corporation.jsp";
-                }
-            }
-        });
     }
 });
 // ----------------------------------------------------------------------------

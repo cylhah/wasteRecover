@@ -47,25 +47,44 @@
             color: rgb(175,175,175);
             margin: 0;
         }
-        .swiper-container{
+        .swiperOrders{
             height: 384px;
         }
-        .swiper-slide{
-            height: 128px;
+        /*.swiper-slide{*/
+            /*height: 128px;*/
+        /*}*/
+        .score.swiper-slide{
+            font-weight: bold;
+            color: black;
+            opacity: 0.4;
+        }
+        .score.swiper-slide-next,.swiper-slide-prev{
+            opacity: 0.7;
+        }
+        .score.swiper-slide-active{
+            color: white;
+            opacity: 1;
         }
         .score{
             font-size: 13px;
             padding: 0 3px;
         }
-        .scoreCol{
-            position: absolute;
+        .swiperScore{
+            height: 200px;
+        }
+        .scoreTable{
             z-index: 16;
-            top: 30%;
-            left: 50%;
-            margin-left: -50px;
-            background: rgb(1,207,207);
-            padding: 15px;
-            border-radius: 8px;
+            transition: all linear 0.3s;
+            height: 200px;
+            text-align: center;
+            background: rgba(48,48,48,0.8);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 0;
+        }
+        .scoreTable.ng-hide{
+            height: 0;
         }
     </style>
     <title>订单管理</title>
@@ -99,18 +118,34 @@
     </div>
 </div>
 
-<div class="scoreCol" ng-hide="scoreTable">
-    <select ng-model="score">
-        <option value="0">0分</option>
-        <option value="1">1分</option>
-        <option value="2">2分</option>
-        <option value="3">3分</option>
-        <option value="4">4分</option>
-        <option value="5">5分</option>
-    </select>
-    <button class="score btn btn-primary" ng-click="submitScore()">确认</button>
-</div>
 
+<div class="container scoreTable" ng-hide="scoreTable">
+    <div class="col-xs-12">
+        <div class="col-xs-3" style="padding: 8px 0 0 5px;text-align: center">
+            <a href="" style="color:grey;font-size: 15px;font-weight: bold" ng-click="closeScore()">取消</a>
+        </div>
+        <div class="col-xs-6">
+            <p style="color: white;font-size: 25px;">选择分数</p>
+        </div>
+        <div class="col-xs-3" style="padding: 8px 0 0 5px;text-align: center">
+            <a href="" style="font-size: 15px;color: rgb(98,206,98);font-weight: bold" ng-click="submitScore()">确定</a>
+        </div>
+    </div>
+    <div style="width: 100%;height: 30px;background: rgba(98, 206, 98,0.9);position: absolute;top: 42px;">
+
+    </div>
+    <div class="col-xs-12">
+        <div class="swiper-container swiperScore">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide score">1分</div>
+                <div class="swiper-slide score">2分</div>
+                <div class="swiper-slide score">3分</div>
+                <div class="swiper-slide score">4分</div>
+                <div class="swiper-slide score">5分</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
