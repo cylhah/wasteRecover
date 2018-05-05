@@ -62,6 +62,7 @@
         select
             o.id,o.state,o.weight,o.createTime,o.appointTime,date_format(o.updateTime,'%Y-%m-%d %H:%i:%s') updateTime,o.price,o.weight_state,
             c.id col_id,
+            c.openid col_openid,
             c.realName col_realName,
             c.sex col_sex,
             c.phoneNumber col_phoneNumber,

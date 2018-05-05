@@ -1,8 +1,8 @@
 package org.cbb.wasteRecovery.service.impl;
 
-import org.cbb.wasteRecovery.algorithm.SHA1;
-import org.cbb.wasteRecovery.entity.weixin.TextMessage;
-import org.cbb.wasteRecovery.enums.MesTypeEnum;
+import org.cbb.wasteRecovery.util.SHA1;
+import org.cbb.wasteRecovery.entity.weixin.mess.TextMessage;
+import org.cbb.wasteRecovery.enums.weixin.MesTypeEnum;
 import org.cbb.wasteRecovery.service.WeiXinInteractService;
 import org.springframework.stereotype.Service;
 

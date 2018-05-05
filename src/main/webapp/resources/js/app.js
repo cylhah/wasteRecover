@@ -37,7 +37,7 @@ var clientApp = angular.module('clientApp',['ngRoute','ngAnimate','clientCtrl','
 
 clientApp.config(function ($routeProvider) {
     $routeProvider.when('/myOrders',{
-        templateUrl:'../tpl/myOrders.jsp',
+        templateUrl:'/resources/tpl/myOrders.html',
         controller:'myOrdersCtrl'
     }).when('/myAddress',{
         templateUrl:'../tpl/myAddress.jsp',

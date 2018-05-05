@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.algorithm;
+package org.cbb.wasteRecovery.util;
 
 import org.cbb.wasteRecovery.bean.Orderform;
 import org.cbb.wasteRecovery.bean.ScrapMessage;

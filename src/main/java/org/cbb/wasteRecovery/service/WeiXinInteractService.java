@@ -20,4 +20,5 @@ public interface WeiXinInteractService {
      */
     Object TextReply(Object textMessage);
 
+
 }

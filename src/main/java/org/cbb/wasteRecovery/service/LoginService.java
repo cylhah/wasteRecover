@@ -9,10 +9,10 @@ import javax.servlet.http.HttpSession;
 public interface LoginService {
     /**
      * 用户凭借openid登录
-     * @param openid
+     * @param code
      * @return
      */
-    User userLogin(String openid);
+    User userLogin(String code);
 
     /**
      * 回收员登录

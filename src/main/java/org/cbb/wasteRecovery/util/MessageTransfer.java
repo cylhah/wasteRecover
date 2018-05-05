@@ -1,8 +1,7 @@
-package org.cbb.wasteRecovery.algorithm;
+package org.cbb.wasteRecovery.util;
 
 import com.thoughtworks.xstream.XStream;
-import org.cbb.wasteRecovery.entity.weixin.TextMessage;
-import org.cbb.wasteRecovery.enums.MesTypeEnum;
+import org.cbb.wasteRecovery.enums.weixin.MesTypeEnum;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -45,11 +44,11 @@ public class MessageTransfer {
         return map;
     }
 
-    public static String textMessToXml (TextMessage textMessage){
+    public static String MessToXml(Object message){
         XStream xStream=new XStream();
-        xStream.alias("xml",textMessage.getClass());
-        System.out.println(xStream.toXML(textMessage));
-        return  xStream.toXML(textMessage);
+        xStream.alias("xml",message.getClass());
+        System.out.println(xStream.toXML(message));
+        return  xStream.toXML(message);
     }
 
     public static Object mapObj(Map<String,String> msg) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {

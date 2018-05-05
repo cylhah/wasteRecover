@@ -1,5 +1,6 @@
 package org.cbb.wasteRecovery.service.impl;
 
+import net.sf.json.JSONObject;
 import org.cbb.wasteRecovery.bean.Collector;
 import org.cbb.wasteRecovery.bean.Consultant;
 import org.cbb.wasteRecovery.bean.User;
@@ -7,6 +8,7 @@ import org.cbb.wasteRecovery.dao.CollectorDao;
 import org.cbb.wasteRecovery.dao.ConsultantDao;
 import org.cbb.wasteRecovery.dao.UserDao;
 import org.cbb.wasteRecovery.service.LoginService;
+import org.cbb.wasteRecovery.util.WeiXinHttpOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 
 @Service
 public class LoginServiceImp implements LoginService {
+    private final String GETOPENID_URL ="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+
     @Autowired
     private UserDao userDao;
 
@@ -25,12 +29,23 @@ public class LoginServiceImp implements LoginService {
     @Autowired
     private ConsultantDao consultantDao;
 
-    public User userLogin(String openid) {
+    private String getOpenid(String code){
+        String realUrl= GETOPENID_URL.replace("APPID",WeiXinHttpOperation.APPID).replace
+                ("SECRET",WeiXinHttpOperation.APPSECRET).replace("CODE",code);
+        JSONObject jsonObject=WeiXinHttpOperation.doGet(realUrl);
+        return jsonObject.getString("openid");
+    }
+
+    public User userLogin(String code) {
+        String openid=getOpenid(code);
+        User user;
         if(openid.equals("")||openid==null)
             return null;
-        userDao.insertUser(openid);
-
-        return userDao.selectById(openid);
+        if((user=userDao.selectById(openid))==null) {
+            userDao.insertUser(openid);
+            return userDao.selectById(openid);
+        }
+        return user;
     }
 
     public Collector collectorLogin(String phoneNumber, String password,String openid) {
@@ -47,7 +62,8 @@ public class LoginServiceImp implements LoginService {
 
     }
 
-    public Collector collectorLogin(String openid) {
+    public Collector collectorLogin(String code) {
+        String openid=getOpenid(code);
         if(openid==null||openid.equals(""))
             return null;
         return collectorDao.selectByOpenid(openid);
@@ -63,4 +79,6 @@ public class LoginServiceImp implements LoginService {
     public boolean consultantSignOut(HttpSession httpSession) {
         return false;
     }
+
+
 }

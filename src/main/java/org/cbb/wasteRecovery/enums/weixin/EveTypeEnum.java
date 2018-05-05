@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.enums;
+package org.cbb.wasteRecovery.enums.weixin;
 
 public enum EveTypeEnum {
     SUBSCRIBE("subscribe",""),

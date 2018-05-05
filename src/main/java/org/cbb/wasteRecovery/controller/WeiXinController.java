@@ -1,8 +1,7 @@
 package org.cbb.wasteRecovery.controller;
 
-import org.cbb.wasteRecovery.algorithm.MessageTransfer;
-import org.cbb.wasteRecovery.entity.weixin.TextMessage;
-import org.cbb.wasteRecovery.enums.MesTypeEnum;
+import org.cbb.wasteRecovery.enums.weixin.MesTypeEnum;
+import org.cbb.wasteRecovery.util.MessageTransfer;
 import org.cbb.wasteRecovery.service.WeiXinInteractService;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +59,15 @@ public class WeiXinController {
     public void interact(HttpServletRequest request,HttpServletResponse response) throws IOException, DocumentException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         Map<String,String> msg=MessageTransfer.xmlToMap(request);
         Object obj=MessageTransfer.mapObj(msg);
-        String reply= MessageTransfer.textMessToXml((TextMessage)weiXinInteractService.TextReply(obj));
-        PrintWriter printWriter=response.getWriter();
-        printWriter.print(reply);
+        for(MesTypeEnum typeEnum:MesTypeEnum.values()){
+            if(msg.get("MsgType").equals(typeEnum.getType())){
+                Object temp=typeEnum.invoke(obj);
+                String reply=MessageTransfer.MessToXml(obj);
+                PrintWriter printWriter=response.getWriter();
+                printWriter.print(reply);
+                break;
+            }
+        }
         return;
     }
 

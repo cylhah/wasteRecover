@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity.weixin;
+package org.cbb.wasteRecovery.entity.weixin.mess;
 
 public class Message {
     private String ToUserName;

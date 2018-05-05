@@ -23,6 +23,7 @@
 </resultMap>
  <resultMap type="org.cbb.wasteRecovery.bean.Collector" id="Collect1">
         <id property="id" column="col_id"/>
+        <result property="openid" column="col_openid"/>
         <result property="realName" column="col_realName"/>
         <result property="sex" column="col_sex"/>
         <result property="avater" column="col_avater"/>

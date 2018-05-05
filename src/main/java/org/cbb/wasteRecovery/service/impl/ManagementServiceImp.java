@@ -3,8 +3,8 @@ package org.cbb.wasteRecovery.service.impl;
 import org.cbb.wasteRecovery.bean.Community;
 import org.cbb.wasteRecovery.bean.UserAddress;
 import org.cbb.wasteRecovery.dao.*;
-import org.cbb.wasteRecovery.algorithm.GeoHash;
-import org.cbb.wasteRecovery.algorithm.MatchCommunity;
+import org.cbb.wasteRecovery.util.GeoHash;
+import org.cbb.wasteRecovery.util.MatchCommunity;
 import org.cbb.wasteRecovery.service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 

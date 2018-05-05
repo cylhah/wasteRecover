@@ -5,7 +5,7 @@ import org.cbb.wasteRecovery.dao.CollectorDao;
 import org.cbb.wasteRecovery.dao.OrderformDao;
 import org.cbb.wasteRecovery.dao.ScrapDao;
 import org.cbb.wasteRecovery.dao.UserAddressDao;
-import org.cbb.wasteRecovery.algorithm.GeoHash;
+import org.cbb.wasteRecovery.util.GeoHash;
 import org.cbb.wasteRecovery.entity.NeighborOrders;
 import org.cbb.wasteRecovery.entity.Page;
 import org.cbb.wasteRecovery.enums.filter.util.CollectorFilterEnum;

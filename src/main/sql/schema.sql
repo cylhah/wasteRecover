@@ -1,4 +1,3 @@
-CREATE DATABASE replatform;
 CREATE TABLE `station` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL ,

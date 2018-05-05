@@ -1,4 +1,4 @@
-package org.cbb.wasteRecovery.entity.weixin;
+package org.cbb.wasteRecovery.entity.weixin.mess;
 
 
 public class TextMessage extends Message {
