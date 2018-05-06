@@ -42,10 +42,10 @@ clientCtrl.controller('clientViewCtrl',function ($scope,clientFty) {
         map.enableScrollWheelZoom(true);
         map.centerAndZoom("北京",10);
         map.centerAndZoom(clientFty.addressInfo[0].address,18);
-        var marker = new BMap.Marker(new BMap.Point(clientFty.addressInfo[0].point.lng, clientFty.addressInfo[0].point.lat),{icon:new BMap.Icon("../images/myicon_order.jpg", new BMap.Size(50,42))});
+        var marker = new BMap.Marker(new BMap.Point(clientFty.addressInfo[0].point.lng, clientFty.addressInfo[0].point.lat),{icon:new BMap.Icon("../resources/images/myicon_order.jpg", new BMap.Size(50,42))});
         marker.addEventListener('click',startOrder);
         for (var i=0;i<clientFty.ordersAroundInfo.length;i++){
-            map.addOverlay(new BMap.Marker(new BMap.Point(clientFty.ordersAroundInfo[i].lng, clientFty.ordersAroundInfo[i].lat),{icon:new BMap.Icon("../images/neiborIcon.png", new BMap.Size(30,24))}));
+            map.addOverlay(new BMap.Marker(new BMap.Point(clientFty.ordersAroundInfo[i].lng, clientFty.ordersAroundInfo[i].lat),{icon:new BMap.Icon("..//images/neiborIcon.png", new BMap.Size(30,24))}));
         }
         map.addOverlay(marker);
     });
@@ -212,11 +212,11 @@ clientCtrl.controller('myOrdersCtrl',function ($scope,clientFty) {
         map.clearOverlays();
         $scope.aroundNum = clientFty.ordersAroundInfo.length;
         for (var i=0;i<$scope.aroundNum;i++){
-            map.addOverlay(new BMap.Marker(new BMap.Point(clientFty.ordersAroundInfo[i].lng, clientFty.ordersAroundInfo[i].lat),{icon:new BMap.Icon("../images/neiborIcon.png", new BMap.Size(30,24))}));
+            map.addOverlay(new BMap.Marker(new BMap.Point(clientFty.ordersAroundInfo[i].lng, clientFty.ordersAroundInfo[i].lat),{icon:new BMap.Icon("../resources/images/neiborIcon.png", new BMap.Size(30,24))}));
         }
         var temp = $scope.myAddress[parseInt($scope.addressIndex)];
         map.centerAndZoom(temp.address,18);
-        map.addOverlay(new BMap.Marker(new BMap.Point(temp.point.lng, temp.point.lat),{icon:new BMap.Icon("../images/myicon.png", new BMap.Size(80,67))}));
+        map.addOverlay(new BMap.Marker(new BMap.Point(temp.point.lng, temp.point.lat),{icon:new BMap.Icon("../resources/images/myicon.png", new BMap.Size(80,67))}));
     });
     $scope.submitOrder = function () {
         var data = $scope.myAddress[parseInt($scope.addressIndex)];
@@ -286,14 +286,14 @@ clientCtrl.controller('searchScrapCtrl',function ($scope) {
             $scope.oneScrap.typeName = "金属";
             $scope.oneScrap.name = "铁板";
             $scope.oneScrap.unitPrice = 1.3;
-            $scope.scrapImageUrl = '../images/scrap2.png';
+            $scope.scrapImageUrl = '../resources/images/scrap2.png';
             count = 2;
         }
         else{
             $scope.oneScrap.typeName = "金属";
             $scope.oneScrap.name = "铁片";
             $scope.oneScrap.unitPrice = 0.9;
-            $scope.scrapImageUrl = '../images/scrap1.png';
+            $scope.scrapImageUrl = '../resources/images/scrap1.png';
             count = 1;
         }
     })
