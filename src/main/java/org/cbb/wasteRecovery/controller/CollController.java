@@ -1,7 +1,8 @@
 package org.cbb.wasteRecovery.controller;
 
-import org.cbb.wasteRecovery.bean.User;
+import org.cbb.wasteRecovery.bean.Collector;
 import org.cbb.wasteRecovery.service.LoginService;
+import org.cbb.wasteRecovery.service.SelectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,22 +14,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/user")
-@SessionAttributes("user")
-public class UserController {
+@RequestMapping("/collector")
+@SessionAttributes("collector")
+public class CollController {
+    @Autowired
+    SelectService selectService;
+
     @Autowired
     LoginService loginService;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model, HttpSession session){
-        User fuser=(User) session.getAttribute("user");
-        if(fuser!=null) return "WEB-INF/jsp/client.jsp";
+        Collector fc=(Collector) session.getAttribute("collector");
+        if(fc!=null) return "html/receiver.html";
         String code=request.getParameter("code");
         if(code==null||code.equals(""))
-            return "WEB-INF/jsp/erro.jsp";//调试
-        System.out.println(code);
-        User user=loginService.userLogin(code);
-        model.addAttribute("user",user);
-        return "WEB-INF/jsp/client.jsp";
+            return "WEB-INF/jsp/erro.jsp";
+        Collector collector=loginService.collectorLogin(code);
+        if(collector==null) return "WEB-INF/jsp/login.jsp";
+        model.addAttribute("collector",collector);
+        return "html/receiver.html";
     }
 }

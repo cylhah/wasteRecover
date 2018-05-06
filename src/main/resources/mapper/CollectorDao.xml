@@ -61,10 +61,9 @@
 		where c.id=#{id}
     </select>
 
-    <select id="selectByOpenid" resultMap="Collect" parameterType="int">
+    <select id="selectByOpenid" resultMap="Collect" parameterType="String">
         select <include refid="columns"/>
-        from
-        collector c
+        from <include refid="join"/>
         where c.openid=#{openid}
     </select>
     

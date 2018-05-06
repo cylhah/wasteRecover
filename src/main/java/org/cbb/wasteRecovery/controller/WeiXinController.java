@@ -62,12 +62,13 @@ public class WeiXinController {
         for(MesTypeEnum typeEnum:MesTypeEnum.values()){
             if(msg.get("MsgType").equals(typeEnum.getType())){
                 Object temp=typeEnum.invoke(obj);
-                String reply=MessageTransfer.MessToXml(obj);
+                String reply=MessageTransfer.MessToXml(temp);
                 PrintWriter printWriter=response.getWriter();
                 printWriter.print(reply);
                 break;
             }
         }
+
         return;
     }
 

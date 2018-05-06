@@ -77,7 +77,7 @@ public class WeiXinHttpOperation {
     public static Menu initMenu(){
         String baseUrl=WeiXinHttpOperation.CALLBACK_URL;
         String furUrl=baseUrl.replace("APPID",APPID).
-                replace("REDIRECT_URI","http%3A%2F%2Fcw22nq.natappfree.cc%2Fuser%2Flogin").
+                replace("REDIRECT_URI","http%3A%2F%2Fswcmc6.natappfree.cc%2Fuser%2Flogin").
                 replace("SCOPE","snsapi_base");
         Menu menu=new Menu();
         ViewButton viewButton=new ViewButton();

@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 
 public class Temp {
 
-    private String accesstoken="9_n7DCyZuVoId93HKx_hIHWeprfOo577oZehQl85w-LtRnVSs7cTQzmp1G79RG-gl5eyIlNIVVOTwKIf-a-lfpSL5aduycjAv1dcfUKIo85UiS1-8VMpl0JFFFvDPplaUgOC_xLRzm_rGD_jDSOWZdACADLO";
-    private String userloginUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ef3f5bd2ef0dbe3&redirect_uri=http%3A%2F%2Fcw22nq.natappfree.cc%2Fuser%2Flogin&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+    private String accesstoken="9_LfYwUSJTX5f2BX-GRmpntitJXGeal2l6TLqiRHjj42wOHLxiu9oGQUks9RnaxU0qrWssKRuOHsGShxn5Iae65s6iKzHQhmJ-uV8j9ofAZ5jb93gIuSLlrj0UOiV8wxswZHqHP3m_mP7fFahpWTAbADADAH";
+    private String userloginUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ef3f5bd2ef0dbe3&redirect_uri=http%3A%2F%2Fswcmc6.natappfree.cc%2Fuser%2Flogin&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
     private String collLoginUrl=userloginUrl.replace("user","collector");
     @Test
     public void TestPatter(){
@@ -102,19 +102,19 @@ public class Temp {
     public void templateTest(){
         TpMess tpMess=new TpMess();
         tpMess.setTemplate_id("GQgs-O30lhBN5SnkcDWOlbPYTFsJQJAi6OQeIjDRcE0");
-        tpMess.setTouser("oW7rD0-ixsX_RVdfRi8uFSSCG550");
+        tpMess.setTouser("oW7rD08VgL6Pvrz1Q9r4_NRqPMmg");
         tpMess.setUrl(userloginUrl);
         Map map=new HashMap();
         Data data=new Data();
 
         Data data1=new Data();
-        data1.setValue("112313");
+        data1.setValue("嘿嘿嘿");
         data1.setColor("#000000");
         Data data2=new Data();
-        data2.setValue("老黑");
+        data2.setValue("张鑫");
         data2.setColor("#000000");
         Data data3=new Data();
-        data3.setValue("浙江科技学院");
+        data3.setValue("衢州学院");
         data3.setColor("#000000");
         Data data4=new Data();
         data4.setValue("1375822228181");

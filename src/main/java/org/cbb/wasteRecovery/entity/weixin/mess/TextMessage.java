@@ -12,4 +12,10 @@ public class TextMessage extends Message {
         Content = content;
     }
 
+    @Override
+    public String toString() {
+        return "TextMessage{" +
+                "Content='" + Content + '\'' +
+                '}';
+    }
 }
